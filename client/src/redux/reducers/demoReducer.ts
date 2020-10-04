@@ -3,8 +3,7 @@ const initialState = {data: []} // You can get data from cache or local storage 
 const demoReducer = (state = initialState, action: any) => {
     switch(action.type) {
         case GET_BY_CURRENCY:
-            state = action.payload;
-            return state;
+            return {...state, ...{data: action.payload}}
         default:
             return state;
     }

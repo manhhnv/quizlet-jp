@@ -9,3 +9,13 @@ export const GET_RATES = gql`
         }
     }
 `
+export const GET_ONE_ITEM = gql`
+    query GetOneItem {
+        item {
+            id
+            name
+            createdAt
+            updatedAt
+        }
+    }
+`

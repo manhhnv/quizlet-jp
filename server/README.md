@@ -75,6 +75,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
   Nest is [MIT licensed](LICENSE).
   
 ### Migration
+- Tạo database dưới mysql trước (name : config trong file orm config)
 - yarn build
 - typeorm migration:generate -n migration-database
 - typeorm migration:run

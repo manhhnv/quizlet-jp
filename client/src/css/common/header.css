@@ -1,3 +1,45 @@
 .header {
     background-color: rgb(66 87 178);
+    padding: 25px;
+    display: flex;
+    color: white;
+}
+.header > div {
+    padding: 0 45px 0 25px;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+.SiteLogo {
+    color: white;
+    width: 100px;
+}
+.header__sub-item::after {
+    content: '|';
+    padding-left: 35px;
+    color: black;
+}
+.header__button {
+    text-align: right;
+    width: calc(100% - 38rem);
+}
+.header__button > button {
+    margin: 0 20px 0 0;
+}
+.header__button--login, .header__button--login:hover, .header__button--login:focus {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: medium;
+}
+.header__button--register, .header__button--register:hover, .header__button--register:focus {
+    border: none;
+    box-shadow: none;
+    background-color: rgb(60 207 207);
+    font-weight: 600;
+}
+@media only screen and (max-width: 768px) {
+    .header__sub-item {
+        display: none;
+    }
 }

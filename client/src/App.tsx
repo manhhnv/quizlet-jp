@@ -5,6 +5,7 @@ import { gql, useQuery } from '@apollo/client'
 import { client } from './apollo-graphql';
 import { GET_RATES } from './graphql/demo-graphql';
 import Demo from './components/Demo';
+import './css/style.css';
 function App() {
 
   // const {}
@@ -17,8 +18,8 @@ function App() {
   // console.log(rates.data)
 
   return (
-    <div className="App">
-      <Demo></Demo>
+    <div className="App" style={{backgroundColor: 'rgb(66 87 178)'}}>
+      <Demo/>
     </div>
   );
 }

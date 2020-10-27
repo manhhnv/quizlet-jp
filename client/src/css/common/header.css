@@ -1,39 +1,88 @@
 
-.header {
-    background-color: rgb(66 87 178);
+.header-container {
+    background-color: #4257b2;
     display: flex;
+    justify-content: space-between;
+    align-content: center;
     color: white;
+    height: 5rem;
     overflow: hidden;
 }
-.header > div {
-    padding: 25px 0 25px 55px;
-    position: relative;
-    top: 2px;
+
+.left-container {
+    padding: 0;
+    width: 25rem;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    margin-left: 2.7rem;
 }
-.header .icon {
-    font-size: 20px;
-}
+
 .SiteLogo {
     color: white;
-    width: 100px;
-}
-.textInput::-webkit-input-placeholder {
-    color: white;
-}
-.textInput:-ms-input-placeholder {
-    color: white;
-}
-.textInput::placeholder {
-    color: white !important;
-}
-.textInput {
-    background-color: transparent !important;
-    border: none !important;
-    color: white !important;
-    box-shadow: none !important;
-    font-size: 18px;
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 25px;
+    width: 6rem;
     
+}
+
+.left-container > .right {
+    width: 14rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left-container > .right > div {
+    margin: .5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* font-weight: bold; */
+}
+
+.left-container > .right > div:hover{
+    opacity: 0.5;
+}
+
+.left-container > .right > div > .icon {
+    margin-right: .3rem;
+    font-size: 1.2rem;
+}
+
+.left-container > .right > .line {
+    color: black;
+    opacity: 0.3;
+}
+
+.rigth-container{
+    width: 16rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 3rem;
+}
+
+.button {
+    font-weight: bold;
+}
+
+.signup {
+    padding: .7rem 1.5rem;
+    border-radius: 7px;
+    background-color: #3ccfcf;
+    cursor: pointer;
+}
+
+.signin {
+    padding: .7rem 1.5rem;
+    border-radius: 7px;
+    color: white;
+    cursor: pointer;
+}
+.signin:hover {
+    opacity: 0.5;
+}
+
+.signup:hover {
+    opacity: 0.5;
 }

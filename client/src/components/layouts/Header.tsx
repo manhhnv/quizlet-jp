@@ -1,20 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { FaSearch, FaRegCalendarPlus } from 'react-icons/fa';
-
+import { BiAddToQueue } from 'react-icons/bi';
+import { AiOutlineSearch } from 'react-icons/ai';
 const HeaderPage = () => {
     const [showSearchBox, setShowSearchBox] = useState(false);
-    const searchBoxPopUp = () => {
-        setShowSearchBox(!showSearchBox);
-    };
-    const inputRef = useRef(null);
-    
+    // const searchBoxPopUp = () => {
+    //     setShowSearchBox(!showSearchBox);
+    // };
+    // const inputRef = useRef(null);
+
     return (
         <React.Fragment>
-            <Row className="header">
-                <Col sm={2}>
-                    <div className="logo-container">
-                        <a href="/" style={{maxWidth: "100px"}}>
+            <div className="header-container">
+                <div className="left-container">
+                    <div className='left'>
+                        <a href="/" >
                             <div aria-label="Quizlet" className="SiteLogo" role="img" title="Quizlet">
                                 <svg fill="currentColor" viewBox="0 0 244 53" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -24,52 +24,33 @@ const HeaderPage = () => {
                             </div>
                         </a>
                     </div>
-                </Col>
-                <Col sm={10}>
-                    <Row>
-                        <Col sm={2}>
-                            <FaSearch className="icon"></FaSearch>
-                            <span>{' '}Search</span>
-                        </Col>
-                        <Col sm={2}>
-                            <FaRegCalendarPlus className="icon"></FaRegCalendarPlus>
-                            <span>{' '}Create</span>
-                        </Col>
-                        <Col sm={4}></Col>
-                        <Col sm={4}>
-                            <Button className="textInput">Login</Button>
-                            <Button>Regsiter</Button>
-                        </Col>
-                    </Row>
-                {/* {showSearchBox === false ? (
-                    <React.Fragment>
-                        <div onClick={searchBoxPopUp}>
-                            <FaSearch className="icon"></FaSearch>
-                            <span>{' '}Search</span>
+
+
+                    <div className="right">
+                        <div>
+                            <AiOutlineSearch className="icon"/>
+                            <div>Tìm kiếm</div>
+                        </div>
+                        <div className="line">
+                            |
                         </div>
                         <div>
-                            <FaRegCalendarPlus className="icon"></FaRegCalendarPlus>
-                            <span>{' '}Create</span>
-                        </div>
-                        <div>
-                            <button style={{float: 'right'}}>Login</button>
-                        </div>
-                    </React.Fragment>
-                ): (
-                    <div>
-                        <Form>
-                            <Form.Control
-                                type="search"
-                                size="sm"
-                                className="textInput"
-                                placeholder="Search..."
-                                autoFocus ref={inputRef}
-                            />
-                        </Form>
+                            <BiAddToQueue  className="icon"/>
+                            <div>Tạo</div>
+                        </div>      
                     </div>
-                )} */}
-                </Col>
-            </Row>
+                </div>
+
+                <div className="rigth-container">
+                    <div className="button signin">
+                        Đăng nhập
+                    </div>
+                    <div className="button signup">
+                        Đăng Ký
+                    </div>
+                </div>
+
+            </div>
         </React.Fragment>
     )
 }

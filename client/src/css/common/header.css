@@ -25,6 +25,7 @@
     
 }
 
+
 .left-container > .right {
     width: 14rem;
     display: flex;
@@ -68,16 +69,18 @@
 
 .signup {
     padding: .7rem 1.5rem;
-    border-radius: 7px;
+    border-radius: 5px;
     background-color: #3ccfcf;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .signin {
     padding: .7rem 1.5rem;
-    border-radius: 7px;
+    border-radius: 5px;
     color: white;
     cursor: pointer;
+    white-space: nowrap;
 }
 .signin:hover {
     opacity: 0.5;

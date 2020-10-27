@@ -1,13 +1,16 @@
 .footer-container{
-    height: 30rem;
+    height: auto;
     width: 100vw;
     background-color: #4257b2;
     display: flex;
-    justify-content: center
+    justify-content: center;
+
 }
 
 .footer-child{
-    width: 80rem;
+    margin: 0 2.5rem;
+    height: auto;
+    width: 70rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -15,11 +18,12 @@
 
 .footer-top{
     width: 100%;
-    height: 20rem;
+    height: auto;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 3rem;
+    
 }
 
 .footer-top > .footer-column{
@@ -28,15 +32,28 @@
     color: white;
 }
 
+
+
+.footer-column{  
+    margin: 1rem; 
+    height: auto;
+    width: 11rem;
+    white-space: nowrap;
+}
+
 .footer-column h6 {
-    margin-bottom: 1.5rem;
+    /* margin-top: 1rem; */
+    margin-bottom: 1rem;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .footer-column a {
     color: white;
     text-decoration: none;
     margin-bottom: 0.3rem;
+    white-space: nowrap;
+    font-size: .9rem;
 }
 
 .footer-column a:hover {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import {
     FaFacebook,
@@ -9,13 +9,43 @@ import {
 } from 'react-icons/ai';
 
 function Footer() {
+    const [size, setSize] = useState(window.innerWidth);
+    const [flexBasis, setFlexBasis] = useState([20, 20, 20, 20 ,20]);
+    const checkSize = () => {
+        setSize(window.innerWidth);
+    }
+
+
+    useEffect(() => {
+        console.log(size);
+        if (size <= 768){
+            setFlexBasis([50 ,50 ,50 ,50 ,100]);
+        }
+        if (size > 768 && size <= 992){
+            setFlexBasis([33.3, 33.3, 33.3, 50, 50]);
+        }
+        if(size > 992 && size < 1200){
+            // setFlexGrown([1,1,1,1,0])
+            setFlexBasis([25, 25, 25, 25, 100]);
+        }
+        if(size > 1200){
+            setFlexBasis([20, 20, 20, 20 ,20]);
+        }
+        
+        window.addEventListener('resize', checkSize);
+        return () => {
+            window.removeEventListener('resize', checkSize);
+        }
+        
+
+    }, [size]);
 
     return (
         <>
             <div className="footer-container">
                 <div className="footer-child">
                     <div className="footer-top">
-                        <div className="footer-column">
+                        <div className="footer-column" style={{flex: `0 0 ${flexBasis[0]}%`}}>
                             <h6>Chủ đề</h6>
                             <Link to='/'>Khoa học</Link>
                             <Link to='/'>Khoa học xã hội</Link>
@@ -24,7 +54,7 @@ function Footer() {
                             <Link to='/'>Ngôn ngữ</Link>
                             <Link to='/'>Toán học</Link>
                         </div>
-                        <div className="footer-column">
+                        <div className="footer-column" style={{flex: `0 0 ${flexBasis[1]}%`}}>
                             <h6>Tính năng</h6>
                             <Link to='/'>Quizlet Live</Link>
                             <Link to='/'>Chế độ Học</Link>
@@ -32,7 +62,7 @@ function Footer() {
                             <Link to='/'>Thẻ ghi nhớ</Link>
                             <Link to='/'>Ứng dụng</Link>
                         </div>
-                        <div className="footer-column">
+                        <div className="footer-column" style={{flex: `0 0 ${flexBasis[2]}%`}}>
                             <h6>Hỗ trợ</h6>
                             <Link to='/'>Đăng ký</Link>
                             <Link to='/'>Trung tâm Hỗ trợ</Link>
@@ -41,7 +71,7 @@ function Footer() {
                             <Link to='/'>Học sinh</Link>
                             <Link to='/'>Giáo viên</Link>
                         </div>
-                        <div className="footer-column">
+                        <div className="footer-column" style={{flex: `0 0 ${flexBasis[3]}%`}}>
                             <h6>Giới thiệu</h6>
                             <Link to='/'>Công ty</Link>
                             <Link to='/'>Blog</Link>
@@ -54,7 +84,7 @@ function Footer() {
                             <Link to='/'>Điều khoản dịch vụ</Link>
 
                         </div>
-                        <div className="footer-column">
+                        <div className="footer-column" style={{flex: `0 0 ${flexBasis[4]}%`}}>
                             <h6>Ngôn ngữ</h6>
                             <select>
                                 <option value="vietnamese">Tiếng Việt</option>

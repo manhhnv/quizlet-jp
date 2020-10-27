@@ -3,10 +3,7 @@ import { BiAddToQueue } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
 const Header = () => {
     const [hideSearchBox, setHideSearchBox] = useState(false);
-    // const searchBoxPopUp = () => {
-    //     setShowSearchBox(!showSearchBox);
-    // };
-    // const inputRef = useRef(null);
+
     const [size, setSize] = useState(window.innerWidth);
     const checkSize = () => {
         setSize(window.innerWidth);

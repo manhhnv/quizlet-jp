@@ -1,0 +1,8 @@
+.banner-container {
+    background-color: rgb(80 101 190);
+    height: 200px;
+    display: flex;
+}
+.content {
+    margin: auto;
+}

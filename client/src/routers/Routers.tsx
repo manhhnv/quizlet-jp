@@ -5,14 +5,14 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import HeaderPage from "../components/layouts/Header";
+import HomePage from "../pages/Home";
 
 const AppRouters = () => {
     return (
         <Router>
             <Switch>
                 <Route path="/">
-                    <HeaderPage/>
+                    <HomePage/>
                 </Route>
             </Switch>
         </Router>

@@ -5,7 +5,11 @@ import { gql, useQuery } from '@apollo/client'
 import { client } from './apollo-graphql';
 import { GET_RATES } from './graphql/demo-graphql';
 import Demo from './components/Demo';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/style.css';
+import { Button } from 'react-bootstrap';
+import { FaSearch } from 'react-icons/fa'
+import AppRouters from './routers/Routers';
 function App() {
 
   // const {}
@@ -18,8 +22,8 @@ function App() {
   // console.log(rates.data)
 
   return (
-    <div className="App" style={{backgroundColor: 'rgb(66 87 178)'}}>
-      <Demo/>
+    <div className="App">
+      <AppRouters/>
     </div>
   );
 }

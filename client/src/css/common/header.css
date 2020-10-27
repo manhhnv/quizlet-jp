@@ -1,3 +1,39 @@
+
 .header {
     background-color: rgb(66 87 178);
+    display: flex;
+    color: white;
+    overflow: hidden;
+}
+.header > div {
+    padding: 25px 0 25px 55px;
+    position: relative;
+    top: 2px;
+}
+.header .icon {
+    font-size: 20px;
+}
+.SiteLogo {
+    color: white;
+    width: 100px;
+}
+.textInput::-webkit-input-placeholder {
+    color: white;
+}
+.textInput:-ms-input-placeholder {
+    color: white;
+}
+.textInput::placeholder {
+    color: white !important;
+}
+.textInput {
+    background-color: transparent !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: none !important;
+    font-size: 18px;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 25px;
+    
 }

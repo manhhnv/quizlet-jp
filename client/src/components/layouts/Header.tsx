@@ -2,30 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { BiAddToQueue } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
 const Header = () => {
-    const [hideSearchBox, setHideSearchBox] = useState(false);
-    // const searchBoxPopUp = () => {
-    //     setShowSearchBox(!showSearchBox);
-    // };
-    // const inputRef = useRef(null);
-    const [size, setSize] = useState(window.innerWidth);
-    const checkSize = () => {
-        setSize(window.innerWidth);
-    }
-
-    useEffect(() => {
-        if (size < 768) {
-            setHideSearchBox(true);
-        }
-        else {
-            setHideSearchBox(false);
-        }
-        // console.log(size);
-        window.addEventListener('resize', checkSize);
-        return () => {
-            window.removeEventListener('resize', checkSize);
-        }
-
-    }, [size]);
 
     return (
         <React.Fragment>
@@ -43,23 +19,19 @@ const Header = () => {
                         </a>
                     </div>
 
-                    {
-                        (!hideSearchBox &&
-                            <div className="right">
-                                <div>
-                                    <AiOutlineSearch className="icon" />
-                                    <div>Tìm kiếm</div>
-                                </div>
-                                <div className="line">
-                                    |
-                                </div>
-                                <div>
-                                    <BiAddToQueue className="icon" />
-                                    <div>Tạo</div>
-                                </div>
-                            </div>
-                        )
-                    }
+                    <div className="right">
+                        <div>
+                            <AiOutlineSearch className="icon" />
+                            <div>Tìm kiếm</div>
+                        </div>
+                        <div className="line">
+                            |
+                        </div>
+                        <div>
+                            <BiAddToQueue className="icon" />
+                            <div>Tạo</div>
+                        </div>
+                    </div>
 
                 </div>
 

@@ -106,6 +106,6 @@ option {
 hr {
     color: white;
     background-color: white;
-    height: 1rem;
+    width: 100%;
 }
 

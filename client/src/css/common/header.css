@@ -1,12 +1,11 @@
 
 .header {
     background-color: rgb(66 87 178);
-    display: flex;
     color: white;
-    overflow: hidden;
+    display: flex;
 }
 .header > div {
-    padding: 25px 0 25px 55px;
+    padding: 25px 0 25px 0;
     position: relative;
     top: 2px;
 }

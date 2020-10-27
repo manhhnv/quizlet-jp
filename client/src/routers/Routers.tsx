@@ -6,13 +6,17 @@ import {
   Link
 } from "react-router-dom";
 import HomePage from "../pages/Home";
+import Overview from "../pages/Overview";
 
 const AppRouters = () => {
     return (
         <Router>
             <Switch>
-                <Route path="/">
+                <Route path="/home">
                     <HomePage/>
+                </Route>
+                <Route path="/overview">
+                    <Overview/>
                 </Route>
             </Switch>
         </Router>

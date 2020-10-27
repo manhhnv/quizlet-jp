@@ -25,11 +25,11 @@
     
 }
 
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
     .left-container > .right {
         display: none !important;
     }
-  }
+  } */
 
 
 .left-container > .right {

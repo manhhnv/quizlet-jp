@@ -1,16 +1,12 @@
 import React from 'react';
-import HeaderPage from '../components/layouts/Header';
-
+import Header from '../components/layouts/Header';
+import Footer from '../components/layouts/Footer';
 const HomePage = () => {
     return (
         <React.Fragment>
-            <HeaderPage/>
-            {/* <div className="banner-container">
-                <div className="description-banner">
-                    <div className="content">Element 1</div>
-                </div>
-                <div>Element 2</div>
-            </div> */}
+            <Header />
+            
+            <Footer />
         </React.Fragment>
     )
 }

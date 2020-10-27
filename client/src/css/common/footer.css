@@ -1,0 +1,94 @@
+.footer-container{
+    height: 30rem;
+    width: 100vw;
+    background-color: #4257b2;
+    display: flex;
+    justify-content: center
+}
+
+.footer-child{
+    width: 80rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.footer-top{
+    width: 100%;
+    height: 20rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.footer-top > .footer-column{
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.footer-column h6 {
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.footer-column a {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 0.3rem;
+}
+
+.footer-column a:hover {
+    opacity: 0.5;
+}
+
+.footer-bottom{
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.footer-bottom > .left {
+    width: 8rem;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.iccon {
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.footer-bottom > .right {
+    width: 10rem;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.footer-column > select {
+    
+    color: white;
+    border: none;
+    width: 11rem;
+    cursor: pointer;
+    background: #4257b2;
+}
+
+option {
+    cursor: pointer;
+    color: black;
+    background-color: white;
+}
+
+hr {
+    color: white;
+    background-color: white;
+    height: 1rem;
+}
+

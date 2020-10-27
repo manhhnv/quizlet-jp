@@ -20,7 +20,7 @@
     width: 100%;
     height: auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 3rem;
     
@@ -32,15 +32,17 @@
     color: white;
 }
 
-.footer-column{
-    
+
+
+.footer-column{  
+    margin: 1rem; 
     height: auto;
-    width: 10rem;
+    width: 11rem;
     white-space: nowrap;
 }
 
 .footer-column h6 {
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     margin-bottom: 1rem;
     font-weight: bold;
     white-space: nowrap;
@@ -51,6 +53,7 @@
     text-decoration: none;
     margin-bottom: 0.3rem;
     white-space: nowrap;
+    font-size: .9rem;
 }
 
 .footer-column a:hover {

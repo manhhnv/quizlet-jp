@@ -1,6 +1,7 @@
 import React from 'react';
 import HeroSection from './HeroSection';
 import BigHero from './BigHero';
+import Quotes from './Quotes';
 const MainSection = () => {    
     return (
         <div>
@@ -28,6 +29,7 @@ const MainSection = () => {
                 img_path="https://images.prismic.io/quizlet-prod/63a034d5-9f01-4024-a6bf-e36996575fd1_bannecker-benefit3.png?auto=compress,format"
                 order="1"
             />
+            <Quotes />
         </div>
     )
 }

@@ -58,6 +58,8 @@ function Footer() {
                             <select>
                                 <option value="vietnamese">Tiếng Việt</option>
                                 <option value="english">Tiếng Anh</option>
+                                <option value="chinese">Trung Quốc</option>
+                                <option value="japanese">Tiếng Nhật</option>
                             </select>
                         </div>
                     </div>

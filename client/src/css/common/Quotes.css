@@ -1,7 +1,7 @@
 .quotes-container {
     
     display: flex;
-    justify-content: center;
+
     align-items: center;
     justify-content: center;
 }
@@ -12,13 +12,26 @@
     display: flex;
 }
 
+.quotes-container-child-child{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
 .quote-icon{
     color: #f08700;
     font-size: 3.5rem;
 }
 
-.quotes-container-child > p {
+.quotes-details {
     text-align: center;
     font-weight: bold;
     font-size: 1.5rem;
+}
+
+.quotes-author {
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
 }

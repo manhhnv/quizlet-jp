@@ -1,7 +1,6 @@
 import React from 'react'
 
 const HeroSection = ({tilte, quotes, img_path, order}: any) => {
-    console.log(window.innerWidth);
     return (
         <div className="hero-container">
             <div className="hero-child-child">

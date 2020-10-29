@@ -2,14 +2,13 @@ import { LOG_IN } from './../../graphql/user.grapql';
 import { client } from "../../apollo-graphql";
 
 export const UPDATE_USER = "UPDATE_USER";
-export const userLogin = (email: string, password: string, addToast: any) => {
+export const userLogin = (credential: any, addToast: any) => {
     return async (dispatch: any) => {
         try {
-            const response = await client.mutate({
-                mutation: LOG_IN,
+            const response = await client.query({
+                query: LOG_IN,
                 variables: {
-                    email: email,
-                    password: password
+                    input: credential,
                 }
             })
             if (response?.data?.login) {

@@ -97,6 +97,17 @@
 .signup:hover {
     opacity: 0.5;
 }
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+@media only screen and (max-width: 768px) {
+    .right {
+        display: none !important;
+    }
+}
 
 @media only screen and (max-width: 470px) {
     .left-container{

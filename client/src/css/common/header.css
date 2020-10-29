@@ -25,11 +25,13 @@
     
 }
 
-/* @media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     .left-container > .right {
         display: none !important;
     }
-  } */
+  }
+
+ 
 
 
 .left-container > .right {
@@ -95,3 +97,13 @@
 .signup:hover {
     opacity: 0.5;
 }
+
+@media only screen and (max-width: 470px) {
+    .left-container{
+        margin-left: .3rem;
+    }
+    .rigth-container {
+        margin-right: 1rem;
+    }
+  }
+  

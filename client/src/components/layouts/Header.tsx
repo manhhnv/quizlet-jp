@@ -26,12 +26,14 @@ const Header = () => {
                         </div>
                         <div className="line">
                             |
-                        </div>
+                                </div>
                         <div>
                             <BiAddToQueue className="icon" />
                             <div>Tạo</div>
                         </div>
                     </div>
+
+
 
                 </div>
 

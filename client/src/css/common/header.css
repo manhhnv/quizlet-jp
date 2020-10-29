@@ -25,6 +25,14 @@
     
 }
 
+@media only screen and (max-width: 768px) {
+    .left-container > .right {
+        display: none !important;
+    }
+  }
+
+ 
+
 
 .left-container > .right {
     width: 14rem;
@@ -100,3 +108,13 @@
         display: none !important;
     }
 }
+
+@media only screen and (max-width: 470px) {
+    .left-container{
+        margin-left: .3rem;
+    }
+    .rigth-container {
+        margin-right: 1rem;
+    }
+  }
+  

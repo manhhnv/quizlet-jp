@@ -1,6 +1,6 @@
 import { UPDATE_USER } from './../actions/userAction';
 
-const initialUserState = {id: null, firstName: '', lastName: '', email: ''}
+const initialUserState = {id: null, token: ''}
 
 const userReducer = (state = initialUserState, action: any) => {
     switch(action.type) {

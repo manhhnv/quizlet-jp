@@ -12,6 +12,7 @@ import { FaSearch } from "react-icons/fa";
 import AppRouters from "./routers/Routers";
 import Footer from "./components/layouts/Footer";
 import Header from "./components/layouts/Header";
+import { ToastProvider } from "react-toast-notifications";
 function App() {
   // const {}
   // console.log("LOADING COMPONENT")
@@ -23,11 +24,13 @@ function App() {
   // console.log(rates.data)
 
   return (
-    <div className="App">
-      {/* <Header></Header>
-      <Footer></Footer> */}
-      <AppRouters />
-    </div>
+    <ToastProvider placement="bottom-left">
+        <div className="App">
+          {/* <Header></Header>
+          <Footer></Footer> */}
+          <AppRouters />
+        </div>
+    </ToastProvider>
   );
 }
 

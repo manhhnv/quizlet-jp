@@ -1,0 +1,58 @@
+.modal-header {
+    background-color: #4257b2;
+    color: white;
+    padding: 30px;
+}
+.login-form-container {
+    margin-top: 60px;
+}
+.login-social-api {
+    border: 2px solid #4257b2;
+    border-radius: 5px;
+    padding: 20px;
+    margin: auto;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+.login-social-icon {
+    font-size: 22px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    float: left;
+}
+.facebook {
+    color: blue;
+}
+.google {
+    color: red;
+}
+.login-form {
+    margin-bottom: 40px;
+    border: none;
+    border-radius: 0;
+    box-shadow: none !important;
+    cursor: text;
+    border-bottom: 3px solid #fcdc00;
+    font-weight: 500;
+    font-size: 18px;
+    
+}
+.login-button {
+    background-color: #3ccfcf !important;
+    color: white !important;
+    font-size: 20px;
+    font-weight: 600;
+    box-shadow: none;
+    padding-bottom: 45px;
+    padding-top: 15px;
+    margin-bottom: 30px;
+}
+.forget-password {
+    float: right;
+    padding-bottom: 20px;
+    color: blue;
+    text-decoration: underline;
+    font-weight: 500;
+    font-size: 15px;
+}

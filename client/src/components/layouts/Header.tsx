@@ -3,7 +3,8 @@ import { BiAddToQueue } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
 import LoginPopup from './LoginPopup';
 import { Link } from 'react-router-dom';
-const Header = () => {
+import { connect } from 'react-redux';
+const Header = ({user}: any) => {
     const [show, setShow] = useState(false);
     const closeLoginPopup = () => {
         setShow(false);
@@ -47,17 +48,28 @@ const Header = () => {
                 </div>
 
                 <div className="rigth-container">
-                    <img src={require('../../assets/avatar.png')} alt="Avatar" className="avatar" />
-                    <div className="button signin" onClick={openLoginPopup}>
-                        Đăng nhập
-                    </div>
-                    <div className="button signup">
-                        Đăng Ký
-                    </div>
+                    {user?.token ? (
+                        <img src={require('../../assets/avatar.png')} alt="Avatar" className="avatar" />
+                    ): (
+                        <React.Fragment>
+                            <div className="button signin" onClick={openLoginPopup}>
+                                Đăng nhập
+                            </div>
+                            <div className="button signup">
+                                Đăng Ký
+                            </div>
+                        </React.Fragment>
+                    )}
+                    
                 </div>
 
             </div>
         </React.Fragment>
     )
 }
-export default Header;
+const mapStateToProps = (state: any) => {
+    return {
+        user: state.user
+    }
+}
+export default connect(mapStateToProps, null)(React.memo(Header));

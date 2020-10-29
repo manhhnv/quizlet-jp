@@ -36,6 +36,7 @@ const Header = () => {
                 </div>
 
                 <div className="rigth-container">
+                    <img src={require('../../assets/avatar.png')} alt="Avatar" className="avatar" />
                     <div className="button signin">
                         Đăng nhập
                     </div>

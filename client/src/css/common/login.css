@@ -21,6 +21,12 @@
     margin-right: 10px;
     float: left;
 }
+.facebook {
+    color: blue;
+}
+.google {
+    color: red;
+}
 .login-form {
     margin-bottom: 40px;
     border: none;

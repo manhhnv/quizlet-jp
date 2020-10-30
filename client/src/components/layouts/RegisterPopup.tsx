@@ -68,7 +68,7 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup }: any) => {
               </Form.Row>
 
               <Form.Group controlId="formBasicUsername">
-                <Form.Label>Tên đăng nhập</Form.Label>
+                <Form.Label>User name</Form.Label>
                 <Form.Control placeholder="Username" className="inputform" required />
               </Form.Group>
 

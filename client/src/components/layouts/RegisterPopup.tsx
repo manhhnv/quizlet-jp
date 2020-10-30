@@ -1,41 +1,126 @@
 import React from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Col, Row, Container } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillFacebook } from 'react-icons/ai';
 
-const RegisterPopup = ({showRegister, closeRegisterPopup}: any) => {
+const RegisterPopup = ({ showRegister, closeRegisterPopup }: any) => {
 
   return (
     <>
 
       <Modal
         show={showRegister}
-        onHide={closeRegisterPopup} 
-    
+        onHide={closeRegisterPopup}
+
       >
-            <Modal.Header closeButton style={{backgroundColor: "white"}}>
-                <Modal.Title style={{color: "black"}}>Đăng Ký</Modal.Title>
-            </Modal.Header>
-            <Modal.Body >
+        <Modal.Header closeButton style={{ backgroundColor: "white" }}>
+          <Modal.Title style={{ color: "black" }}>Đăng Ký</Modal.Title>
+        </Modal.Header>
+        <Modal.Body >
 
-            <div className="social-api-container">
-                <div className="api-container">
-                    <FcGoogle className="login-social-icon google" style={{fontSize: "2rem"}}/>
-                    <div>Tiếp tục với Google</div>
-                </div>
-                <div className="api-container">
-                    <AiFillFacebook className="login-social-icon facebook" style={{fontSize: "2rem"}}/>
-                    <div>Tiếp tục với Facebook</div>
-                </div>
-            </div>   
-            <hr style={{backgroundColor: "black"}}/>
+          
+          <Row>
+            <Col className="continue-with" >
+              <FcGoogle className=" google" style={{ fontSize: "2rem" }} />
+              Tiếp tục với Google
+            </Col>
 
-            <div className="fomr-container">
+            <Col className="continue-with">
+              <AiFillFacebook className=" facebook" style={{ fontSize: "2rem" }} />
+              Tiếp tục với Facebook
+            </Col>
+          </Row>
+          
+          
 
-            </div>
-            
+          <div className="hrline">
+            <hr style={{ backgroundColor: "black" }} />
+            <div style={{ whiteSpace: "nowrap", padding: "0 1.5rem", opacity: "0.5" }}>Hoặc Email</div>
+            <hr style={{ backgroundColor: "black" }} />
+          </div>
 
-            </Modal.Body>
+
+          <div className="fomr-container">
+            <Form>
+              <Form.Label>Ngày sinh</Form.Label>
+
+              <Form.Row>
+                <Form.Group as={Col} sm={3} controlId="formGridState" className="inputselectform" >
+                  <Form.Control as="select">
+                    <option>Ngày</option>
+                    <option>...</option>
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group as={Col} sm={3} controlId="formGridState" className="inputselectform" >
+                  <Form.Control as="select"  >
+                    <option>Tháng</option>
+                    <option>...</option>
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group as={Col} sm={3} controlId="formGridState" className="inputselectform" >
+                  <Form.Control as="select" >
+                    <option>Năm</option>
+                    <option>...</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form.Row>
+
+              <Form.Group controlId="formBasicUsername">
+                <Form.Label>Tên đăng nhập</Form.Label>
+                <Form.Control placeholder="Username" className="inputform" required />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicEmail ">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="Email" className="inputform" required />
+
+
+              </Form.Group>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Mật khẩu</Form.Label>
+                <Form.Control type="password" placeholder="Password" className="inputform" required />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Tôi chấp thuận điều khoản dịch vụ và chính sách quyền riêng tư" />
+              </Form.Group>
+
+              <Form.Text className="text-muted" >
+                We'll never share your email with anyone else.
+              </Form.Text>
+
+              <Form.Control
+                type="button"
+                name="register"
+                value="Đăng Ký"
+                className="register-button"
+              >
+              </Form.Control>
+
+            </Form>
+          </div>
+
+          <div className="already-have-account">
+            <div>
+              bạn đã có tài khoản rồi à?
+              </div>
+            <div style={{ color: " #3ccfcf" }} >
+              Đăng nhập
+              </div>
+          </div>
+
+          <div className="quitlet-sware">
+            <div>
+              Quizlet sẽ không bao giờ bán thông tin email
+              của bạn cho bất kỳ bên thứ ba nào.
+              Giống như bạn chúng tôi cũng gét thư rác.
+              </div>
+          </div>
+
+
+        </Modal.Body>
       </Modal>
     </>
   );

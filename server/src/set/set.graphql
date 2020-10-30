@@ -1,0 +1,37 @@
+type Set {
+  id: Int!
+  userId: Int!
+  name: String!
+  description: String
+  password: String
+  viewAble: Boolean
+  createdAt: String
+  updatedAt: String
+}
+
+schema {
+  query: Query
+}
+
+input SetUpdate {
+  name: String
+  description: String
+  password: String
+  viewAble: Int
+}
+
+input NewSet {
+  name: String!
+  description: String
+  password: String
+  viewAble: Boolean
+}
+
+type query {
+  sets: [Set!]!
+}
+
+type Mutation {
+  createSet(input: NewSet!): Set!
+  updateSet(input: SetUpdate): Set!
+}

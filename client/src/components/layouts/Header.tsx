@@ -4,7 +4,8 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import LoginPopup from './LoginPopup';
 import RegisterPopup from './RegisterPopup';
 import { Link } from 'react-router-dom';
-const Header = () => {
+import { connect } from 'react-redux';
+const Header = ({user}: any) => {
     const [show, setShow] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const closeLoginPopup = () => {
@@ -56,17 +57,27 @@ const Header = () => {
                 </div>
 
                 <div className="rigth-container">
-                    <img src={require('../../assets/avatar.png')} alt="Avatar" className="avatar" />
-                    <div className="button signin" onClick={openLoginPopup}>
-                        Đăng nhập
-                    </div>
-                    <div className="button signup"  onClick={openRegisterPopup}>
-                        Đăng Ký
-                    </div>
+                    {user?.token ? (
+                        <img src={require('../../assets/avatar.png')} alt="Avatar" className="avatar" />
+                    ): (
+                        <React.Fragment>
+                            <div className="button signin" onClick={openLoginPopup}>
+                                Đăng nhập
+                            </div>
+                            <div className="button signup"  onClick={openRegisterPopup}>
+                              Đăng Ký
+                            </div>
+                        </React.Fragment>
+                    )}
                 </div>
 
             </div>
         </React.Fragment>
     )
 }
-export default Header;
+const mapStateToProps = (state: any) => {
+    return {
+        user: state.user
+    }
+}
+export default connect(mapStateToProps, null)(React.memo(Header));

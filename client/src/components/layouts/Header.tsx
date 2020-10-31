@@ -2,19 +2,28 @@ import React, { useState, useRef, useEffect } from 'react';
 import { BiAddToQueue } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
 import LoginPopup from './LoginPopup';
+import RegisterPopup from './RegisterPopup';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 const Header = ({user}: any) => {
     const [show, setShow] = useState(false);
+    const [showRegister, setShowRegister] = useState(false);
     const closeLoginPopup = () => {
         setShow(false);
     };
     const openLoginPopup = () => {
         setShow(true);
     };
+    const closeRegisterPopup = () => {
+        setShowRegister(false);
+    };
+    const openRegisterPopup = () => {
+        setShowRegister(true);
+    };
     return (
         <React.Fragment>
             <LoginPopup show={show} closeLoginPopup={closeLoginPopup}/>
+            <RegisterPopup showRegister={showRegister} closeRegisterPopup={closeRegisterPopup} />
             <div className="header-container">
                 <div className="left-container">
                     <div className='left'>
@@ -55,12 +64,11 @@ const Header = ({user}: any) => {
                             <div className="button signin" onClick={openLoginPopup}>
                                 Đăng nhập
                             </div>
-                            <div className="button signup">
-                                Đăng Ký
+                            <div className="button signup"  onClick={openRegisterPopup}>
+                              Đăng Ký
                             </div>
                         </React.Fragment>
                     )}
-                    
                 </div>
 
             </div>

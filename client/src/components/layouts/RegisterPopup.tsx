@@ -1,10 +1,18 @@
 import React from 'react';
-import { Modal, Button, Form, Col, Row, Container } from 'react-bootstrap';
+import { Modal, Form, Col, Row } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillFacebook } from 'react-icons/ai';
 
 const RegisterPopup = ({ showRegister, closeRegisterPopup }: any) => {
 
+  const buildOptions = (start: number, end: number) => {
+        var arr = [];
+        for (let i = start; i <= end; i++) {
+            arr.push(<option key={i} value={i}>{i}</option>)
+        }
+        return arr; 
+  }
+  
   return (
     <>
 
@@ -45,30 +53,30 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup }: any) => {
               <Form.Label>Ngày sinh</Form.Label>
 
               <Form.Row>
-                <Form.Group as={Col} sm={3} controlId="formGridState" className="inputselectform" >
-                  <Form.Control as="select">
-                    <option>Ngày</option>
-                    <option>...</option>
+                <Form.Group as={Col} sm={3}  className="inputselectform" >
+                  <Form.Control as="select" id="select_day">
+                    <option>Ngày</option>  
+                    {buildOptions(1, 31)}              
                   </Form.Control>
                 </Form.Group>
 
-                <Form.Group as={Col} sm={3} controlId="formGridState" className="inputselectform" >
+                <Form.Group as={Col} sm={3}  className="inputselectform" >
                   <Form.Control as="select"  >
                     <option>Tháng</option>
-                    <option>...</option>
+                    {buildOptions(1, 12)}    
                   </Form.Control>
                 </Form.Group>
 
-                <Form.Group as={Col} sm={3} controlId="formGridState" className="inputselectform" >
+                <Form.Group as={Col} sm={3}  className="inputselectform" >
                   <Form.Control as="select" >
                     <option>Năm</option>
-                    <option>...</option>
+                    {buildOptions(1980, 2020)}  
                   </Form.Control>
                 </Form.Group>
               </Form.Row>
 
               <Form.Group controlId="formBasicUsername">
-                <Form.Label>User name</Form.Label>
+                <Form.Label>Tên đăng nhập</Form.Label>
                 <Form.Control placeholder="Username" className="inputform" required />
               </Form.Group>
 

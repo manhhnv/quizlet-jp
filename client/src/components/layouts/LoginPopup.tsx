@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { AiFillFacebook } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userLogin } from '../../redux/actions/userAction';
@@ -21,15 +23,15 @@ const LoginPopup = ({show, closeLoginPopup, userLogin}: any) => {
             </Modal.Header>
             <Modal.Body>
                 <div className="login-social-api">
-                    <FaGoogle className="login-social-icon google"/>
+                    <FcGoogle className="login-social-icon google" style={{fontSize: "2rem"}}/>
                     Đăng nhập bằng Google
                 </div>
                 <div className="login-social-api">
-                    <FaFacebook className="login-social-icon facebook" />
+                    <AiFillFacebook className="login-social-icon facebook" style={{fontSize: "2rem"}}/>
                     Đăng nhập bằng Facebook
                 </div>
-                <div className="login-social-api apple">
-                    <FaApple className="login-social-icon apple" />
+                <div className="login-social-api apple" >
+                    <FaApple className="login-social-icon apple" style={{fontSize: "2rem"}}/>
                     Đăng nhập bằng Apple
                 </div>
                 <div className="login-form-container">

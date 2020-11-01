@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Modal, Form, Col, Row } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillFacebook } from 'react-icons/ai';
+import { formatDate } from '../../helper/formatDate';
 
-const RegisterPopup = ({ showRegister, closeRegisterPopup }: any) => {
+const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup }: any) => {
 
   const buildOptions = (start: number, end: number) => {
         var arr = [];
@@ -12,7 +13,12 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup }: any) => {
         }
         return arr; 
   }
-  
+  const switchRegisterToLogin = () => {
+    closeRegisterPopup();
+    openLoginPopup();
+  }
+  const registerRef: any = useRef([]);
+  const birthdayRef: any = useRef([]);
   return (
     <>
 
@@ -54,41 +60,59 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup }: any) => {
 
               <Form.Row>
                 <Form.Group as={Col} sm={3}  className="inputselectform" >
-                  <Form.Control as="select" id="select_day">
-                    <option>Ngày</option>  
+                  <Form.Control as="select" id="select_day" ref={(el: any) => (birthdayRef.current['date'] = el)}>
+                    <option value={0}>Ngày</option>  
                     {buildOptions(1, 31)}              
                   </Form.Control>
                 </Form.Group>
 
                 <Form.Group as={Col} sm={3}  className="inputselectform" >
-                  <Form.Control as="select"  >
-                    <option>Tháng</option>
+                  <Form.Control as="select" ref={(el: any) => (birthdayRef.current['month'] = el)}>
+                    <option value={0}>Tháng</option>
                     {buildOptions(1, 12)}    
                   </Form.Control>
                 </Form.Group>
 
-                <Form.Group as={Col} sm={3}  className="inputselectform" >
-                  <Form.Control as="select" >
-                    <option>Năm</option>
+                <Form.Group as={Col} sm={3}  className="inputselectform">
+                  <Form.Control as="select" ref={(el: any) => (birthdayRef.current['year'] = el)}>
+                    <option value={0}>Năm</option>
                     {buildOptions(1980, 2020)}  
                   </Form.Control>
                 </Form.Group>
               </Form.Row>
 
               <Form.Group controlId="formBasicUsername">
-                <Form.Label>Tên đăng nhập</Form.Label>
-                <Form.Control placeholder="Username" className="inputform" required />
+                <Form.Label>Full name</Form.Label>
+                <Form.Control
+                  placeholder="Full name"
+                  name="name"
+                  className="inputform"
+                  required
+                  ref={(el: any) => (registerRef.current['name'] = el)}
+                />
               </Form.Group>
 
               <Form.Group controlId="formBasicEmail ">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Email" className="inputform" required />
+                <Form.Control
+                  type="email"
+                  placeholder="Email"
+                  className="inputform"
+                  required
+                  ref={(el: any) => (registerRef.current['email'] = el)}
+                />
 
 
               </Form.Group>
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Mật khẩu</Form.Label>
-                <Form.Control type="password" placeholder="Password" className="inputform" required />
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  className="inputform"
+                  required
+                  ref={(el: any) => (registerRef.current['password'] = el)}
+                />
               </Form.Group>
 
               <Form.Group controlId="formBasicCheckbox">
@@ -104,6 +128,9 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup }: any) => {
                 name="register"
                 value="Đăng Ký"
                 className="register-button"
+                onClick={() => {
+                  formatDate(birthdayRef.current)
+                }}
               >
               </Form.Control>
 
@@ -114,7 +141,7 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup }: any) => {
             <div>
               bạn đã có tài khoản rồi à?
               </div>
-            <div style={{ color: " #3ccfcf" }} >
+            <div style={{ color: " #3ccfcf", cursor: 'pointer' }} onClick={switchRegisterToLogin}>
               Đăng nhập
               </div>
           </div>

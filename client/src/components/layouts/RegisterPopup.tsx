@@ -1,11 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Modal, Form, Col, Row } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillFacebook } from 'react-icons/ai';
 import { formatDate } from '../../helper/formatDate';
+import { convertRefToObject } from '../../helper/converRefToObj';
+import { useToasts } from 'react-toast-notifications';
+import { userRegister } from '../../redux/actions/userAction';
+import { connect } from 'react-redux';
 
-const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup }: any) => {
-
+const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup, userRegister }: any) => {
+  // const [disableRegister, setDisableRegister] = useState(true)
+  const {addToast} = useToasts();
   const buildOptions = (start: number, end: number) => {
         var arr = [];
         for (let i = start; i <= end; i++) {
@@ -19,6 +24,12 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup }: any
   }
   const registerRef: any = useRef([]);
   const birthdayRef: any = useRef([]);
+  const registerHandle = () => {
+    const accountInfo = convertRefToObject(registerRef.current);
+    const birthDayInfo = formatDate(birthdayRef.current);
+    accountInfo['birthday'] = birthDayInfo;
+    userRegister(accountInfo, addToast)
+  }
   return (
     <>
 
@@ -55,7 +66,9 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup }: any
 
 
           <div className="fomr-container">
-            <Form>
+            <Form
+            
+            >
               <Form.Label>Ngày sinh</Form.Label>
 
               <Form.Row>
@@ -116,7 +129,10 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup }: any
               </Form.Group>
 
               <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Tôi chấp thuận điều khoản dịch vụ và chính sách quyền riêng tư" />
+                <Form.Check
+                  type="checkbox"
+                  label="Tôi chấp thuận điều khoản dịch vụ và chính sách quyền riêng tư"
+                />
               </Form.Group>
 
               <Form.Text className="text-muted" >
@@ -128,9 +144,7 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup }: any
                 name="register"
                 value="Đăng Ký"
                 className="register-button"
-                onClick={() => {
-                  formatDate(birthdayRef.current)
-                }}
+                onClick={registerHandle}
               >
               </Form.Control>
 
@@ -161,5 +175,10 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup }: any
   );
 }
 
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    userRegister: (credential: any, addToast: any) => dispatch(userRegister(credential, addToast))
+  }
+}
 
-export default RegisterPopup;
+export default connect(null, mapDispatchToProps)(React.memo(RegisterPopup));

@@ -1,19 +1,20 @@
+scalar Date
 type User {
   id: Int!
   name: String!
   email: String!
   role: String!
-  birthday: String!
+  birthday: Date!
   password: String!
   createdAt: String!
   updatedAt: String!
 }
 
 input UserData {
-  name: String
-  email: String
-  birthday: String
-  password: String
+  name: String!
+  email: String!
+  birthday: Date!
+  password: String!
 }
 
 type Query {

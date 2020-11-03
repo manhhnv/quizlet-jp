@@ -8,8 +8,6 @@ export const formatDate = (args: Array<Object>) => {
         else {
             formattedDate =  value.value + formattedDate;
         }
-        console.log(value.value)
     });
-    console.log(formattedDate)
     return formattedDate
 }

@@ -22,7 +22,7 @@ export class UserService {
     try {
       const users = await this.userRepository.find({});
       const user: User = {
-        id: users.length,
+        id: users.length + 1,
         email: registerInput.email,
         password: hashedPassword,
         name: registerInput.name,

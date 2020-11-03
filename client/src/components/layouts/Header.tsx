@@ -23,7 +23,7 @@ const Header = ({user}: any) => {
     return (
         <React.Fragment>
             <LoginPopup show={show} closeLoginPopup={closeLoginPopup}/>
-            <RegisterPopup showRegister={showRegister} closeRegisterPopup={closeRegisterPopup} />
+            <RegisterPopup showRegister={showRegister} closeRegisterPopup={closeRegisterPopup} openLoginPopup={openLoginPopup}/>
             <div className="header-container">
                 <div className="left-container">
                     <div className='left'>

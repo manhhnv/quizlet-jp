@@ -1,0 +1,9 @@
+type Mutation {
+    register(input: RegisterInput!): UserToken
+    login(input: LoginInput): UserToken
+    update(input: UserData): User
+
+    createSet(input: SetInput!): Set!
+    updateSet(input: SetInput): Set!
+
+}

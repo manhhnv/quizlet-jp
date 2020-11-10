@@ -37,3 +37,4 @@ ormConfig.json
 !.vscode/launch.json
 !.vscode/extensions.json
 /migration
+/.vscode

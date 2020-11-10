@@ -1,0 +1,25 @@
+type Class {
+    className: String
+    description: String
+    option: ClassOption
+    school: String
+    members: [User]
+    sets: [Set]
+    link: String
+    admins: [String]
+}
+
+enum ClassOption {
+    Contributable
+    LearnOnly
+}
+
+# Input
+input ClassInput {
+    className: String
+    description: String
+    option: ClassOption
+    school: String
+}
+
+

@@ -1,0 +1,24 @@
+type Card {
+    id: String
+    setId: String
+    userId: String
+    term: String
+    definition: String
+    termLanguage: Language
+    definitionLanguage: Language
+    createdAt: Date
+    updatedAt: Date
+}
+
+enum Language {
+    VietNam
+    English
+}
+
+input CardInput {
+    term: String!
+    termLanguage: Language!
+    definition: String!
+    definitionLanguage: Language!
+}
+

@@ -1,0 +1,9 @@
+type Query {
+    users: [User!]!
+    user(id: String!): User
+    me: User!
+
+    sets: [Set!]!
+    set(input: String!): Set!
+}
+

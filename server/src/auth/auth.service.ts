@@ -16,7 +16,7 @@ export class AuthService {
     return this.jwt.sign(payload);
   }
 
-  public async validateUser(userId: number) {
+  public async validateUser(userId: string) {
     return await this.userService.findById(userId);
   }
 

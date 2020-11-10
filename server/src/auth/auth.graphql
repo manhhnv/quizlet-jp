@@ -11,11 +11,6 @@ input RegisterInput {
   password: String!
 }
 
-type Mutation {
-  register(input: RegisterInput!): UserToken
-  login(input: LoginInput): UserToken
-}
-
 type UserToken {
   token: String!
   user: User!

@@ -1,4 +1,5 @@
 scalar Date
+
 type User {
   id: String!
   name: String!

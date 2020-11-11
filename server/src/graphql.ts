@@ -60,12 +60,21 @@ export class CardInput {
     definitionLanguage: Language;
 }
 
-export class SetInput {
+export class SetCreate {
     title: string;
     description: string;
     visible: Visible;
     editable: Editable;
-    password: string;
+    password?: string;
+    cards?: CardInput[];
+}
+
+export class SetUpdate {
+    title?: string;
+    description?: string;
+    visible?: Visible;
+    editable?: Editable;
+    password?: string;
     cards?: CardInput[];
 }
 
@@ -110,9 +119,39 @@ export abstract class IMutation {
 
     abstract update(input?: UserData): User | Promise<User>;
 
-    abstract createSet(input: SetInput): Set | Promise<Set>;
+    abstract joinClass(classId?: string): boolean | Promise<boolean>;
 
-    abstract updateSet(input?: SetInput): Set | Promise<Set>;
+    abstract createSet(create?: SetCreate): Set | Promise<Set>;
+
+    abstract updateSet(setId?: string, update?: SetUpdate): Set | Promise<Set>;
+
+    abstract createFolder(input?: FolderInput): Folder | Promise<Folder>;
+
+    abstract updateFolder(input?: FolderInput): Folder | Promise<Folder>;
+
+    abstract addSetToFolder(setId?: string, folderId?: string): Folder | Promise<Folder>;
+
+    abstract removeSetFromFolder(setId?: string, folderId?: string): Folder | Promise<Folder>;
+
+    abstract createClass(input?: ClassInput): Class | Promise<Class>;
+
+    abstract updateClass(input?: ClassInput): Class | Promise<Class>;
+
+    abstract deleteClass(classId?: string): boolean | Promise<boolean>;
+
+    abstract addSetToClass(setId?: string, classId?: string): Set | Promise<Set>;
+
+    abstract removeSetFromClass(setId?: string, classId?: string): boolean | Promise<boolean>;
+
+    abstract addFolderToClass(folderId?: string, classId?: string): Folder | Promise<Folder>;
+
+    abstract removeFolderFromClass(setId?: string, classId?: string): boolean | Promise<boolean>;
+
+    abstract invite(email?: string): boolean | Promise<boolean>;
+
+    abstract removeUser(userId?: string): boolean | Promise<boolean>;
+
+    abstract makeAdmin(userId?: string): boolean | Promise<boolean>;
 }
 
 export abstract class IQuery {
@@ -125,18 +164,24 @@ export abstract class IQuery {
     abstract sets(): Set[] | Promise<Set[]>;
 
     abstract set(input: string): Set | Promise<Set>;
+
+    abstract folders(): Folder[] | Promise<Folder[]>;
+
+    abstract folder(folderId?: string): Folder | Promise<Folder>;
+
+    abstract classes(): Class[] | Promise<Class[]>;
+
+    abstract class(classId?: string): Class | Promise<Class>;
 }
 
 export class Card {
     id?: string;
     setId?: string;
-    userId?: string;
     term?: string;
+    orderNumber?: number;
     definition?: string;
     termLanguage?: Language;
     definitionLanguage?: Language;
-    createdAt?: Date;
-    updatedAt?: Date;
 }
 
 export class Set {
@@ -146,7 +191,7 @@ export class Set {
     description: string;
     visible: Visible;
     editable: Editable;
-    password: string;
+    password?: string;
     cards?: Card[];
     totalCards: number;
     createdAt: Date;

@@ -1,13 +1,11 @@
 type Card {
     id: String
     setId: String
-    userId: String
     term: String
+    orderNumber: Int
     definition: String
     termLanguage: Language
     definitionLanguage: Language
-    createdAt: Date
-    updatedAt: Date
 }
 
 enum Language {

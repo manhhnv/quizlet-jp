@@ -1,9 +1,37 @@
 type Mutation {
     register(input: RegisterInput!): UserToken
     login(input: LoginInput): UserToken
-    update(input: UserData): User
 
-    createSet(input: SetInput!): Set!
-    updateSet(input: SetInput): Set!
+    # user
+    update(input: UserData): User
+    joinClass(classId: String): Boolean
+    #user add folder
+
+
+    # set
+    createSet(create: SetCreate): Set!
+    updateSet(setId: String, update: SetUpdate): Set!
+
+    #folder
+    createFolder(input: FolderInput) : Folder!
+    updateFolder(input: FolderInput) : Folder!
+    addSetToFolder(setId: String, folderId: String): Folder!
+    removeSetFromFolder(setId: String, folderId: String): Folder
+
+    #class
+    createClass(input: ClassInput) : Class!
+    updateClass(input: ClassInput) : Class!
+    deleteClass(classId: String) : Boolean
+
+    #set-folder-class
+    addSetToClass(setId: String, classId: String): Set
+    removeSetFromClass(setId: String, classId: String) : Boolean
+    addFolderToClass(folderId: String, classId: String): Folder
+    removeFolderFromClass(setId: String, classId: String) : Boolean
+
+    #user-class
+    invite(email: String) : Boolean
+    removeUser(userId: String) : Boolean
+    makeAdmin(userId: String) : Boolean
 
 }

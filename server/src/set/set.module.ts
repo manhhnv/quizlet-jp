@@ -1,13 +1,17 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CardEntity } from './card/card.entity';
 import { SetEntity } from './set.entity';
+import { SetResolver } from './set.resolver';
 import { SetService } from './set.service';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([SetEntity, CardEntity]),
+    CardModule,
+    TypeOrmModule.forFeature([SetEntity]),
   ],
-  providers: [SetService]
+  providers: [SetService, SetResolver],
 })
-export class SetModule { }
+
+export class SetModule {
+}

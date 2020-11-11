@@ -6,9 +6,9 @@ export class CardEntity extends Card {
   @PrimaryGeneratedColumn()
   id: string;
   @Column()
-  userId: string;
-  @Column()
   setId: string;
+  @Column()
+  orderNumber: number;
   @Column()
   term: string;
   @Column()
@@ -17,8 +17,4 @@ export class CardEntity extends Card {
   definition: string;
   @Column()
   definitionLanguage: Language;
-  @Column({ type: 'datetime' })
-  updatedAt: Date;
-  @Column({ type: 'datetime' })
-  createdAt: Date;
 }

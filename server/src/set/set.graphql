@@ -5,7 +5,7 @@ type Set {
     description: String!
     visible: Visible!
     editable: Editable!
-    password: String!
+    password: String
     cards: [Card!]
     totalCards: Int!
     createdAt: Date!
@@ -26,12 +26,21 @@ enum Editable {
 }
 
 #input
-input SetInput {
+input SetCreate {
     title: String!
     description: String!
     visible: Visible!
     editable: Editable!
-    password: String!
+    password: String
+    cards: [CardInput!]
+}
+
+input SetUpdate {
+    title: String
+    description: String
+    visible: Visible
+    editable: Editable
+    password: String
     cards: [CardInput!]
 }
 

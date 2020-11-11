@@ -5,5 +5,11 @@ type Query {
 
     sets: [Set!]!
     set(input: String!): Set!
+
+    folders: [Folder!]!
+    folder(folderId: String): Folder!
+
+    classes: [Class!]!
+    class(classId: String): Class
 }
 

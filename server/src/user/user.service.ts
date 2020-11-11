@@ -20,28 +20,27 @@ export class UserService {
 
   async register(registerInput: RegisterInputDto, hashedPassword: string): Promise<User> {
     try {
-      const users = await this.userRepository.find({});
-      const user: User = {
-        id: users.length + 1,
+      const insertUser = {
         email: registerInput.email,
         password: hashedPassword,
         name: registerInput.name,
         birthday: registerInput.birthday,
-        role: "User",
-        createdAt: new Date(Date.now()).toISOString(),
-        updatedAt: new Date(Date.now()).toISOString()
-      };
-      await this.userRepository.insert(user);
+        role: "user",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      const result = await this.userRepository.insert(insertUser);
+      const user = { ...insertUser, id: result.identifiers[0].id as string };
       return user;
     } catch (error) {
       throw new HttpException(`Error ${error} `, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async findById(id: number): Promise<User> {
+  async findById(id: string): Promise<User> {
     try {
       const user = await this.userRepository.findOne({ id: id });
-      return user;
+      return user as User;
     } catch (error) {
       throw new HttpException(`Error ${error} `, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -63,6 +62,7 @@ export class UserService {
       }
       user[property] = update[property];
     }
+    user.updatedAt = new Date();
     await this.userRepository.update({ id: user.id }, user);
     return user;
   }

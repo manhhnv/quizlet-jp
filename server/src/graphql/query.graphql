@@ -1,0 +1,15 @@
+type Query {
+    users: [User!]!
+    user(id: String!): User
+    me: User!
+
+    sets: [Set!]!
+    set(input: String!): Set!
+
+    folders: [Folder!]!
+    folder(folderId: String): Folder!
+
+    classes: [Class!]!
+    class(classId: String): Class
+}
+

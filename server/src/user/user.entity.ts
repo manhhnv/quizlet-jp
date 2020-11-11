@@ -3,8 +3,8 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: "users" })
 export class UserEntity extends User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
   @Column()
   name: string
   @Column()
@@ -12,12 +12,12 @@ export class UserEntity extends User {
   email: string;
   @Column()
   password: string;
-  @Column()
-  birthday: string;
-  @Column()
-  updatedAt: string;
-  @Column()
-  createdAt: string;
+  @Column({ type: 'date' })
+  birthday: Date;
+  @Column({ type: 'datetime' })
+  updatedAt: Date;
+  @Column({ type: 'datetime' })
+  createdAt: Date;
   @Column()
   role: string;
 }

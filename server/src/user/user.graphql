@@ -1,28 +1,19 @@
 scalar Date
+
 type User {
-  id: Int!
+  id: String!
   name: String!
   email: String!
   role: String!
   birthday: Date!
   password: String!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 input UserData {
-  name: String!
-  email: String!
-  birthday: Date!
-  password: String!
-}
-
-type Query {
-  users: [User!]!
-  user(id: Int!): User
-  me: User!
-}
-
-type Mutation {
-  update(input: UserData): User
+  name: String
+  email: String
+  birthday: Date
+  password: String
 }

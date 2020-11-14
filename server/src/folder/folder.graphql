@@ -1,0 +1,16 @@
+type Folder {
+    id: String
+    description: String
+    title: String
+    creator: String
+    totalSets: Int
+    sets: [Set]
+    updateAt: Date
+    createAt: Date
+}
+
+input FolderInput {
+    title: String!
+    description: String!
+}
+

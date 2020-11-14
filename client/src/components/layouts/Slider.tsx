@@ -12,18 +12,18 @@ const Slider = ({ img_path, quotes }: any) => {
                     slide={true}
                 >
                     <Carousel.Item >
-                        <img src="https://images.prismic.io/quizlet-prod/658f7592-1f7c-4d27-9b39-f79cdba06267_Carousel_Illo_Bannecker_02.png?auto=compress,format"
+                        <img src={require('../../assets/slide2.png')}
                             alt="bighero-img" 
                             className="right-img-img"
                             />
                     </Carousel.Item>
                     <Carousel.Item >
-                        <img src="https://images.prismic.io/quizlet-prod/15213773-90fa-480b-90cf-64468a8b8441_Carousel_Illo_Bannecker_01.png?auto=compress,format"
+                        <img src={require('../../assets/slide1.png')}
                             alt="bighero-img" 
                             className="right-img-img"/>
                     </Carousel.Item>
                     <Carousel.Item >
-                        <img src="https://images.prismic.io/quizlet-prod/2d142bea-760b-4dc8-96ff-06737d183a84_Carousel_Illo_Bannecker_03.png?auto=compress,format"
+                        <img src={require('../../assets/slide3.png')}
                             alt="bighero-img"
                             className="right-img-img" />
                     </Carousel.Item>

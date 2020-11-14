@@ -1,37 +1,52 @@
 type Set {
-  id: Int!
-  userId: Int!
-  name: String!
-  description: String
-  password: String
-  viewAble: Boolean
-  createdAt: String
-  updatedAt: String
+    id: String!
+    userId: String!
+    title: String!
+    description: String!
+    visible: Visible!
+    editable: Editable!
+    password: String
+    cards: [Card!]
+    totalCards: Int!
+    createdAt: Date!
+    updatedAt: Date!
 }
 
-schema {
-  query: Query
+enum Visible {
+    EveryOne
+    CertainClasses
+    PeopleWithPassword
+    Me
+}
+
+enum Editable {
+    CertainClasses
+    PeopleWithPassword
+    Me
+}
+
+#input
+input SetCreate {
+    title: String!
+    description: String!
+    visible: Visible!
+    editable: Editable!
+    password: String
+    cards: [CardInput!]
 }
 
 input SetUpdate {
-  name: String
-  description: String
-  password: String
-  viewAble: Int
+    title: String
+    description: String
+    visible: Visible
+    editable: Editable
+    password: String
+    cards: [CardInput!]
 }
 
-input NewSet {
-  name: String!
-  description: String
-  password: String
-  viewAble: Boolean
-}
 
-type query {
-  sets: [Set!]!
-}
 
-type Mutation {
-  createSet(input: NewSet!): Set!
-  updateSet(input: SetUpdate): Set!
-}
+
+
+
+

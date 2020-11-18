@@ -3,13 +3,21 @@ type Query {
     user(id: String!): User
     me: User!
 
-    sets: [Set!]!
-    set(input: String!): Set!
-
-    folders: [Folder!]!
-    folder(folderId: String): Folder!
-
     classes: [Class!]!
     class(classId: String): Class
+
+
+    #set
+    set(setId: String): Set
+    sets: [Set!]
+
+    #folder
+    folder(folderId: String): Folder!
+    folders: [Folder!]
+
+
+
+    ## TO DO: ADMIN QUERY
+
 }
 

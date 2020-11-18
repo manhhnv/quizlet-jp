@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { SetModule } from './set/set.module';
 import { AuthModule } from './auth/auth.module';
+import { FolderService } from './folder/folder.service';
+import { FolderModule } from './folder/folder.module';
 
 @Module({
   imports: [
@@ -15,7 +17,9 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     UserModule,
     SetModule,
+    FolderModule,
   ],
+  providers: [],
 })
 
 export class AppModule { }

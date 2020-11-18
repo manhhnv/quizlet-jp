@@ -1,6 +1,6 @@
 type Set {
     id: String!
-    userId: String!
+    creator: User!
     title: String!
     description: String!
     visible: Visible!
@@ -10,6 +10,13 @@ type Set {
     totalCards: Int!
     createdAt: Date!
     updatedAt: Date!
+    termLanguage: Language,
+    definitionLanguage: Language
+}
+
+enum Language {
+    VietNam
+    English
 }
 
 enum Visible {
@@ -26,22 +33,15 @@ enum Editable {
 }
 
 #input
-input SetCreate {
+input SetInput {
     title: String!
     description: String!
     visible: Visible!
     editable: Editable!
     password: String
     cards: [CardInput!]
-}
-
-input SetUpdate {
-    title: String
-    description: String
-    visible: Visible
-    editable: Editable
-    password: String
-    cards: [CardInput!]
+    termLanguage: Language,
+    difinetionLanguage: Language
 }
 
 

@@ -55,27 +55,18 @@ export class FolderInput {
 
 export class CardInput {
     term: string;
-    termLanguage: Language;
     definition: string;
-    definitionLanguage: Language;
 }
 
-export class SetCreate {
+export class SetInput {
     title: string;
     description: string;
     visible: Visible;
     editable: Editable;
     password?: string;
     cards?: CardInput[];
-}
-
-export class SetUpdate {
-    title?: string;
-    description?: string;
-    visible?: Visible;
-    editable?: Editable;
-    password?: string;
-    cards?: CardInput[];
+    termLanguage?: Language;
+    difinetionLanguage?: Language;
 }
 
 export class UserData {
@@ -102,14 +93,14 @@ export class Class {
 }
 
 export class Folder {
-    id?: string;
-    description?: string;
-    title?: string;
-    creator?: string;
-    totalSets?: number;
+    id: string;
+    title: string;
+    description: string;
+    creator: User;
     sets?: Set[];
-    updateAt?: Date;
-    createAt?: Date;
+    totalSets: number;
+    updatedAt: Date;
+    createdAt: Date;
 }
 
 export abstract class IMutation {
@@ -121,17 +112,21 @@ export abstract class IMutation {
 
     abstract joinClass(classId?: string): boolean | Promise<boolean>;
 
-    abstract createSet(create?: SetCreate): Set | Promise<Set>;
+    abstract createSet(create?: SetInput): Set | Promise<Set>;
 
-    abstract updateSet(setId?: string, update?: SetUpdate): Set | Promise<Set>;
+    abstract updateSet(setId?: string, update?: SetInput): Set | Promise<Set>;
 
-    abstract createFolder(input?: FolderInput): Folder | Promise<Folder>;
+    abstract deleteSet(setId?: string): boolean | Promise<boolean>;
 
-    abstract updateFolder(input?: FolderInput): Folder | Promise<Folder>;
+    abstract createFolder(create?: FolderInput): Folder | Promise<Folder>;
 
-    abstract addSetToFolder(setId?: string, folderId?: string): Folder | Promise<Folder>;
+    abstract updateFolder(folderId?: string, update?: FolderInput): Folder | Promise<Folder>;
 
-    abstract removeSetFromFolder(setId?: string, folderId?: string): Folder | Promise<Folder>;
+    abstract deleteFolder(folderId?: string): boolean | Promise<boolean>;
+
+    abstract addSetsToFolder(folderId?: string, setIds?: string[]): Folder | Promise<Folder>;
+
+    abstract removeSetsFromFolder(folderId?: string, setIds?: string[]): Folder | Promise<Folder>;
 
     abstract createClass(input?: ClassInput): Class | Promise<Class>;
 
@@ -161,32 +156,30 @@ export abstract class IQuery {
 
     abstract me(): User | Promise<User>;
 
-    abstract sets(): Set[] | Promise<Set[]>;
-
-    abstract set(input: string): Set | Promise<Set>;
-
-    abstract folders(): Folder[] | Promise<Folder[]>;
-
-    abstract folder(folderId?: string): Folder | Promise<Folder>;
-
     abstract classes(): Class[] | Promise<Class[]>;
 
     abstract class(classId?: string): Class | Promise<Class>;
+
+    abstract set(setId?: string): Set | Promise<Set>;
+
+    abstract sets(): Set[] | Promise<Set[]>;
+
+    abstract folder(folderId?: string): Folder | Promise<Folder>;
+
+    abstract folders(): Folder[] | Promise<Folder[]>;
 }
 
 export class Card {
     id?: string;
-    setId?: string;
+    set?: Set;
     term?: string;
     orderNumber?: number;
     definition?: string;
-    termLanguage?: Language;
-    definitionLanguage?: Language;
 }
 
 export class Set {
     id: string;
-    userId: string;
+    creator: User;
     title: string;
     description: string;
     visible: Visible;
@@ -196,6 +189,8 @@ export class Set {
     totalCards: number;
     createdAt: Date;
     updatedAt: Date;
+    termLanguage?: Language;
+    definitionLanguage?: Language;
 }
 
 export class User {

@@ -11,6 +11,7 @@ import { CardModule } from './card/card.module';
     TypeOrmModule.forFeature([SetEntity]),
   ],
   providers: [SetService, SetResolver],
+  exports: [SetService],
 })
 
 export class SetModule {

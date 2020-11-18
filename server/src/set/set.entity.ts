@@ -1,23 +1,32 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-import { Editable, Set, Visible } from '../graphql';
-import { CardEntity } from "./card/card.entity";
+import { Editable, Language, Set, User, Visible } from '../graphql';
+import { CardEntity } from './card/card.entity';
+import { UserEntity } from '../user/user.entity';
 
-@Entity("sets")
+@Entity('sets')
 export class SetEntity extends Set {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
+  @ManyToOne(() => UserEntity, { eager: true })
+  creator: User;
   @Column()
-  userId: string
-  @Column()
-  title: string
+  title: string;
   @Column()
   description: string;
   @Column()
   password: string;
-  @Column({ type: 'datetime' })
+  @UpdateDateColumn()
   updatedAt: Date;
-  @Column({ type: 'datetime' })
+  @CreateDateColumn()
   createdAt: Date;
   @Column({})
   totalCards: number;
@@ -25,6 +34,11 @@ export class SetEntity extends Set {
   editable: Editable;
   @Column()
   visible: Visible;
-  @OneToMany(() => CardEntity, (card: CardEntity) => card.setId)
+  @Column()
+  definitionLanguage: Language;
+  @Column()
+  termLanguage: Language;
+  @OneToMany(() => CardEntity,
+    (card) => card.set, { eager: true })
   cards: CardEntity[];
 }

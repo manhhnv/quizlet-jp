@@ -7,16 +7,17 @@ type Mutation {
     joinClass(classId: String): Boolean
     #user add folder
 
-
     # set
-    createSet(create: SetCreate): Set!
-    updateSet(setId: String, update: SetUpdate): Set!
+    createSet(create: SetInput): Set!
+    updateSet(setId: String, update: SetInput): Set!
+    deleteSet(setId: String): Boolean!
 
     #folder
-    createFolder(input: FolderInput) : Folder!
-    updateFolder(input: FolderInput) : Folder!
-    addSetToFolder(setId: String, folderId: String): Folder!
-    removeSetFromFolder(setId: String, folderId: String): Folder
+    createFolder(create: FolderInput) : Folder!
+    updateFolder(folderId: String, update: FolderInput) : Folder!
+    deleteFolder(folderId: String): Boolean!
+    addSetsToFolder(folderId: String, setIds: [String!]): Folder!
+    removeSetsFromFolder(folderId: String, setIds: [String!]): Folder!
 
     #class
     createClass(input: ClassInput) : Class!

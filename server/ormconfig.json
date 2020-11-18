@@ -2,9 +2,9 @@
   "type": "mysql",
   "host": "localhost",
   "port": 3306,
-  "username": "nam",
-  "password": "123456789",
-  "database": "temp",
+  "username": "root",
+  "password": "manhuetvnuk63j",
+  "database": "nestjs",
   "synchronize": false,
   "logging": true,
   "entities": [

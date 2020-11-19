@@ -1,6 +1,7 @@
 type Mutation {
   register(input: RegisterInput!): UserToken
   login(input: LoginInput): UserToken
+  logout: Boolean
 
   # user
   update(input: UserData): User

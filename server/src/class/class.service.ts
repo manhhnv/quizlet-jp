@@ -16,12 +16,12 @@ export class ClassService {
   ) { }
 
 
-  async getClass(classId: string): Promise<Class> {
-    const cfsService
-    
-    this.classRepository.findOne({ id: classId });
-    
-  }
+  // async getClass(classId: string): Promise<Class> {
+  //   const cfsService
+
+  //   this.classRepository.findOne({ id: classId });
+
+  // }
 
 
   // async getClassOfUser(userId: string): Promise<Class[]> {
@@ -29,16 +29,16 @@ export class ClassService {
   // }
 
 
-  async createClass(data: ClassInput, user: User): Promise<Class> {
-    const result = await this.classRepository.save({
-      ...data,
-      totalMembers: 1,
-      totalSets: 0,
-      totalFolders: 0,
-      link: Math.random().toString(36).substring(7),
-    });
-    return this.getClass(result.id);
-  }
+  // async createClass(data: ClassInput, user: User): Promise<Class> {
+  //   const result = await this.classRepository.save({
+  //     ...data,
+  //     totalMembers: 1,
+  //     totalSets: 0,
+  //     totalFolders: 0,
+  //     link: Math.random().toString(36).substring(7),
+  //   });
+  //   return this.getClass(result.id);
+  // }
 
   // async updateClass(classId: string, data: ClassInput, user: User): Promise<Class> {
 

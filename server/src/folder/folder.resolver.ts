@@ -4,6 +4,7 @@ import { GqlAuthGuard } from '../auth/auth.guard';
 import { FolderService } from './folder.service';
 import { Folder, FolderInput, User } from '../graphql';
 import { CtxUser } from '../options/decorators/ctx-user.decorator';
+import { TokenGuard } from '../token.guard';
 
 @Resolver()
 export class FolderResolver {
@@ -11,20 +12,20 @@ export class FolderResolver {
   }
 
   @Query(() => Folder)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(TokenGuard, GqlAuthGuard)
   async folder(@CtxUser() user: User,
     @Args('folderId') folderId: string): Promise<Folder> {
     return await this.folderService.getFolder(folderId);
   }
 
   @Query(() => [Folder])
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(TokenGuard, GqlAuthGuard)
   async folders(@CtxUser() user: User): Promise<Folder[]> {
     return await this.folderService.getAllFoldersOfUser(user);
   }
 
   @Mutation(() => Folder)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(TokenGuard, GqlAuthGuard)
   async addSetsToFolder(@CtxUser() user: User,
     @Args('folderId') folderId: string,
     @Args('setIds') setIds: string[]): Promise<Folder> {
@@ -32,7 +33,7 @@ export class FolderResolver {
   }
 
   @Mutation(() => Folder)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(TokenGuard, GqlAuthGuard)
   async removeSetsFromFolder(@CtxUser() user: User,
     @Args('folderId') folderId: string,
     @Args('setIds') setIds: string[]): Promise<Folder> {
@@ -40,7 +41,7 @@ export class FolderResolver {
   }
 
   @Mutation(() => Folder)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(TokenGuard, GqlAuthGuard)
   async createFolder(@CtxUser() user: User, @Args('create') create: FolderInput): Promise<Folder> {
     return await this.folderService.createFolder(create, user);
   }

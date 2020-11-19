@@ -122,6 +122,8 @@ export abstract class IMutation {
 
     abstract login(input?: LoginInput): UserToken | Promise<UserToken>;
 
+    abstract logout(): boolean | Promise<boolean>;
+
     abstract update(input?: UserData): User | Promise<User>;
 
     abstract joinClass(classId?: string): boolean | Promise<boolean>;
@@ -212,8 +214,8 @@ export class User {
     name: string;
     email: string;
     role: string;
-    birthday: Date;
     password: string;
+    birthday: Date;
     createdAt: Date;
     updatedAt: Date;
 }

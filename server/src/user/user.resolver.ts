@@ -4,6 +4,7 @@ import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { CtxUser } from 'src/options/decorators/ctx-user.decorator';
 import { User, UserData } from 'src/graphql';
 import { UserService } from './user.service';
+import { TokenGuard } from 'src/token.guard';
 
 @Resolver()
 export class UserResolver {
@@ -15,13 +16,13 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(TokenGuard, GqlAuthGuard)
   async me(@CtxUser() user: User): Promise<User> {
     return user;
   };
 
   @Mutation(() => User)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(TokenGuard, GqlAuthGuard)
   async update(@CtxUser() user: User, @Args('input') update: UserData): Promise<User> {
     return await this.userService.update(user, update);
   }

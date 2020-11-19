@@ -12,15 +12,17 @@ export class FolderSetService {
   }
 
   async getSetsOfFolder(folderId: string): Promise<FolderSetEntity[]> {
-    return await this.folderSetRepository.find({ folderId: folderId });
+    return this.folderSetRepository.find({ folderId: folderId });
   }
 
   async addSetsToFolder(folderId: string, setIds: string[]): Promise<boolean> {
-    const folderSets = [];
+    const currentFolderSets = await this.folderSetRepository.find({ folderId: folderId });
+    const currentSetsOfFolder = currentFolderSets.map(fs => fs.setId);
     for (const setId of setIds) {
-      folderSets.push({ folderId: folderId, setId: setId });
+      if (!currentSetsOfFolder.includes(setId)) {
+        await this.folderSetRepository.insert({ folderId: folderId, setId: setId });
+      }
     }
-    await this.folderSetRepository.insert(folderSets);
     return true;
   }
 

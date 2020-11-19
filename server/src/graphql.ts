@@ -6,8 +6,13 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export enum ClassRole {
+    Admin = "Admin",
+    Member = "Member"
+}
+
 export enum ClassOption {
-    Contributable = "Contributable",
+    CanContribute = "CanContribute",
     LearnOnly = "LearnOnly"
 }
 
@@ -42,9 +47,9 @@ export class RegisterInput {
 }
 
 export class ClassInput {
-    className?: string;
+    className: string;
     description?: string;
-    option?: ClassOption;
+    option: ClassOption;
     school?: string;
 }
 
@@ -66,7 +71,7 @@ export class SetInput {
     password?: string;
     cards?: CardInput[];
     termLanguage?: Language;
-    difinetionLanguage?: Language;
+    definitionLanguage?: Language;
 }
 
 export class UserData {
@@ -81,15 +86,24 @@ export class UserToken {
     user: User;
 }
 
+export class ClassMember {
+    id: string;
+    name: string;
+    classRole?: ClassRole;
+}
+
 export class Class {
-    className?: string;
-    description?: string;
-    option?: ClassOption;
-    school?: string;
-    members?: User[];
+    id: string;
+    className: string;
+    description: string;
+    option: ClassOption;
+    school: string;
+    totalMembers: number;
+    totalSets: number;
+    members?: ClassMember[];
+    folders?: Folder[];
     sets?: Set[];
-    link?: string;
-    admins?: string[];
+    link: string;
 }
 
 export class Folder {
@@ -107,6 +121,8 @@ export abstract class IMutation {
     abstract register(input: RegisterInput): UserToken | Promise<UserToken>;
 
     abstract login(input?: LoginInput): UserToken | Promise<UserToken>;
+
+    abstract logout(): boolean | Promise<boolean>;
 
     abstract update(input?: UserData): User | Promise<User>;
 
@@ -128,9 +144,9 @@ export abstract class IMutation {
 
     abstract removeSetsFromFolder(folderId?: string, setIds?: string[]): Folder | Promise<Folder>;
 
-    abstract createClass(input?: ClassInput): Class | Promise<Class>;
+    abstract createClass(create?: ClassInput): Class | Promise<Class>;
 
-    abstract updateClass(input?: ClassInput): Class | Promise<Class>;
+    abstract updateClass(classId?: string, update?: ClassInput): Class | Promise<Class>;
 
     abstract deleteClass(classId?: string): boolean | Promise<boolean>;
 
@@ -156,10 +172,6 @@ export abstract class IQuery {
 
     abstract me(): User | Promise<User>;
 
-    abstract classes(): Class[] | Promise<Class[]>;
-
-    abstract class(classId?: string): Class | Promise<Class>;
-
     abstract set(setId?: string): Set | Promise<Set>;
 
     abstract sets(): Set[] | Promise<Set[]>;
@@ -167,6 +179,10 @@ export abstract class IQuery {
     abstract folder(folderId?: string): Folder | Promise<Folder>;
 
     abstract folders(): Folder[] | Promise<Folder[]>;
+
+    abstract class(classId?: string): Class | Promise<Class>;
+
+    abstract classes(): Folder[] | Promise<Folder[]>;
 }
 
 export class Card {
@@ -198,8 +214,8 @@ export class User {
     name: string;
     email: string;
     role: string;
-    birthday: Date;
     password: string;
+    birthday: Date;
     createdAt: Date;
     updatedAt: Date;
 }

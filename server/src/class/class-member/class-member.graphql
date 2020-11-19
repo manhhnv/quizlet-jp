@@ -1,0 +1,10 @@
+type ClassMember {
+  id: String!
+  name: String!
+  classRole: ClassRole
+}
+
+enum ClassRole {
+  Admin
+  Member
+}

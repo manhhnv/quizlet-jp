@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
 import { Card, Set, SetInput, User } from '../graphql';
-import { getRepository } from 'typeorm';
+import { getRepository, In } from 'typeorm';
 import { CardService } from './card/card.service';
 import { Repository } from 'typeorm/repository/Repository';
 import { Injectable } from '@nestjs/common';
@@ -28,7 +28,7 @@ export class SetService {
     if (setIds.length == 0) {
       return [];
     }
-    return await this.setRepository.find({ where: { id: setIds } });
+    return this.setRepository.find({ where: { id: In(setIds) } });
   }
 
   async createSet(data: SetInput, user: User): Promise<Set> {
@@ -42,7 +42,7 @@ export class SetService {
       editable: data.editable,
       totalCards: data.cards.length,
       termLanguage: data.termLanguage,
-      definitionLanguage: data.difinetionLanguage,
+      definitionLanguage: data.definitionLanguage,
     });
 
     return {

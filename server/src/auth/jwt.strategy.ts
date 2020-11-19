@@ -20,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: JwoDto): Promise<User> {
     const user = await this.authService.validateUser(payload.userId);
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Token not valid');
     }
     return user;
   }

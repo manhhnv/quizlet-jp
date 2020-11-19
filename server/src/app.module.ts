@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { SetModule } from './set/set.module';
 import { AuthModule } from './auth/auth.module';
-import { FolderService } from './folder/folder.service';
 import { FolderModule } from './folder/folder.module';
+import { ClassModule } from './class/class.module';
 
 @Module({
   imports: [
@@ -18,6 +18,7 @@ import { FolderModule } from './folder/folder.module';
     UserModule,
     SetModule,
     FolderModule,
+    ClassModule,
   ],
   providers: [],
 })

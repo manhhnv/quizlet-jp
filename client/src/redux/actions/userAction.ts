@@ -1,6 +1,7 @@
 import { LOG_IN, REGISTER } from './../../graphql/user.grapql';
 import { client } from "../../apollo-graphql";
 export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_USER_TOKEN = "UPDATE_USER_TOKEN";
 export const userLogin = (credential: any, addToast: any) => {
     return async (dispatch: any) => {
         try {
@@ -12,11 +13,11 @@ export const userLogin = (credential: any, addToast: any) => {
             })
             if (response?.data?.login) {
                 dispatch({
-                    type: UPDATE_USER,
+                    type: UPDATE_USER_TOKEN,
                     payload: response.data.login
                 })
                 if (addToast) {
-                    addToast("Welcome to Quizlet JP", {
+                    addToast("Welcome to Quizlet JP, Hi", {
                         appearance: "success",
                         autoDismiss: true
                     })
@@ -46,7 +47,7 @@ export const userRegister = (credential: any, addToast: any) => {
             })
             if (response?.data?.register) {
                 dispatch({
-                    type: UPDATE_USER,
+                    type: UPDATE_USER_TOKEN,
                     payload: response.data.register
                 })
                 if (addToast) {

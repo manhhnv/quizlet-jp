@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class migrationDatabase1605753526255 implements MigrationInterface {
-    name = 'migrationDatabase1605753526255'
+export class migrationDatabase1605758106631 implements MigrationInterface {
+    name = 'migrationDatabase1605758106631'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query("CREATE TABLE `folder-set` (`id` varchar(36) NOT NULL, `folderId` varchar(255) NOT NULL, `setId` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");

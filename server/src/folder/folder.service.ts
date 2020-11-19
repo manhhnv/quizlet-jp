@@ -27,15 +27,17 @@ export class FolderService {
   }
 
   async createFolder(create: FolderInput, user: User): Promise<Folder> {
-    return await this.folderRepository.save({ ...create, totalSets: 0, creator: user });
+    const folder = await this.folderRepository.save({ ...create, totalSets: 0, creator: user });
+    const folderSet = await this.folderSetService.getSetsOfFolder(folder.id);
+    const setIds = folderSet.map(val => val.setId);
+    folder.sets = await this.setService.getSets(setIds);
+    return folder;
   }
 
   async updateFolder(folderId: string, data: FolderInput, user: User): Promise<Folder> {
-    await this.folderRepository.update({ id: folderId },
-      {
-        ...data,
-      });
-    return await this.folderRepository.findOne({ id: folderId });
+    // TO DO : check quyen
+    await this.folderRepository.update({ id: folderId }, { ...data, });
+    return await this.getFolder(folderId);
   }
 
   async deleteFolder(folderId: string, user: User): Promise<boolean> {
@@ -48,14 +50,14 @@ export class FolderService {
     return false;
   }
 
-  async addSetsToFolder(folderId: string, setIds: string[]): Promise<boolean> {
-    return await this.folderSetService.addSetsToFolder(folderId, setIds);
+  async addSetsToFolder(folderId: string, setIds: string[]): Promise<Folder> {
+    await this.folderSetService.addSetsToFolder(folderId, setIds);
+    return this.getFolder(folderId);
   }
 
-  async removeSetsFromFolder(folderId: string, setIds: string[]): Promise<boolean> {
-    
-
-    return await this.folderSetService.removeSetsFromFolder(folderId, setIds);
+  async removeSetsFromFolder(folderId: string, setIds: string[]): Promise<Folder> {
+    await this.folderSetService.removeSetsFromFolder(folderId, setIds);
+    return this.getFolder(folderId);
   }
 
   async getFolder(folderId: string): Promise<Folder> {

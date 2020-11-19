@@ -1,38 +1,41 @@
 type Mutation {
-    register(input: RegisterInput!): UserToken
-    login(input: LoginInput): UserToken
+  register(input: RegisterInput!): UserToken
+  login(input: LoginInput): UserToken
 
-    # user
-    update(input: UserData): User
-    joinClass(classId: String): Boolean
-    #user add folder
+  # user
+  update(input: UserData): User
+  joinClass(classId: String): Boolean
+  #user add folder
 
-    # set
-    createSet(create: SetInput): Set!
-    updateSet(setId: String, update: SetInput): Set!
-    deleteSet(setId: String): Boolean!
+  # set
+  createSet(create: SetInput): Set!
+  updateSet(setId: String, update: SetInput): Set!
+  deleteSet(setId: String): Boolean!
 
-    #folder
-    createFolder(create: FolderInput) : Folder!
-    updateFolder(folderId: String, update: FolderInput) : Folder!
-    deleteFolder(folderId: String): Boolean!
-    addSetsToFolder(folderId: String, setIds: [String!]): Folder!
-    removeSetsFromFolder(folderId: String, setIds: [String!]): Folder!
+  #folder
+  createFolder(create: FolderInput): Folder!
+  updateFolder(folderId: String, update: FolderInput): Folder!
+  deleteFolder(folderId: String): Boolean!
 
-    #class
-    createClass(input: ClassInput) : Class!
-    updateClass(input: ClassInput) : Class!
-    deleteClass(classId: String) : Boolean
+  #set-folder
+  addSetsToFolder(folderId: String, setIds: [String!]): Folder!
+  removeSetsFromFolder(folderId: String, setIds: [String!]): Folder!
 
-    #set-folder-class
-    addSetToClass(setId: String, classId: String): Set
-    removeSetFromClass(setId: String, classId: String) : Boolean
-    addFolderToClass(folderId: String, classId: String): Folder
-    removeFolderFromClass(setId: String, classId: String) : Boolean
+  #class
+  createClass(create: ClassInput): Class!
+  updateClass(classId: String, update: ClassInput): Class!
+  deleteClass(classId: String): Boolean
 
-    #user-class
-    invite(email: String) : Boolean
-    removeUser(userId: String) : Boolean
-    makeAdmin(userId: String) : Boolean
+  #set-class
+  addSetToClass(setId: String, classId: String): Set
+  removeSetFromClass(setId: String, classId: String): Boolean
 
+  #folder-class
+  addFolderToClass(folderId: String, classId: String): Folder
+  removeFolderFromClass(setId: String, classId: String): Boolean
+
+  #user-class
+  invite(email: String): Boolean
+  removeUser(userId: String): Boolean
+  makeAdmin(userId: String): Boolean
 }

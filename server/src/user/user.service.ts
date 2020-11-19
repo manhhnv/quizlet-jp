@@ -56,12 +56,12 @@ export class UserService {
   }
 
   async update(user: User, update: UserData): Promise<User> {
-    for (const property in update) {
-      if (property == "id") {
-        continue;
+    Object.keys(update).forEach(property => {
+      if (property != "id") {
+        user[property] = update[property];
       }
-      user[property] = update[property];
-    }
+    });
+
     user.updatedAt = new Date();
     await this.userRepository.update({ id: user.id }, user);
     return user;

@@ -8,6 +8,7 @@
   "synchronize": false,
   "logging": true,
   "entities": [
+    "dist/**/**/*.entity.js",
     "dist/**/*.entity.js"
   ],
   "migrations": [

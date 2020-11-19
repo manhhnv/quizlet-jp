@@ -1,6 +1,5 @@
 import { LOG_IN, REGISTER } from './../../graphql/user.grapql';
 import { client } from "../../apollo-graphql";
-import  { Redirect } from 'react-router-dom'
 export const UPDATE_USER = "UPDATE_USER";
 export const userLogin = (credential: any, addToast: any) => {
     return async (dispatch: any) => {

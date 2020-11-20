@@ -5,10 +5,10 @@ import { AiFillFacebook } from 'react-icons/ai';
 import { formatDate } from '../../helper/formatDate';
 import { convertRefToObject } from '../../helper/converRefToObj';
 import { useToasts } from 'react-toast-notifications';
-import { userRegister } from '../../redux/actions/userAction';
+import { userRegister, register } from '../../redux/actions/userAction';
 import { connect } from 'react-redux';
 
-const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup, userRegister }: any) => {
+const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup, userRegister, register }: any) => {
   // const [disableRegister, setDisableRegister] = useState(true)
   const {addToast} = useToasts();
   const buildOptions = (start: number, end: number) => {
@@ -28,7 +28,9 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup, userR
     const accountInfo = convertRefToObject(registerRef.current);
     const birthDayInfo = formatDate(birthdayRef.current);
     accountInfo['birthday'] = birthDayInfo;
-    userRegister(accountInfo, addToast)
+    console.log(accountInfo);
+    // userRegister(accountInfo, addToast)
+    register(accountInfo, addToast)
   }
   return (
     <>
@@ -95,13 +97,13 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup, userR
               </Form.Row>
 
               <Form.Group controlId="formBasicUsername">
-                <Form.Label>Full name</Form.Label>
+                <Form.Label>Username</Form.Label>
                 <Form.Control
-                  placeholder="Full name"
+                  placeholder="Username"
                   name="name"
                   className="inputform"
                   required
-                  ref={(el: any) => (registerRef.current['name'] = el)}
+                  ref={(el: any) => (registerRef.current['username'] = el)}
                 />
               </Form.Group>
 
@@ -177,7 +179,8 @@ const RegisterPopup = ({ showRegister, closeRegisterPopup, openLoginPopup, userR
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    userRegister: (credential: any, addToast: any) => dispatch(userRegister(credential, addToast))
+    userRegister: (credential: any, addToast: any) => dispatch(userRegister(credential, addToast)),
+    register: (credential: any, addToast: any) => dispatch(register(credential, addToast))
   }
 }
 

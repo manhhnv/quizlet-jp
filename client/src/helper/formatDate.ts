@@ -3,7 +3,12 @@ export const formatDate = (args: Array<Object>) => {
     Object.entries(args).forEach((entry, index) => {
         const [key, value]: any = entry
         if (index !== 2) {
-            formattedDate = '-' + value.value +formattedDate
+            if (value.value < 10) {
+                formattedDate = '-' + '0' + value.value +formattedDate
+            }
+            else {
+                formattedDate = '-' + value.value +formattedDate
+            }
         }
         else {
             formattedDate =  value.value + formattedDate;

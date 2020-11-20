@@ -5,16 +5,17 @@ import { FcGoogle } from 'react-icons/fc';
 import { AiFillFacebook } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { userLogin } from '../../redux/actions/userAction';
+import { userLogin, login } from '../../redux/actions/userAction';
 import { useToasts } from "react-toast-notifications";
 import { convertRefToObject } from '../../helper/converRefToObj';
-const LoginPopup = ({show, closeLoginPopup, userLogin}: any) => {
+const LoginPopup = ({show, closeLoginPopup, userLogin, login}: any) => {
     const { addToast } = useToasts();
     const loginRef: any = useRef([]);
     const loginHandle = () => {
         const credential = convertRefToObject(loginRef.current);
-        console.log("CRE", credential)
-        userLogin(credential, addToast);
+        // console.log("CRE", credential)
+        // userLogin(credential, addToast);
+        login(credential, addToast);
     }
     return (
         <Modal show={show} onHide={closeLoginPopup}>
@@ -38,7 +39,7 @@ const LoginPopup = ({show, closeLoginPopup, userLogin}: any) => {
                     <Form>
                         <Form.Control
                             
-                            placeholder="Điền tên người dùng..."
+                            placeholder="Điền email..."
                             name="email"
                             className="login-form"
                             required
@@ -74,7 +75,8 @@ const LoginPopup = ({show, closeLoginPopup, userLogin}: any) => {
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        userLogin: (credential: any, addToast: any) => dispatch(userLogin(credential, addToast))
+        userLogin: (credential: any, addToast: any) => dispatch(userLogin(credential, addToast)),
+        login: (credential: any, addToast: any) => dispatch(login(credential, addToast))
     }
 } 
 export default connect(null, mapDispatchToProps)(React.memo(LoginPopup));

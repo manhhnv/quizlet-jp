@@ -48,7 +48,7 @@ export class AuthService {
         registerInput.password = hashedPassword;
         const user = await this.userService.register(registerInput);
         const token = this.signToken(user);
-        await this.tokenRepository.save({ token: token });
+        await this.tokenRepository.save({ token: token, user: user });
         return { user: user, token: token };
       }
     } catch (error) {
@@ -69,7 +69,7 @@ export class AuthService {
 
     const token = this.signToken(user);
 
-    await this.tokenRepository.save({ token: token });
+    await this.tokenRepository.save({ token: token, user: user });
     return { user: user, token: token };
   }
 

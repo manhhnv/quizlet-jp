@@ -4,7 +4,7 @@ import { SetService } from './set.service';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/auth.guard';
 import { CtxUser } from '../options/decorators/ctx-user.decorator';
-import { TokenGuard } from 'src/token.guard';
+import { TokenGuard } from 'src/auth/token.guard';
 
 @Resolver()
 export class SetResolver {

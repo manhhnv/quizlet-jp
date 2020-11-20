@@ -4,7 +4,7 @@ import { GqlAuthGuard } from '../auth/auth.guard';
 import { FolderService } from './folder.service';
 import { Folder, FolderInput, User } from '../graphql';
 import { CtxUser } from '../options/decorators/ctx-user.decorator';
-import { TokenGuard } from '../token.guard';
+import { TokenGuard } from '../auth/token.guard';
 
 @Resolver()
 export class FolderResolver {

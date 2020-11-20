@@ -1,8 +1,8 @@
 import { FolderEntity } from 'src/folder/folder.entity';
-import { Class, ClassOption } from 'src/graphql';
+import { Class, ClassMember, ClassOption } from 'src/graphql';
 import { SetEntity } from 'src/set/set.entity';
 import { UserEntity } from 'src/user/user.entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'classes' })
 export class ClassEntity extends Class {
@@ -18,14 +18,19 @@ export class ClassEntity extends Class {
   school: string;
   @Column()
   link: string;
-  @Column()
+  @UpdateDateColumn()
+  updatedAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
+  @Column({ type: "smallint", default: 1 })
   totalMembers: number;
-  @Column()
+  @Column({ type: "smallint", default: 0 })
   totalFolders: number;
-  @Column()
+  @Column({ type: "smallint", default: 0 })
   totalSets: number;
-
-  members: UserEntity[]
-  folders: [FolderEntity]
-  sets: SetEntity[]
+  @ManyToOne(() => UserEntity, user => user.id)
+  creator: UserEntity;
+  sets: SetEntity[];
+  folders: FolderEntity[];
+  members: ClassMember[];
 }

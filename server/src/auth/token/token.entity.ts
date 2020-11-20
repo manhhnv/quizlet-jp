@@ -1,4 +1,3 @@
-import { User } from 'src/graphql';
 import { UserEntity } from 'src/user/user.entity';
 import { CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 
@@ -10,4 +9,6 @@ export class TokenEntity {
   createdAt: Date;
   @DeleteDateColumn()
   deletedAt: Date;
+  @ManyToOne(() => UserEntity, user => user.id, { onDelete: "CASCADE" })
+  user: UserEntity;
 }

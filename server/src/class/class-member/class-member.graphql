@@ -1,7 +1,7 @@
 type ClassMember {
   id: String!
   name: String!
-  classRole: ClassRole
+  role: ClassRole
 }
 
 enum ClassRole {

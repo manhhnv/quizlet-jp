@@ -6,10 +6,13 @@ type Class {
   school: String!
   totalMembers: Int!
   totalSets: Int!
+  totalFolders: Int!
   members: [ClassMember!]
   folders: [Folder!]
   sets: [Set!]
   link: String!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 enum ClassOption {
@@ -22,5 +25,12 @@ input ClassInput {
   className: String!
   description: String
   option: ClassOption!
+  school: String
+}
+
+input ClassUpdate {
+  className: String
+  description: String
+  option: ClassOption
   school: String
 }

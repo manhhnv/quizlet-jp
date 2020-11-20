@@ -12,7 +12,7 @@ type Query {
   folders: [Folder!]
 
   class(classId: String): Class!
-  classes: [Folder!]
+  classes: [Class!]
 
   ## TO DO: ADMIN QUERY
 }

@@ -1,6 +1,6 @@
 type Mutation {
   register(input: RegisterInput!): UserToken
-  login(input: LoginInput): UserToken
+  login(input: LoginInput!): UserToken
   logout: Boolean
 
   # user
@@ -10,33 +10,32 @@ type Mutation {
 
   # set
   createSet(create: SetInput): Set!
-  updateSet(setId: String, update: SetInput): Set!
-  deleteSet(setId: String): Boolean!
+  updateSet(setId: String!, update: SetInput): Set!
+  deleteSet(setId: String!): Boolean!
 
   #folder
   createFolder(create: FolderInput): Folder!
-  updateFolder(folderId: String, update: FolderInput): Folder!
-  deleteFolder(folderId: String): Boolean!
-
+  updateFolder(folderId: String!, update: FolderInput): Folder!
+  deleteFolder(folderId: String!): Boolean!
   #set-folder
   addSetsToFolder(folderId: String, setIds: [String!]): Folder!
   removeSetsFromFolder(folderId: String, setIds: [String!]): Folder!
 
   #class
   createClass(create: ClassInput): Class!
-  updateClass(classId: String, update: ClassInput): Class!
-  deleteClass(classId: String): Boolean
-
-  #set-class
-  addSetToClass(setId: String, classId: String): Set
-  removeSetFromClass(setId: String, classId: String): Boolean
-
-  #folder-class
-  addFolderToClass(folderId: String, classId: String): Folder
-  removeFolderFromClass(setId: String, classId: String): Boolean
-
+  updateClass(classId: String!, update: ClassUpdate): Class!
+  deleteClass(classId: String!): Boolean
+  # set and folder
+  addItems(classId: String!, folderIds: [String!]!, setIds: [String!]!): Class!
+  removeItems(
+    classId: String!
+    folderIds: [String!]!
+    setIds: [String!]!
+  ): Class!
+  #member
+  addMembers(classId: String!, memberIds: [String]!): Class!
+  setClassRole(classId: String!, role: ClassRole!, userId: String!): Class!
+  removeMembers(classId: String!, memberIds: [String]!): Class!
   #user-class
   invite(email: String): Boolean
-  removeUser(userId: String): Boolean
-  makeAdmin(userId: String): Boolean
 }

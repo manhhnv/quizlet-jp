@@ -1,6 +1,8 @@
 # compiled output
 /dist
 /node_modules
+/database
+/database/**/*.ts
 
 # Logs
 logs
@@ -36,3 +38,5 @@ ormconfig.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/migration
+/.vscode

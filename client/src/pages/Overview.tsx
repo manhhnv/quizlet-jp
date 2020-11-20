@@ -2,7 +2,12 @@ import React from 'react'
 import HeaderPage from '../components/layouts/Header'
 import { Row, Col, Navbar, Card, Button, Container } from 'react-bootstrap';
 import { FaHome, FaLeaf } from 'react-icons/fa';
-const Overview = () => {
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+const Overview = ({user}: any) => {
+    if (!user?.token) {
+        return <Redirect to="/home"></Redirect>
+    }
     return (
         <React.Fragment>
             <HeaderPage></HeaderPage>
@@ -110,5 +115,9 @@ const Overview = () => {
         </React.Fragment>
     )
 }
-
-export default Overview
+const mapStateToProps = (state: any) => {
+    return {
+        user: state.user
+    }
+}
+export default connect(mapStateToProps, null)(React.memo(Overview))

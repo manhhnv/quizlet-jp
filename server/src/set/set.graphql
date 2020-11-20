@@ -1,0 +1,52 @@
+type Set {
+    id: String!
+    userId: String!
+    title: String!
+    description: String!
+    visible: Visible!
+    editable: Editable!
+    password: String
+    cards: [Card!]
+    totalCards: Int!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+enum Visible {
+    EveryOne
+    CertainClasses
+    PeopleWithPassword
+    Me
+}
+
+enum Editable {
+    CertainClasses
+    PeopleWithPassword
+    Me
+}
+
+#input
+input SetCreate {
+    title: String!
+    description: String!
+    visible: Visible!
+    editable: Editable!
+    password: String
+    cards: [CardInput!]
+}
+
+input SetUpdate {
+    title: String
+    description: String
+    visible: Visible
+    editable: Editable
+    password: String
+    cards: [CardInput!]
+}
+
+
+
+
+
+
+

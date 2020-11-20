@@ -24,13 +24,11 @@ function App() {
   // console.log(rates.data)
 
   return (
-    <ToastProvider placement="bottom-left">
         <div className="App">
           {/* <Header></Header>
           <Footer></Footer> */}
           <AppRouters />
         </div>
-    </ToastProvider>
   );
 }
 

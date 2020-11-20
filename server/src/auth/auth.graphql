@@ -1,0 +1,17 @@
+scalar Date
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input RegisterInput {
+  name: String!
+  email: String!
+  birthday: Date!
+  password: String!
+}
+
+type UserToken {
+  token: String!
+  user: User!
+}

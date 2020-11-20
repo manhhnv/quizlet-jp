@@ -7,9 +7,7 @@ import { SetEntity } from '../set.entity';
 export class CardEntity extends Card {
   @PrimaryGeneratedColumn()
   id: string;
-  @ManyToOne(
-    () => SetEntity, (set) =>
-      set.cards, { onDelete: 'CASCADE' })
+  @ManyToOne(() => SetEntity, (set) => set.cards, { onDelete: 'CASCADE' })
   set: SetEntity;
   @Column()
   orderNumber: number;

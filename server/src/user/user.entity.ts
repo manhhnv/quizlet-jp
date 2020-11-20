@@ -1,5 +1,5 @@
 import { User } from "src/graphql";
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: "users" })
 export class UserEntity extends User {
@@ -12,11 +12,11 @@ export class UserEntity extends User {
   email: string;
   @Column()
   password: string;
-  @Column({ type: 'date' })
+  @Column({ type: "date" })
   birthday: Date;
-  @Column({ type: 'datetime' })
+  @UpdateDateColumn()
   updatedAt: Date;
-  @Column({ type: 'datetime' })
+  @CreateDateColumn()
   createdAt: Date;
   @Column()
   role: string;

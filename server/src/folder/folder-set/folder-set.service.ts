@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { SetEntity } from 'src/set/set.entity';
 import { Repository } from 'typeorm';
+import { FolderEntity } from '../folder.entity';
 import { FolderSetEntity } from './folder-set.entity';
 
 @Injectable()
@@ -11,28 +13,37 @@ export class FolderSetService {
   ) {
   }
 
-  async getSetsOfFolder(folderId: string): Promise<FolderSetEntity[]> {
-    return await this.folderSetRepository.find({ folderId: folderId });
+  async countSetsOfFolder(folder: FolderEntity): Promise<number> {
+    return this.folderSetRepository.count({ folder: folder });
   }
 
-  async addSetsToFolder(folderId: string, setIds: string[]): Promise<boolean> {
-    const folderSets = [];
+  async getSetsOfFolder(folder: FolderEntity): Promise<FolderSetEntity[]> {
+    const folderSet = await this.folderSetRepository.find({ folder: folder });
+    return folderSet;
+  }
+
+  async addSetsToFolder(folder: FolderEntity, sets: SetEntity[]): Promise<number> {
+    const currentFolderSets = await this.folderSetRepository.find({ folder: folder });
+    const currentSetsOfFolder = currentFolderSets.map(fs => fs.set.id);
+    const setIds = new Set(sets.map(set => set.id));
     for (const setId of setIds) {
-      folderSets.push({ folderId: folderId, setId: setId });
+      if (!currentSetsOfFolder.includes(setId)) {
+        const set = sets.find(set => set.id == setId);
+        await this.folderSetRepository.insert({ folder: folder, set: set });
+      }
     }
-    await this.folderSetRepository.insert(folderSets);
-    return true;
+    return this.countSetsOfFolder(folder);
   }
 
-  async removeSetsFromFolder(folderId: string, setIds: string[]): Promise<boolean> {
-    for (const setId of setIds) {
-      await this.folderSetRepository.delete({ folderId: folderId, setId: setId });
+  async removeSetsFromFolder(folder: FolderEntity, sets: SetEntity[]): Promise<number> {
+    for (const set of sets) {
+      await this.folderSetRepository.delete({ folder: folder, set: set });
     }
-    return true;
+    return this.countSetsOfFolder(folder);
   }
 
-  async deleteFolder(folderId: string): Promise<boolean> {
-    await this.folderSetRepository.delete({ folderId: folderId });
+  async deleteFolder(folder: FolderEntity): Promise<boolean> {
+    await this.folderSetRepository.delete({ folder: folder });
     return true;
   }
 }

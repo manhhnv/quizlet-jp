@@ -1,23 +1,18 @@
 type Query {
-    users: [User!]!
-    user(id: String!): User
-    me: User!
+  users: [User!]!
+  user(id: String!): User
+  me: User!
 
-    classes: [Class!]!
-    class(classId: String): Class
+  #set
+  set(setId: String): Set
+  sets: [Set!]
 
+  #folder
+  folder(folderId: String): Folder!
+  folders: [Folder!]
 
-    #set
-    set(setId: String): Set
-    sets: [Set!]
+  class(classId: String): Class!
+  classes: [Class!]
 
-    #folder
-    folder(folderId: String): Folder!
-    folders: [Folder!]
-
-
-
-    ## TO DO: ADMIN QUERY
-
+  ## TO DO: ADMIN QUERY
 }
-

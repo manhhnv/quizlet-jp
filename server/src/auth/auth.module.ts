@@ -6,15 +6,19 @@ import { UserModule } from 'src/user/user.module';
 import { JwtModule } from '@nestjs/jwt/dist/jwt.module';
 import { SECRET } from 'src/options/config/config';
 import { GqlAuthGuard } from './auth.guard';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TokenEntity } from './token/token.entity';
 
 @Module({
   imports: [
     UserModule,
-    JwtModule.register({ secret: SECRET })
+    JwtModule.register({ secret: SECRET }),
+    TypeOrmModule.forFeature([TokenEntity])
   ],
   providers: [AuthService, AuthResolver, JwtStrategy, GqlAuthGuard],
   exports: [
-    JwtModule
+    JwtModule, AuthService
   ],
 })
+
 export class AuthModule { }

@@ -53,6 +53,13 @@ export class ClassInput {
     school?: string;
 }
 
+export class ClassUpdate {
+    className?: string;
+    description?: string;
+    option?: ClassOption;
+    school?: string;
+}
+
 export class FolderInput {
     title: string;
     description: string;
@@ -89,7 +96,7 @@ export class UserToken {
 export class ClassMember {
     id: string;
     name: string;
-    classRole?: ClassRole;
+    role?: ClassRole;
 }
 
 export class Class {
@@ -100,10 +107,13 @@ export class Class {
     school: string;
     totalMembers: number;
     totalSets: number;
+    totalFolders: number;
     members?: ClassMember[];
     folders?: Folder[];
     sets?: Set[];
     link: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export class Folder {
@@ -120,7 +130,7 @@ export class Folder {
 export abstract class IMutation {
     abstract register(input: RegisterInput): UserToken | Promise<UserToken>;
 
-    abstract login(input?: LoginInput): UserToken | Promise<UserToken>;
+    abstract login(input: LoginInput): UserToken | Promise<UserToken>;
 
     abstract logout(): boolean | Promise<boolean>;
 
@@ -130,15 +140,15 @@ export abstract class IMutation {
 
     abstract createSet(create?: SetInput): Set | Promise<Set>;
 
-    abstract updateSet(setId?: string, update?: SetInput): Set | Promise<Set>;
+    abstract updateSet(setId: string, update?: SetInput): Set | Promise<Set>;
 
-    abstract deleteSet(setId?: string): boolean | Promise<boolean>;
+    abstract deleteSet(setId: string): boolean | Promise<boolean>;
 
     abstract createFolder(create?: FolderInput): Folder | Promise<Folder>;
 
-    abstract updateFolder(folderId?: string, update?: FolderInput): Folder | Promise<Folder>;
+    abstract updateFolder(folderId: string, update?: FolderInput): Folder | Promise<Folder>;
 
-    abstract deleteFolder(folderId?: string): boolean | Promise<boolean>;
+    abstract deleteFolder(folderId: string): boolean | Promise<boolean>;
 
     abstract addSetsToFolder(folderId?: string, setIds?: string[]): Folder | Promise<Folder>;
 
@@ -146,23 +156,21 @@ export abstract class IMutation {
 
     abstract createClass(create?: ClassInput): Class | Promise<Class>;
 
-    abstract updateClass(classId?: string, update?: ClassInput): Class | Promise<Class>;
+    abstract updateClass(classId: string, update?: ClassUpdate): Class | Promise<Class>;
 
-    abstract deleteClass(classId?: string): boolean | Promise<boolean>;
+    abstract deleteClass(classId: string): boolean | Promise<boolean>;
 
-    abstract addSetToClass(setId?: string, classId?: string): Set | Promise<Set>;
+    abstract addItems(classId: string, folderIds: string[], setIds: string[]): Class | Promise<Class>;
 
-    abstract removeSetFromClass(setId?: string, classId?: string): boolean | Promise<boolean>;
+    abstract removeItems(classId: string, folderIds: string[], setIds: string[]): Class | Promise<Class>;
 
-    abstract addFolderToClass(folderId?: string, classId?: string): Folder | Promise<Folder>;
+    abstract addMembers(classId: string, memberIds: string[]): Class | Promise<Class>;
 
-    abstract removeFolderFromClass(setId?: string, classId?: string): boolean | Promise<boolean>;
+    abstract setClassRole(classId: string, role: ClassRole, userId: string): Class | Promise<Class>;
+
+    abstract removeMembers(classId: string, memberIds: string[]): Class | Promise<Class>;
 
     abstract invite(email?: string): boolean | Promise<boolean>;
-
-    abstract removeUser(userId?: string): boolean | Promise<boolean>;
-
-    abstract makeAdmin(userId?: string): boolean | Promise<boolean>;
 }
 
 export abstract class IQuery {
@@ -182,7 +190,7 @@ export abstract class IQuery {
 
     abstract class(classId?: string): Class | Promise<Class>;
 
-    abstract classes(): Folder[] | Promise<Folder[]>;
+    abstract classes(): Class[] | Promise<Class[]>;
 }
 
 export class Card {

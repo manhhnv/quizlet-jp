@@ -38,7 +38,6 @@ export class SetEntity extends Set {
   definitionLanguage: Language;
   @Column()
   termLanguage: Language;
-  @OneToMany(() => CardEntity,
-    (card) => card.set, { eager: true })
+  @OneToMany(() => CardEntity, card => card.set, { eager: true })
   cards: CardEntity[];
 }

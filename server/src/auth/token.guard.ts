@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { getRepository } from 'typeorm';
-import { TokenEntity } from './auth/token/token.entity';
+import { TokenEntity } from './token/token.entity';
 
 @Injectable()
 export class TokenGuard implements CanActivate {

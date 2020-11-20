@@ -4,7 +4,7 @@ import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { CtxUser } from 'src/options/decorators/ctx-user.decorator';
 import { User, UserData } from 'src/graphql';
 import { UserService } from './user.service';
-import { TokenGuard } from 'src/token.guard';
+import { TokenGuard } from 'src/auth/token.guard';
 
 @Resolver()
 export class UserResolver {

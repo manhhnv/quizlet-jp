@@ -16,21 +16,9 @@ export class FolderService {
   ) {
   }
 
-  async getAllFoldersOfUser(user: User): Promise<Folder[]> {
-    const folders = await this.folderRepository.find({ creator: user });
-    for (let i = 0; i < folders.length; i++) {
-      const folderSet = await this.folderSetService.getSetsOfFolder(folders[i].id);
-      const setIds = folderSet.map(val => val.setId);
-      folders[i].sets = await this.setService.getSets(setIds);
-    }
-    return folders;
-  }
-
   async createFolder(create: FolderInput, user: User): Promise<Folder> {
     const folder = await this.folderRepository.save({ ...create, totalSets: 0, creator: user });
-    const folderSet = await this.folderSetService.getSetsOfFolder(folder.id);
-    const setIds = folderSet.map(val => val.setId);
-    folder.sets = await this.setService.getSets(setIds);
+    folder.sets = (await this.folderSetService.getSetsOfFolder(folder)).map(fs => fs.set);
     return folder;
   }
 
@@ -44,27 +32,39 @@ export class FolderService {
     const folder = await this.folderRepository.findOne({ id: folderId });
     if (folder && folder.creator.id === user.id) {
       await this.folderRepository.delete({ id: folderId });
-      await this.folderSetService.deleteFolder(folderId);
+      await this.folderSetService.deleteFolder(folder);
       return true;
     }
     return false;
   }
 
   async addSetsToFolder(folderId: string, setIds: string[]): Promise<Folder> {
-    await this.folderSetService.addSetsToFolder(folderId, setIds);
+    const sets = await this.setService.getSets(setIds);
+    const folder = await this.folderRepository.findOne(folderId);
+    const totalSets = await this.folderSetService.addSetsToFolder(folder, sets);
+    await this.folderRepository.update({ id: folderId }, { totalSets: totalSets });
     return this.getFolder(folderId);
   }
 
   async removeSetsFromFolder(folderId: string, setIds: string[]): Promise<Folder> {
-    await this.folderSetService.removeSetsFromFolder(folderId, setIds);
+    const folder = await this.folderRepository.findOne(folderId);
+    const sets = await this.setService.getSets(setIds);
+    const totalSets = await this.folderSetService.removeSetsFromFolder(folder, sets);
+    await this.folderRepository.update({ id: folderId }, { totalSets: totalSets });
     return this.getFolder(folderId);
   }
 
   async getFolder(folderId: string): Promise<Folder> {
     const folder = await this.folderRepository.findOne({ id: folderId });
-    const folderSet = await this.folderSetService.getSetsOfFolder(folderId);
-    const setIds = folderSet.map(val => val.setId);
-    folder.sets = await this.setService.getSets(setIds);
+    folder.sets = (await this.folderSetService.getSetsOfFolder(folder)).map(fs => fs.set);
     return folder;
+  }
+
+  async getAllFoldersOfUser(user: User): Promise<Folder[]> {
+    const folders = await this.folderRepository.find({ creator: user });
+    for (let i = 0; i < folders.length; i++) {
+      folders[i].sets = (await this.folderSetService.getSetsOfFolder(folders[i])).map(fs => fs.set);
+    }
+    return folders;
   }
 }

@@ -1,11 +1,11 @@
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
 import { Card, Set, SetInput, User } from '../graphql';
-import { getRepository, In } from 'typeorm';
+import { In } from 'typeorm';
 import { CardService } from './card/card.service';
 import { Repository } from 'typeorm/repository/Repository';
 import { Injectable } from '@nestjs/common';
 import { SetEntity } from './set.entity';
-import { FolderSetEntity } from '../folder/folder-set/folder-set.entity';
+// import { FolderSetEntity } from '../folder/folder-set/folder-set.entity';
 
 @Injectable()
 export class SetService {
@@ -24,7 +24,7 @@ export class SetService {
     return await this.setRepository.find({ creator: user });
   }
 
-  async getSets(setIds: string[]): Promise<Set[]> {
+  async getSets(setIds: string[]): Promise<SetEntity[]> {
     if (setIds.length == 0) {
       return [];
     }
@@ -32,7 +32,6 @@ export class SetService {
   }
 
   async createSet(data: SetInput, user: User): Promise<Set> {
-    console.log(data);
     const set = await this.setRepository.save({
       creator: user,
       title: data.title,
@@ -79,11 +78,8 @@ export class SetService {
     const set = await this.setRepository.findOne({ id: setId });
     if (set.creator.id == userId) {
       await this.setRepository.delete({ id: setId });
-      await getRepository(FolderSetEntity).delete({ setId: setId });
       return true;
     }
     return false;
   };
-
-
 }

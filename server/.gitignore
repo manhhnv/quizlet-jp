@@ -11,7 +11,9 @@ yarn-error.log*
 lerna-debug.log*
 
 package-lock.json
-ormConfig.json
+yarn.lock
+package.json
+ormconfig.json
 # OS
 .DS_Store
 

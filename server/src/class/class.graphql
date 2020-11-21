@@ -21,7 +21,7 @@ enum ClassOption {
 }
 
 # Input
-input ClassInput {
+input ClassCreate {
   className: String!
   description: String
   option: ClassOption!

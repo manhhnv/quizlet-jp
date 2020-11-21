@@ -1,5 +1,5 @@
-import { UserEntity } from 'src/user/user.entity';
 import { CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { UserEntity } from 'src/user/user.entity';
 
 @Entity({ name: 'tokens' })
 export class TokenEntity {

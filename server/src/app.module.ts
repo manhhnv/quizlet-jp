@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
+import { AuthModule } from './auth/auth.module';
+import { ClassModule } from './class/class.module';
+import { FolderModule } from './folder/folder.module';
 import { GraphQLModule } from '@nestjs/graphql';
+import { LogModule } from './log/log.module';
+import { Module } from '@nestjs/common';
+import { SetModule } from './set/set.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-import { SetModule } from './set/set.module';
-import { AuthModule } from './auth/auth.module';
-import { FolderModule } from './folder/folder.module';
-import { ClassModule } from './class/class.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ClassModule } from './class/class.module';
     SetModule,
     FolderModule,
     ClassModule,
+    LogModule,
   ],
   providers: [],
 })

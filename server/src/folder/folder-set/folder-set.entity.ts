@@ -1,6 +1,6 @@
-import { SetEntity } from 'src/set/set.entity';
 import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { FolderEntity } from '../folder.entity';
+import { SetEntity } from 'src/set/set.entity';
 
 @Entity({ name: 'folder_set' })
 export class FolderSetEntity {

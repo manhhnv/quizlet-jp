@@ -1,9 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from "passport-jwt";
 import { AuthService } from "./auth.service";
-import { SECRET } from "../options/config/config";
+import { ExtractJwt, Strategy } from "passport-jwt";
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwoDto } from './jwt.dto';
+import { PassportStrategy } from '@nestjs/passport';
+import { SECRET } from "../options/config/config";
 import { User } from 'src/graphql';
 
 

@@ -3,6 +3,10 @@ input LoginInput {
   email: String!
   password: String!
 }
+type UserToken {
+  token: String!
+  user: User!
+}
 
 input RegisterInput {
   name: String!

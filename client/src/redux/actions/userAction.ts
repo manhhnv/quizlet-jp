@@ -5,8 +5,8 @@ export const UPDATE_USER = "UPDATE_USER";
 export const userLogin = (credential: any, addToast: any) => {
     return async (dispatch: any) => {
         try {
-            const response = await client.query({
-                query: LOG_IN,
+            const response = await client.mutate({
+                mutation: LOG_IN,
                 variables: {
                     input: credential,
                 }

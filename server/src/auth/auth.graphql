@@ -2,6 +2,10 @@ input LoginInput {
   email: String!
   password: String!
 }
+type UserToken {
+  token: String!
+  user: User!
+}
 
 input RegisterInput {
   name: String!
@@ -13,9 +17,4 @@ input RegisterInput {
 type Mutation {
   register(input: RegisterInput!): UserToken
   login(input: LoginInput): UserToken
-}
-
-type UserToken {
-  token: String!
-  user: User!
 }

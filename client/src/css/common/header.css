@@ -102,7 +102,12 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    cursor: pointer;
   }
+
+.avatar:hover {
+    opacity: 0.7;
+}
 @media only screen and (max-width: 768px) {
     .right {
         display: none !important;
@@ -118,3 +123,22 @@
     }
   }
   
+.custom-dialog-logout {
+    position: absolute;
+    width:13rem !important; 
+    top:3rem; 
+    right:10rem;
+}
+
+.logout-button {
+    color: coral;
+    font-weight: bold;
+}
+
+.logoutCon {
+    cursor: pointer;
+}
+
+.logoutCon:hover {
+    background-color: #fff9e3;
+}

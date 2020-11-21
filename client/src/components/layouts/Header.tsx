@@ -1,13 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { BiAddToQueue } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { FiLogOut } from 'react-icons/fi';
 import LoginPopup from './LoginPopup';
 import RegisterPopup from './RegisterPopup';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-const Header = ({user}: any) => {
+import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
+import { logout } from '../../redux/actions/userAction';
+import { userInfo } from 'os';
+const Header = ({ user, logout }: any) => {
     const [show, setShow] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
+    const [logoutModal, setLogoutModal] = useState(false);
+
     const closeLoginPopup = () => {
         setShow(false);
     };
@@ -20,10 +26,21 @@ const Header = ({user}: any) => {
     const openRegisterPopup = () => {
         setShowRegister(true);
     };
+    const openLogout = () => {
+        setLogoutModal(true);
+    }
+    const closeLogout = () => {
+        setLogoutModal(false);
+    };
+    const handleLogout = (token: String) => {
+        setLogoutModal(false);
+        logout(token);
+    }
+
     return (
         <React.Fragment>
-            <LoginPopup show={show} closeLoginPopup={closeLoginPopup}/>
-            <RegisterPopup showRegister={showRegister} closeRegisterPopup={closeRegisterPopup} openLoginPopup={openLoginPopup}/>
+            <LoginPopup show={show} closeLoginPopup={closeLoginPopup} />
+            <RegisterPopup showRegister={showRegister} closeRegisterPopup={closeRegisterPopup} openLoginPopup={openLoginPopup} />
             <div className="header-container">
                 <div className="left-container">
                     <div className='left'>
@@ -55,20 +72,53 @@ const Header = ({user}: any) => {
 
 
                 </div>
-
+                {console.log("++++++", user)}
                 <div className="rigth-container">
                     {user?.token ? (
-                        <img src={require('../../assets/avatar.png')} alt="Avatar" className="avatar" />
-                    ): (
-                        <React.Fragment>
-                            <div className="button signin" onClick={openLoginPopup}>
-                                Đăng nhập
+                        <div>
+
+                            <img src={require('../../assets/avatar.png')} alt="Avatar" className="avatar" onClick={openLogout} />
+                            <div>
+                                {
+
+                                    (logoutModal &&
+
+                                        <Modal show={logoutModal} onHide={closeLogout} dialogClassName='custom-dialog-logout'>
+                                            <Modal.Header style={{ backgroundColor: "white" }}>
+                                                <Row style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center" }}>
+                                                    <img src={require('../../assets/avatar.png')} alt="Avatar" className="avatar" />
+                                                    <div style={{ color: "black" }}>{user.user.username}</div>
+                                                </Row>
+                                            </Modal.Header>
+                                            <Modal.Body className="logoutCon" onClick={() => handleLogout(user.token)}>
+
+                                                <Row style={{ flexDirection: "row", justifyContent: "space-around", alignContent: "center", alignItems: "center" }}>
+                                                    <FiLogOut style={{ fontSize: 30 }} />
+                                                    <div className="logout-button">Đăng xuất</div>
+
+                                                </Row>
+
+                                            </Modal.Body>
+
+                                        </Modal>
+
+                                    )
+                                }
+
                             </div>
-                            <div className="button signup"  onClick={openRegisterPopup}>
-                              Đăng Ký
+                        </div>
+
+
+                    ) : (
+                            <React.Fragment>
+                                <div className="button signin" onClick={openLoginPopup}>
+                                    Đăng nhập
                             </div>
-                        </React.Fragment>
-                    )}
+                                <div className="button signup" onClick={openRegisterPopup}>
+                                    Đăng Ký
+                            </div>
+                            </React.Fragment>
+                        )}
                 </div>
 
             </div>
@@ -80,4 +130,9 @@ const mapStateToProps = (state: any) => {
         user: state.user
     }
 }
-export default connect(mapStateToProps, null)(React.memo(Header));
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        logout: (token: String) => dispatch(logout(token))
+    }
+} 
+export default connect(mapStateToProps,  mapDispatchToProps)(React.memo(Header));

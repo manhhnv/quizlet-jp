@@ -1,8 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { allModules } from '../../redux/actions/moduleAction';
 
 
-const MainPage = ({ user }: any) => {
+
+const MainPage = ({ user, allModules, module }: any) => {
+
+    const showModules = () => {
+        allModules(user.token);
+        // console.log(module);
+    }
+
     return (
         <div>
             <div className="main-page-header">
@@ -14,7 +22,7 @@ const MainPage = ({ user }: any) => {
                         {user.user.username}
                     </div>
                     <div className="profile-button-container">
-                        <button className="profile-button">Đã tạo</button>
+                        <button className="profile-button" onClick={showModules}>Đã tạo</button>
                         <button className="profile-button">Đã học</button>
                     </div>
                 </div>
@@ -26,12 +34,13 @@ const MainPage = ({ user }: any) => {
 
 const mapStateToProps = (state: any) => {
     return {
-        user: state.user
+        user: state.user,
+        module: state.module
     }
 }
-// const mapDispatchToProps = (dispatch: any) => {
-//     return {
-//         logout: (token: String) => dispatch(logout(token))
-//     }
-// } 
-export default connect(mapStateToProps,  null)(React.memo(MainPage));
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        allModules: (token: String) => dispatch(allModules(token))
+    }
+} 
+export default connect(mapStateToProps,  mapDispatchToProps)(React.memo(MainPage));

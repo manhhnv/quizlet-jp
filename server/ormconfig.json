@@ -1,22 +1,22 @@
 {
-    "type": "mysql",
-    "host": "localhost",
-    "port": 3307,
-    "username": "root",
-    "password": "",
-    "database": "nestjs",
-    "synchronize": false,
-    "logging": true,
-    "entities": [
-      "dist/**/*.entity.js"
-    ],
-    "migrations": [
-      "dist/migrations/*.js"
-    ],
-    "subscribers": [
-      "dist/migrations/subscriber/*.js"
-    ],
-    "cli": {
-      "migrationsDir": "src/migrations/"
-    }
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "nam",
+  "password": "123456789",
+  "database": "temp",
+  "synchronize": false,
+  "logging": true,
+  "entities": [
+    "dist/**/*.entity.js"
+  ],
+  "migrations": [
+    "dist/migrations/*.js"
+  ],
+  "subscribers": [
+    "dist/migrations/subscriber/*.js"
+  ],
+  "cli": {
+    "migrationsDir": "src/migrations/"
   }
+}

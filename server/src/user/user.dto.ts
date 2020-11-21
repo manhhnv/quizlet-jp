@@ -1,8 +1,8 @@
-import { IsEmail, IsString } from "class-validator";
+// import { IsEmail, IsString } from "class-validator";
 
-export class UDto {
+export class UserDto {
   email: string
   password: string;
-  birthday: string
+  birthday: Date
   name: string;
 }

@@ -1,3 +1,4 @@
+scalar Date
 input LoginInput {
   email: String!
   password: String!
@@ -10,11 +11,11 @@ type UserToken {
 input RegisterInput {
   name: String!
   email: String!
-  birthday: String!
+  birthday: Date!
   password: String!
 }
 
-type Mutation {
-  register(input: RegisterInput!): UserToken
-  login(input: LoginInput): UserToken
+type UserToken {
+  token: String!
+  user: User!
 }

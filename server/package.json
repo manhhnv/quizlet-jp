@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migration": "nest build && typeorm migration:generate -n migration-database && typeorm migration:run"
+    "migration": "rimraf dist && nest build && typeorm migration:generate -n migration-database && nest build && typeorm migration:run"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -36,8 +36,12 @@
     "graphql-tools": "^6.2.2",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+<<<<<<< HEAD
+    "npm": "^6.14.8",
+=======
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+>>>>>>> c535cc60dbfb603b37b5d3298e917c42c3392e11
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",

@@ -13,7 +13,9 @@ yarn-error.log*
 lerna-debug.log*
 
 package-lock.json
-ormConfig.json
+yarn.lock
+package.json
+ormconfig.json
 # OS
 .DS_Store
 
@@ -36,3 +38,5 @@ ormConfig.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/migration
+/.vscode

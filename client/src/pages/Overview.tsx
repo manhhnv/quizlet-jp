@@ -8,7 +8,9 @@ import { BsFiles } from 'react-icons/bs';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MainPage from '../components/layouts/MainPage';
-const Overview = ({ user }: any) => {
+import ModuleCard from '../components/layouts/ModuleCard';
+import { allModules } from '../redux/actions/moduleAction';
+const Overview = ({ user, allModules, module }: any) => {
 
 
     if (!user?.token) {
@@ -65,11 +67,30 @@ const Overview = ({ user }: any) => {
 
                 <Col md={10}>
                     <MainPage />
-                    <Link to="/course" style={{ textDecoration: 'none' }}>
-                        <div className="main-page-body">
+                    <Col md={12}>
+
+                        {
+                            module.map((item: any) => {
+                                // console.log(user.user.filter((ittem: any) => ittem.id === item.id))
+                                return (
+                                    <React.Fragment key={item.id}>
+                                        <ModuleCard name={item.name}
+                                            description={item.description}
+                                            create_at={item.created_at}
+                                            author={user.user.username}
+                                        ></ModuleCard>
+                                    </React.Fragment>
+                                )
+                            })
+
+                        }
+                        <Link to="/course" style={{ textDecoration: 'none' }}>
+
                             <button className="add-course">Tạo học phần </button>
-                        </div>
-                    </Link>
+
+                        </Link>
+                    </Col>
+
                 </Col>
 
 
@@ -79,7 +100,14 @@ const Overview = ({ user }: any) => {
 }
 const mapStateToProps = (state: any) => {
     return {
-        user: state.user
+        user: state.user,
+        module: state.module
     }
 }
-export default connect(mapStateToProps, null)(React.memo(Overview))
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        allModules: (token: String) => dispatch(allModules(token))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Overview))

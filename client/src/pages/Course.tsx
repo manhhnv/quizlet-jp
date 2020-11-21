@@ -4,16 +4,19 @@ import { Redirect } from 'react-router-dom';
 import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import AccessRolePopup from "../components/layouts/AccessRolePopup";
+import { allModules } from '../redux/actions/moduleAction';
 
-const Course = ({ user }: any) => {
+const Course = ({ module, allModules }: any) => {
 
     const [showModal, setShowModal] = useState(false);
     const [validated, setValidated] = useState(false);
-    const [beToTet, setBeTotet] = useState("");
-    const [formData, setFormData] = useState({title: "", description: "", publicc: "", maxscore: ""});
+    const [publicc, setPublicc] = useState(1);
+    const [formData, setFormData] = useState({title: "", description: "", publicc: 1, maxscore: ""});
 
     const handleMax = (max: any) => {
-        setBeTotet(max);
+        if(max === "1") setPublicc(1);
+        if(max === "0") setPublicc(0);
+
     }
 
     const handleChange = (e: any) => {
@@ -39,14 +42,14 @@ const Course = ({ user }: any) => {
         else {
             
             e.preventDefault();
-            const data = {...formData, publicc: beToTet};
-            console.log(data);
-            setFormData({title: "", description: "", publicc: "", maxscore: ""});
-            setBeTotet("")
+
+            const data2 = {...formData,publicc}
+            console.log(data2);
+            setFormData({title: "", description: "", publicc: 1, maxscore: ""});
+            setPublicc(1);
             
         }
-        
-        
+             
         setValidated(true);
     }
 
@@ -147,7 +150,13 @@ const Course = ({ user }: any) => {
 }
 const mapStateToProps = (state: any) => {
     return {
-        user: state.user
+        user: state.user,
+        module: state.module
     }
 }
-export default connect(mapStateToProps, null)(React.memo(Course))
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        allModules: (token: String) => dispatch()
+    }
+} 
+export default connect(mapStateToProps,  mapDispatchToProps)(React.memo(Course));

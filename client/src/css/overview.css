@@ -42,3 +42,10 @@
         display: none;
     }
 }
+
+.card-container{
+    width: 50rem;
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+    margin: 1rem;
+    margin-left: 7rem;
+}

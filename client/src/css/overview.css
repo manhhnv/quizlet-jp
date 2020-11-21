@@ -34,6 +34,8 @@
 }
 .side-menu-container {
     box-shadow: 5px 5px 8px #888888;
+    height: 100vh;
+    width: 20rem;
 }
 @media only screen and (max-width: 768px) {
     .side-menu__section-container {

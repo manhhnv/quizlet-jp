@@ -12,3 +12,9 @@ export type LoginInput = {
     email: string;
     password: string;
 }
+export type AccessRolePopupProps = {
+    user?: any;
+    showModal: boolean;
+    closePopup?: any;
+    handleMax?: any;
+}

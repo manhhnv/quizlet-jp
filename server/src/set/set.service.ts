@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
-import { Repository } from 'typeorm/repository/Repository';
-import { SetEntity } from './set.entity';
-import { Set, SetCreate, SetUpdate } from '../graphql';
+import { Card, Set, SetInput, User } from '../graphql';
+import { In } from 'typeorm';
 import { CardService } from './card/card.service';
+import { Repository } from 'typeorm/repository/Repository';
+import { Injectable } from '@nestjs/common';
+import { SetEntity } from './set.entity';
+// import { FolderSetEntity } from '../folder/folder-set/folder-set.entity';
 
 @Injectable()
 export class SetService {
@@ -14,46 +16,70 @@ export class SetService {
   ) {
   }
 
-  async createSet(newSet: SetCreate, userId: string): Promise<Set> {
-    const totalCards = newSet.cards.length;
-
-    const set = await this.setRepository.save({
-      userId: userId,
-      title: newSet.title,
-      description: newSet.description,
-      password: newSet.password ? newSet.password : '',
-      visible: newSet.visible,
-      editable: newSet.editable,
-      totalCards: totalCards,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-
-    await this.cardService.importCardsToSet(set.id, newSet.cards);
-
-    return { ...set, cards: await this.cardService.getCards(set.id) };
+  async getSetById(setId: string): Promise<Set> {
+    return await this.setRepository.findOne({ id: setId });
   }
 
+  async getSetsByUserId(user: User): Promise<Set[]> {
+    return await this.setRepository.find({ creator: user });
+  }
 
-  async updateSet(setId: string, update: SetUpdate, userId: string): Promise<Set> {
-    const { cards, ...updateData } = update;
+  async getSets(setIds: string[]): Promise<SetEntity[]> {
+    if (setIds.length == 0) {
+      return [];
+    }
+    return this.setRepository.find({ where: { id: In(setIds) } });
+  }
 
-    const totalCards = await this.cardService.countCards(setId);
+  async createSet(data: SetInput, user: User): Promise<Set> {
+    const set = await this.setRepository.save({
+      creator: user,
+      title: data.title,
+      description: data.description,
+      password: data.password ? data.password : '',
+      visible: data.visible,
+      editable: data.editable,
+      totalCards: data.cards.length,
+      termLanguage: data.termLanguage,
+      definitionLanguage: data.definitionLanguage,
+    });
 
+    return {
+      ...set,
+      cards: await this.cardService.importCardsToSet(set, data.cards),
+    };
+  }
+
+  async updateSet(setId: string, data: SetInput, user: User): Promise<Set> {
+    const { cards, ...update } = data;
+    //TO DO : Chỉnh update = password hoặc check quyền
+    const set = await this.setRepository.findOne({ id: setId });
+    const totalCards = set.totalCards;
+    let newCards: Card[];
     if (cards && cards.length != 0) {
-      await this.cardService.removeAllCards(setId);
-      await this.cardService.importCardsToSet(setId, cards);
+      await this.cardService.removeAllCards(set);
+      newCards = await this.cardService.importCardsToSet(set, cards);
     }
 
     await this.setRepository.update({ id: setId },
       {
-        ...updateData,
+        ...update,
         totalCards: cards ? cards.length : totalCards,
-        updatedAt: new Date(),
       });
 
-    const set = await this.setRepository.findOne({ id: setId });
+    Object.keys(update).forEach(atr => {
+      set[atr] = update[atr];
+    });
 
-    return { ...set, cards: await this.cardService.getCards(setId) };
+    return { ...set, cards: newCards };
   }
+
+  async deleteSet(setId: string, userId: string): Promise<boolean> {
+    const set = await this.setRepository.findOne({ id: setId });
+    if (set.creator.id == userId) {
+      await this.setRepository.delete({ id: setId });
+      return true;
+    }
+    return false;
+  };
 }

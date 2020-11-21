@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
 import { Repository } from 'typeorm/repository/Repository';
 import { CardEntity } from './card.entity';
+import { SetEntity } from '../set.entity';
 import { Card, CardInput } from '../../graphql';
 
 @Injectable()
@@ -12,34 +13,26 @@ export class CardService {
   ) {
   }
 
-  async removeAllCards(setId: string) {
-    return await this.cardRepository.delete({ setId: setId });
+  async removeAllCards(set: SetEntity) {
+    return await this.cardRepository.delete({ set: set });
   }
 
-  async getCards(setId: string): Promise<Card[]> {
-    return this.cardRepository.find({ setId: setId });
+  async getCards(set: SetEntity): Promise<Card[]> {
+    return this.cardRepository.find({ set: set });
   }
 
-  async countCards(setId: string): Promise<number> {
-    return (await this.cardRepository.find({ setId: setId })).length;
-  }
-
-  async importCardsToSet(setId: string, inputs: CardInput[]): Promise<void> {
+  async importCardsToSet(set: SetEntity, data: CardInput[]): Promise<Card[]> {
     const cards: Card[] = [];
-    for (let i = 0; i < inputs.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       const card = {
-        setId: setId,
-        term: inputs[i].term,
+        set: set,
+        term: data[i].term,
         orderNumber: i,
-        definition: inputs[i].definition,
-        termLanguage: inputs[i].termLanguage,
-        definitionLanguage: inputs[i].definitionLanguage,
+        definition: data[i].definition,
       };
       cards.push(card);
     }
-
     await this.cardRepository.save(cards);
+    return cards;
   }
-
-
 }

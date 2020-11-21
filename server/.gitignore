@@ -3,7 +3,7 @@
 /node_modules
 /database
 /database/**/*.ts
-
+src/migrations
 # Logs
 logs
 *.log

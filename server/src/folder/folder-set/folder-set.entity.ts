@@ -1,9 +1,13 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { SetEntity } from 'src/set/set.entity';
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { FolderEntity } from '../folder.entity';
 
-@Entity({ name: 'folder-set' })
+@Entity({ name: 'folder_set' })
 export class FolderSetEntity {
-  @PrimaryColumn()
-  folderId: string;
-  @Column()
-  setId: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+  @ManyToOne(() => FolderEntity, folder => folder.id)
+  folder: FolderEntity;
+  @ManyToOne(() => SetEntity, set => set.id, { eager: true })
+  set: SetEntity;
 }

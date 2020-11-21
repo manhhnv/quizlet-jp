@@ -5,8 +5,8 @@ type User {
   name: String!
   email: String!
   role: String!
-  birthday: Date!
   password: String!
+  birthday: Date!
   createdAt: Date!
   updatedAt: Date!
 }

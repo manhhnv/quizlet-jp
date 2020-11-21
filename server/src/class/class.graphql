@@ -1,25 +1,36 @@
 type Class {
-    className: String
-    description: String
-    option: ClassOption
-    school: String
-    members: [User]
-    sets: [Set]
-    link: String
-    admins: [String]
+  id: String!
+  className: String!
+  description: String!
+  option: ClassOption!
+  school: String!
+  totalMembers: Int!
+  totalSets: Int!
+  totalFolders: Int!
+  members: [ClassMember!]
+  folders: [Folder!]
+  sets: [Set!]
+  link: String!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 enum ClassOption {
-    Contributable
-    LearnOnly
+  CanContribute
+  LearnOnly
 }
 
 # Input
 input ClassInput {
-    className: String
-    description: String
-    option: ClassOption
-    school: String
+  className: String!
+  description: String
+  option: ClassOption!
+  school: String
 }
 
-
+input ClassUpdate {
+  className: String
+  description: String
+  option: ClassOption
+  school: String
+}

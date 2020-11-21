@@ -1,22 +1,14 @@
 type Card {
     id: String
-    setId: String
+    set: Set
     term: String
     orderNumber: Int
     definition: String
-    termLanguage: Language
-    definitionLanguage: Language
 }
 
-enum Language {
-    VietNam
-    English
-}
 
 input CardInput {
     term: String!
-    termLanguage: Language!
     definition: String!
-    definitionLanguage: Language!
 }
 

@@ -6,8 +6,13 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export enum ClassRole {
+    Admin = "Admin",
+    Member = "Member"
+}
+
 export enum ClassOption {
-    Contributable = "Contributable",
+    CanContribute = "CanContribute",
     LearnOnly = "LearnOnly"
 }
 
@@ -42,6 +47,13 @@ export class RegisterInput {
 }
 
 export class ClassInput {
+    className: string;
+    description?: string;
+    option: ClassOption;
+    school?: string;
+}
+
+export class ClassUpdate {
     className?: string;
     description?: string;
     option?: ClassOption;
@@ -55,27 +67,18 @@ export class FolderInput {
 
 export class CardInput {
     term: string;
-    termLanguage: Language;
     definition: string;
-    definitionLanguage: Language;
 }
 
-export class SetCreate {
+export class SetInput {
     title: string;
     description: string;
     visible: Visible;
     editable: Editable;
     password?: string;
     cards?: CardInput[];
-}
-
-export class SetUpdate {
-    title?: string;
-    description?: string;
-    visible?: Visible;
-    editable?: Editable;
-    password?: string;
-    cards?: CardInput[];
+    termLanguage?: Language;
+    definitionLanguage?: Language;
 }
 
 export class UserData {
@@ -90,68 +93,84 @@ export class UserToken {
     user: User;
 }
 
+export class ClassMember {
+    id: string;
+    name: string;
+    role?: ClassRole;
+}
+
 export class Class {
-    className?: string;
-    description?: string;
-    option?: ClassOption;
-    school?: string;
-    members?: User[];
+    id: string;
+    className: string;
+    description: string;
+    option: ClassOption;
+    school: string;
+    totalMembers: number;
+    totalSets: number;
+    totalFolders: number;
+    members?: ClassMember[];
+    folders?: Folder[];
     sets?: Set[];
-    link?: string;
-    admins?: string[];
+    link: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export class Folder {
-    id?: string;
-    description?: string;
-    title?: string;
-    creator?: string;
-    totalSets?: number;
+    id: string;
+    title: string;
+    description: string;
+    creator: User;
     sets?: Set[];
-    updateAt?: Date;
-    createAt?: Date;
+    totalSets: number;
+    updatedAt: Date;
+    createdAt: Date;
 }
 
 export abstract class IMutation {
     abstract register(input: RegisterInput): UserToken | Promise<UserToken>;
 
-    abstract login(input?: LoginInput): UserToken | Promise<UserToken>;
+    abstract login(input: LoginInput): UserToken | Promise<UserToken>;
+
+    abstract logout(): boolean | Promise<boolean>;
 
     abstract update(input?: UserData): User | Promise<User>;
 
     abstract joinClass(classId?: string): boolean | Promise<boolean>;
 
-    abstract createSet(create?: SetCreate): Set | Promise<Set>;
+    abstract createSet(create?: SetInput): Set | Promise<Set>;
 
-    abstract updateSet(setId?: string, update?: SetUpdate): Set | Promise<Set>;
+    abstract updateSet(setId: string, update?: SetInput): Set | Promise<Set>;
 
-    abstract createFolder(input?: FolderInput): Folder | Promise<Folder>;
+    abstract deleteSet(setId: string): boolean | Promise<boolean>;
 
-    abstract updateFolder(input?: FolderInput): Folder | Promise<Folder>;
+    abstract createFolder(create?: FolderInput): Folder | Promise<Folder>;
 
-    abstract addSetToFolder(setId?: string, folderId?: string): Folder | Promise<Folder>;
+    abstract updateFolder(folderId: string, update?: FolderInput): Folder | Promise<Folder>;
 
-    abstract removeSetFromFolder(setId?: string, folderId?: string): Folder | Promise<Folder>;
+    abstract deleteFolder(folderId: string): boolean | Promise<boolean>;
 
-    abstract createClass(input?: ClassInput): Class | Promise<Class>;
+    abstract addSetsToFolder(folderId?: string, setIds?: string[]): Folder | Promise<Folder>;
 
-    abstract updateClass(input?: ClassInput): Class | Promise<Class>;
+    abstract removeSetsFromFolder(folderId?: string, setIds?: string[]): Folder | Promise<Folder>;
 
-    abstract deleteClass(classId?: string): boolean | Promise<boolean>;
+    abstract createClass(create?: ClassInput): Class | Promise<Class>;
 
-    abstract addSetToClass(setId?: string, classId?: string): Set | Promise<Set>;
+    abstract updateClass(classId: string, update?: ClassUpdate): Class | Promise<Class>;
 
-    abstract removeSetFromClass(setId?: string, classId?: string): boolean | Promise<boolean>;
+    abstract deleteClass(classId: string): boolean | Promise<boolean>;
 
-    abstract addFolderToClass(folderId?: string, classId?: string): Folder | Promise<Folder>;
+    abstract addItems(classId: string, folderIds: string[], setIds: string[]): Class | Promise<Class>;
 
-    abstract removeFolderFromClass(setId?: string, classId?: string): boolean | Promise<boolean>;
+    abstract removeItems(classId: string, folderIds: string[], setIds: string[]): Class | Promise<Class>;
+
+    abstract addMembers(classId: string, memberIds: string[]): Class | Promise<Class>;
+
+    abstract setClassRole(classId: string, role: ClassRole, userId: string): Class | Promise<Class>;
+
+    abstract removeMembers(classId: string, memberIds: string[]): Class | Promise<Class>;
 
     abstract invite(email?: string): boolean | Promise<boolean>;
-
-    abstract removeUser(userId?: string): boolean | Promise<boolean>;
-
-    abstract makeAdmin(userId?: string): boolean | Promise<boolean>;
 }
 
 export abstract class IQuery {
@@ -161,32 +180,30 @@ export abstract class IQuery {
 
     abstract me(): User | Promise<User>;
 
+    abstract set(setId?: string): Set | Promise<Set>;
+
     abstract sets(): Set[] | Promise<Set[]>;
-
-    abstract set(input: string): Set | Promise<Set>;
-
-    abstract folders(): Folder[] | Promise<Folder[]>;
 
     abstract folder(folderId?: string): Folder | Promise<Folder>;
 
-    abstract classes(): Class[] | Promise<Class[]>;
+    abstract folders(): Folder[] | Promise<Folder[]>;
 
     abstract class(classId?: string): Class | Promise<Class>;
+
+    abstract classes(): Class[] | Promise<Class[]>;
 }
 
 export class Card {
     id?: string;
-    setId?: string;
+    set?: Set;
     term?: string;
     orderNumber?: number;
     definition?: string;
-    termLanguage?: Language;
-    definitionLanguage?: Language;
 }
 
 export class Set {
     id: string;
-    userId: string;
+    creator: User;
     title: string;
     description: string;
     visible: Visible;
@@ -196,6 +213,8 @@ export class Set {
     totalCards: number;
     createdAt: Date;
     updatedAt: Date;
+    termLanguage?: Language;
+    definitionLanguage?: Language;
 }
 
 export class User {
@@ -203,8 +222,8 @@ export class User {
     name: string;
     email: string;
     role: string;
-    birthday: Date;
     password: string;
+    birthday: Date;
     createdAt: Date;
     updatedAt: Date;
 }

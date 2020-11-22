@@ -1,8 +1,8 @@
-import { FolderEntity } from 'src/folder/folder.entity';
 import { Class, ClassMember, ClassOption } from 'src/graphql';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { FolderEntity } from 'src/folder/folder.entity';
 import { SetEntity } from 'src/set/set.entity';
 import { UserEntity } from 'src/user/user.entity';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'classes' })
 export class ClassEntity extends Class {

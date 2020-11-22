@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { FolderSetModule } from 'src/folder/folder-set/folder-set.module';
 import { CFSEntity } from './cfs.entity';
 import { CFSService } from './cfs.service';
+import { FolderSetModule } from 'src/folder/folder-set/folder-set.module';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [

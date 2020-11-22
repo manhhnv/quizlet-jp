@@ -1,16 +1,17 @@
-import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
-import { Card, Set, SetInput, User } from '../graphql';
-import { In } from 'typeorm';
+import { Action, Card, Set, SetCreate, SetUpdate, User } from '../graphql';
 import { CardService } from './card/card.service';
-import { Repository } from 'typeorm/repository/Repository';
+import { In } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
 import { Injectable } from '@nestjs/common';
+import { LogService } from 'src/log/log.service';
+import { Repository } from 'typeorm/repository/Repository';
 import { SetEntity } from './set.entity';
-// import { FolderSetEntity } from '../folder/folder-set/folder-set.entity';
 
 @Injectable()
 export class SetService {
   constructor(
     private cardService: CardService,
+    private logService: LogService,
     @InjectRepository(SetEntity)
     private setRepository: Repository<SetEntity>,
   ) {
@@ -31,7 +32,7 @@ export class SetService {
     return this.setRepository.find({ where: { id: In(setIds) } });
   }
 
-  async createSet(data: SetInput, user: User): Promise<Set> {
+  async createSet(data: SetCreate, user: User): Promise<Set> {
     const set = await this.setRepository.save({
       creator: user,
       title: data.title,
@@ -43,14 +44,14 @@ export class SetService {
       termLanguage: data.termLanguage,
       definitionLanguage: data.definitionLanguage,
     });
-
+    await this.logService.addLog(user, set, null, null, null, Action.CREATE);
     return {
       ...set,
       cards: await this.cardService.importCardsToSet(set, data.cards),
     };
   }
 
-  async updateSet(setId: string, data: SetInput, user: User): Promise<Set> {
+  async updateSet(setId: string, data: SetUpdate, user: User): Promise<Set> {
     const { cards, ...update } = data;
     //TO DO : Chỉnh update = password hoặc check quyền
     const set = await this.setRepository.findOne({ id: setId });
@@ -60,24 +61,19 @@ export class SetService {
       await this.cardService.removeAllCards(set);
       newCards = await this.cardService.importCardsToSet(set, cards);
     }
-
-    await this.setRepository.update({ id: setId },
-      {
-        ...update,
-        totalCards: cards ? cards.length : totalCards,
-      });
-
+    await this.setRepository.update({ id: setId }, { ...update, totalCards: cards ? cards.length : totalCards });
+    await this.logService.addLog(user, set, null, null, null, Action.UPDATE);
     Object.keys(update).forEach(atr => {
       set[atr] = update[atr];
     });
-
     return { ...set, cards: newCards };
   }
 
-  async deleteSet(setId: string, userId: string): Promise<boolean> {
+  async deleteSet(setId: string, user: User): Promise<boolean> {
     const set = await this.setRepository.findOne({ id: setId });
-    if (set.creator.id == userId) {
-      await this.setRepository.delete({ id: setId });
+    if (set.creator.id == user.id) {
+      await this.setRepository.softDelete({ id: setId });
+      await this.logService.addLog(user, set, null, null, null, Action.DELETE);
       return true;
     }
     return false;

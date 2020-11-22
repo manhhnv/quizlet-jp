@@ -1,10 +1,10 @@
-import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
-import { GqlAuthGuard } from 'src/auth/auth.guard';
-import { Class, ClassInput, ClassRole, ClassUpdate, User } from 'src/graphql';
-import { TokenGuard } from 'src/auth/token.guard';
-import { CtxUser } from 'src/options/decorators/ctx-user.decorator';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Class, ClassCreate, ClassRole, ClassUpdate, User } from 'src/graphql';
 import { ClassService } from './class.service';
+import { CtxUser } from 'src/options/decorators/ctx-user.decorator';
+import { GqlAuthGuard } from 'src/auth/auth.guard';
+import { TokenGuard } from 'src/auth/token.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver()
 export class ClassResolver {
@@ -24,7 +24,7 @@ export class ClassResolver {
 
   @Mutation(() => Class)
   @UseGuards(TokenGuard, GqlAuthGuard)
-  async createClass(@CtxUser() user: User, @Args("create") data: ClassInput): Promise<Class> {
+  async createClass(@CtxUser() user: User, @Args("create") data: ClassCreate): Promise<Class> {
     return await this.classService.createClass(data, user);
   }
 

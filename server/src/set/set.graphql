@@ -33,11 +33,22 @@ enum Editable {
 }
 
 #input
-input SetInput {
+input SetCreate {
   title: String!
   description: String!
   visible: Visible!
   editable: Editable!
+  password: String
+  cards: [CardInput!]
+  termLanguage: Language
+  definitionLanguage: Language
+}
+
+input SetUpdate {
+  title: String
+  description: String
+  visible: Visible
+  editable: Editable
   password: String
   cards: [CardInput!]
   termLanguage: Language

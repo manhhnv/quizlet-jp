@@ -1,10 +1,10 @@
-import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { CtxUser } from 'src/options/decorators/ctx-user.decorator';
-import { User, UserData } from 'src/graphql';
-import { UserService } from './user.service';
+import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { TokenGuard } from 'src/auth/token.guard';
+import { UseGuards } from '@nestjs/common';
+import { User, UserUpdate } from 'src/graphql';
+import { UserService } from './user.service';
 
 @Resolver()
 export class UserResolver {
@@ -23,7 +23,7 @@ export class UserResolver {
 
   @Mutation(() => User)
   @UseGuards(TokenGuard, GqlAuthGuard)
-  async update(@CtxUser() user: User, @Args('input') update: UserData): Promise<User> {
+  async update(@CtxUser() user: User, @Args('input') update: UserUpdate): Promise<User> {
     return await this.userService.update(user, update);
   }
 }

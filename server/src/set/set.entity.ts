@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
@@ -8,8 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Editable, Language, Set, User, Visible } from '../graphql';
 import { CardEntity } from './card/card.entity';
+import { Editable, Language, Set, User, Visible } from '../graphql';
 import { UserEntity } from '../user/user.entity';
 
 @Entity('sets')
@@ -28,6 +29,8 @@ export class SetEntity extends Set {
   updatedAt: Date;
   @CreateDateColumn()
   createdAt: Date;
+  @DeleteDateColumn()
+  deletedAt: Date;
   @Column({})
   totalCards: number;
   @Column()

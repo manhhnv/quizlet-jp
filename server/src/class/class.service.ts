@@ -25,6 +25,8 @@ export class ClassService {
     const class_ = await this.classRepository.findOne(classId);
     const members = await this.classMemberService.getMembers(class_);
     const { folders, sets } = await this.cfsService.getFoldersAndSets(class_);
+    class_.totalSets = sets.length;
+    class_.totalFolders = folders.length;
     return { ...class_, members: members, folders: folders, sets: sets }
   }
 
@@ -72,9 +74,9 @@ export class ClassService {
   async addItems(classId: string, folderIds: string[], setIds: string[], user: UserEntity): Promise<Class> {
     const class_ = await this.classRepository.findOne(classId);
     const folders = await getRepository(FolderEntity).find({ where: { id: In(folderIds) } });
-    folders.forEach(async folder => await this.logService.addLog(user, null, folder, class_, null, Action.ADD_FOLDER));
+    folders.forEach(async folder => await this.logService.addLog(user, null, folder, class_, null, Action.ADD));
     const sets = await getRepository(SetEntity).find({ where: { id: In(setIds) } });
-    sets.forEach(async set => await this.logService.addLog(user, set, null, class_, null, Action.ADD_SET));
+    sets.forEach(async set => await this.logService.addLog(user, set, null, class_, null, Action.ADD));
     const { totalSets, totalFolders } = await this.cfsService.addItems(class_, folders, sets);
     await this.classRepository.update({ id: classId }, { totalSets: totalSets, totalFolders: totalFolders });
     return this.getClass(classId);
@@ -83,9 +85,9 @@ export class ClassService {
   async removeItems(classId: string, folderIds: string[], setIds: string[], user: UserEntity): Promise<Class> {
     const class_ = await this.classRepository.findOne(classId);
     const folders = await getRepository(FolderEntity).find({ where: { id: In(folderIds) } });
-    folders.forEach(async folder => await this.logService.addLog(user, null, folder, class_, null, Action.REMOVE_FOLDER));
+    folders.forEach(async folder => await this.logService.addLog(user, null, folder, class_, null, Action.REMOVE));
     const sets = await getRepository(SetEntity).find({ where: { id: In(setIds) } });
-    sets.forEach(async set => await this.logService.addLog(user, set, null, class_, null, Action.REMOVE_SET));
+    sets.forEach(async set => await this.logService.addLog(user, set, null, class_, null, Action.REMOVE));
     const { totalSets, totalFolders } = await this.cfsService.removeItems(class_, folders, sets);
     await this.classRepository.update({ id: classId }, { totalSets: totalSets, totalFolders: totalFolders });
     return this.getClass(classId);
@@ -94,7 +96,7 @@ export class ClassService {
   async addMembers(classId: string, memberIds: string[], user: UserEntity): Promise<Class> {
     const class_ = await this.classRepository.findOne(classId);
     const members = await getRepository(UserEntity).find({ where: { id: In(memberIds) } });
-    members.forEach(async member => await this.logService.addLog(user, null, null, class_, member, Action.ADD_MEMBER));
+    members.forEach(async member => await this.logService.addLog(user, null, null, class_, member, Action.ADD));
     const totalMembers = await this.classMemberService.addMembers(class_, members, ClassRole.Member);
     await this.classRepository.update({ id: classId }, { totalMembers: totalMembers });
     return this.getClass(classId);
@@ -103,7 +105,7 @@ export class ClassService {
   async removeMembers(classId: string, memberIds: string[], user: UserEntity): Promise<Class> {
     const class_ = await this.classRepository.findOne(classId);
     const members = await getRepository(UserEntity).find({ where: { id: In(memberIds) } });
-    members.forEach(async member => await this.logService.addLog(user, null, null, class_, member, Action.REMOVE_MEMBER));
+    members.forEach(async member => await this.logService.addLog(user, null, null, class_, member, Action.ADD));
     const totalMembers = await this.classMemberService.removeMembers(class_, members);
     await this.classRepository.update({ id: classId }, { totalMembers: totalMembers });
     return this.getClass(classId);
@@ -112,7 +114,7 @@ export class ClassService {
   async setClassRole(classId: string, userId: string, classRole: ClassRole, user: UserEntity) {
     const class_ = await this.classRepository.findOne(classId);
     const member = await getRepository(UserEntity).findOne({ id: userId });
-    await this.logService.addLog(user, null, null, class_, member, Action.CHANGE_ROLE_MEMBER);
+    await this.logService.addLog(user, null, null, class_, member, Action.CHANGE_ROLE);
     await this.classMemberService.setMemberRole(class_, member, classRole);
     return this.getClass(classId);
   }

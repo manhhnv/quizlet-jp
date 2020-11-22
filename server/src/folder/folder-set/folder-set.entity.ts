@@ -6,8 +6,8 @@ import { SetEntity } from 'src/set/set.entity';
 export class FolderSetEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @ManyToOne(() => FolderEntity, folder => folder.id)
+  @ManyToOne(() => FolderEntity, folder => folder.id, { eager: true, onDelete: "CASCADE" })
   folder: FolderEntity;
-  @ManyToOne(() => SetEntity, set => set.id, { eager: true })
+  @ManyToOne(() => SetEntity, set => set.id, { eager: true, onDelete: "CASCADE" })
   set: SetEntity;
 }

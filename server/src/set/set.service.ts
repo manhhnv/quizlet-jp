@@ -1,6 +1,8 @@
 import { Action, Card, Set, SetCreate, SetUpdate, User } from '../graphql';
+import { CFSEntity } from 'src/class/class-folder-set/cfs.entity';
 import { CardService } from './card/card.service';
-import { In } from 'typeorm';
+import { FolderSetEntity } from 'src/folder/folder-set/folder-set.entity';
+import { In, getRepository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
 import { Injectable } from '@nestjs/common';
 import { LogService } from 'src/log/log.service';
@@ -72,8 +74,10 @@ export class SetService {
   async deleteSet(setId: string, user: User): Promise<boolean> {
     const set = await this.setRepository.findOne({ id: setId });
     if (set.creator.id == user.id) {
-      await this.setRepository.softDelete({ id: setId });
+      await getRepository(CFSEntity).delete({ set: set });
+      await getRepository(FolderSetEntity).delete({ set: set });
       await this.logService.addLog(user, set, null, null, null, Action.DELETE);
+      await this.setRepository.softDelete({ id: setId });
       return true;
     }
     return false;

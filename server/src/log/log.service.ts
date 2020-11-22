@@ -13,11 +13,17 @@ export class LogService {
   constructor(
     @InjectRepository(LogEntity)
     private logRepository: Repository<LogEntity>
-  ) { }
 
+  ) { }
+  classLogs: string[] = [""]
 
   async addLog(user: UserEntity, set: SetEntity, folder: FolderEntity, class_: ClassEntity, member: UserEntity, action: Action) {
     this.logRepository.insert({ user: user, class: class_, folder: folder, set: set, action: action });
+  }
+
+  async getLogOfUser(user: UserEntity): Promise<string[]> {
+    const logs = await this.logRepository.find({ user: user });
+    return logs.map(log => log.getUserLog());
   }
 
 }

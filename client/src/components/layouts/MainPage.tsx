@@ -4,11 +4,11 @@ import { allModules } from '../../redux/actions/moduleAction';
 
 
 
-const MainPage = ({ user, allModules, module }: any) => {
+const MainPage = ({ user, allModules, module, show }: any) => {
 
     const showModules = () => {
         allModules(user.token);
-        // console.log(module);
+        show(true);
     }
 
     return (
@@ -22,7 +22,7 @@ const MainPage = ({ user, allModules, module }: any) => {
                         {user.user.username}
                     </div>
                     <div className="profile-button-container">
-                        <button className="profile-button" onClick={showModules}>Đã tạo</button>
+                        <button className="profile-button" onClick={() => showModules()}>Đã tạo</button>
                         <button className="profile-button">Đã học</button>
                     </div>
                 </div>

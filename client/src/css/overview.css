@@ -33,9 +33,10 @@
     position: relative;
 }
 .side-menu-container {
+
     box-shadow: 5px 5px 8px #888888;
     height: 100vh;
-    width: 20rem;
+    width: 100%;
 }
 @media only screen and (max-width: 768px) {
     .side-menu__section-container {
@@ -46,8 +47,9 @@
 .course-part{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    height: 100%;
 }
 
 .card-container{

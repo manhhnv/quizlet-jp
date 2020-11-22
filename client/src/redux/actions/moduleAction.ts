@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { MODULE_GET, MODULE_CREATE } from '../../services/module/module.service';
+import { MODULE_GET, MODULE_CREATE, MODULE_DELETE } from '../../services/module/module.service';
 import { ModuleCreate } from '../../types';
 
 export const ALL_MODULES = "ALL_MODULES";
 export const CREATE_MODULE = "CREATE_MODULE";
+export const DELETE_MODULE = "DELETE_MODULE";
 
 export const allModules = (token: String) => {
     return async (dispatch: any) => {
@@ -25,9 +26,9 @@ export const allModules = (token: String) => {
     }
 }
 
-export const addModule = ( token: String, addToast: any, data:object) => {
-    console.log("++++++++++++++++++++",data);
-    return (dispatch: any) => {
+export const addModule = (token: String, addToast: any, data: object) => {
+    console.log("++++++++++++++++++++", data);
+    return async (dispatch: any) => {
         axios.post(MODULE_CREATE.url, data, {
             headers: {
                 "Authorization": "Bearer " + token
@@ -35,7 +36,7 @@ export const addModule = ( token: String, addToast: any, data:object) => {
         })
             .then(response => {
 
-                console.log("++++++++++++++++++++",response);
+                console.log("++++++++++++++++++++", response);
                 if (response.data?.name) {
                     if (addToast) {
                         dispatch({
@@ -48,7 +49,7 @@ export const addModule = ( token: String, addToast: any, data:object) => {
                         })
                     }
                     setTimeout(() => {
-                        window.location.reload()
+                        window.location.replace("/overview");
                     }, 1500)
                 }
                 else {
@@ -75,4 +76,59 @@ export const addModule = ( token: String, addToast: any, data:object) => {
                 }, 1500)
             })
     }
+}
+
+export const deleteModule = (token: String, addToast: any, id: any) => {
+    console.log(MODULE_DELETE.url + `/${id}`);
+    ;
+    // return async (dispatch: any) => {
+    let config = {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    };
+    axios.delete(MODULE_DELETE.url + `/${id}`, config)
+        .then(response => {
+            console.log("oke");
+            if (response.data != null) {
+                if (addToast) {
+                        // dispatch({
+                        //     type: DELETE_MODULE,
+                        //     payload: response.data,
+                        // })
+                        addToast("deleteModule success", {
+                            appearance: "success",
+                            autoDismiss: true
+                        })
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 1500)
+                }
+
+            }
+            else {
+                if (addToast) {
+                    addToast("deleteModule failed !", {
+                        appearance: "error",
+                        autoDismiss: true
+                    })
+                }
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500)
+            }
+        })
+        .catch(e => {
+            if (addToast) {
+                addToast("erro when send delete !", {
+                    appearance: "error",
+                    autoDismiss: true
+                })
+            }
+            setTimeout(() => {
+                window.location.reload()
+            }, 1500)
+        })
+
+    // }
 }

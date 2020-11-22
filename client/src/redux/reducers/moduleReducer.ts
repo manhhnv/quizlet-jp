@@ -1,4 +1,4 @@
-import { ALL_MODULES, CREATE_MODULE } from './../actions/moduleAction';
+import { ALL_MODULES, CREATE_MODULE, DELETE_MODULE } from './../actions/moduleAction';
 
 const initialModuleState = {list: []}
 
@@ -9,6 +9,9 @@ const moduleReducer = (state = initialModuleState, action: any) => {
             console.log(listModules);
             return listModules;
         case CREATE_MODULE:
+            console.log(action.payload) 
+            return state;
+        case DELETE_MODULE:
             console.log(action.payload) 
             return state;
         default:

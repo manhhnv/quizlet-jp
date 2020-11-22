@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HeaderPage from '../components/layouts/Header'
 import { Row, Col, Navbar, Card, Button, Container } from 'react-bootstrap';
 import { FaHome, FaLeaf } from 'react-icons/fa';
@@ -12,13 +12,22 @@ import ModuleCard from '../components/layouts/ModuleCard';
 import { allModules } from '../redux/actions/moduleAction';
 const Overview = ({ user, allModules, module }: any) => {
 
+    const [showList, setShowList] = useState(false);
+
+    const show = (s: any) => {
+        setShowList(s);
+    }
+
 
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
     return (
         <React.Fragment>
-            <HeaderPage></HeaderPage>
+
+            <HeaderPage />
+
+
             <Row>
                 <Col md={2} className="side-menu-container" style={{ backgroundColor: 'white' }}>
                     {/* <div className="side-menu-container" style={{backgroundColor: 'white'}}> */}
@@ -64,33 +73,51 @@ const Overview = ({ user, allModules, module }: any) => {
                     </Navbar>
                     {/* </div> */}
                 </Col>
-
+        
                 <Col md={10}>
-                    <MainPage />
-                    <Col md={12} className="course-part">
 
-                        {
-                            module.map((item: any) => {
-                                // console.log(user.user.filter((ittem: any) => ittem.id === item.id))
-                                return (
-                                    <React.Fragment key={item.id}>
-                                        <ModuleCard name={item.name}
-                                            description={item.description}
-                                            create_at={item.created_at}
-                                            author={user.user.username}
-                                        ></ModuleCard>
-                                    </React.Fragment>
-                                )
-                            })
+                    <MainPage show={show} />
 
-                        }
-                        <Link to="/course" style={{ textDecoration: 'none' }}>
 
-                            <button className="add-course">Tạo học phần </button>
+                    {
+                        (showList) ? (
 
-                        </Link>
-                    </Col>
+                            <Col md={12} className="course-part">
 
+                                {
+                                    (module.length > 0) ? (
+                                        <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                                            <div>
+                                                {
+                                                    module.map((item: any) => {
+                                                        // console.log(user.user.filter((ittem: any) => ittem.id === item.id))
+                                                        return (
+                                                            <React.Fragment key={item.id}>
+                                                                <ModuleCard
+                                                                    id={item.id}
+                                                                    name={item.name}
+                                                                    description={item.description}
+                                                                    create_at={item.created_at}
+                                                                    author={user.user.username}
+                                                                ></ModuleCard>
+                                                            </React.Fragment>
+                                                        )
+                                                    })
+
+                                                }
+                                            </div>
+
+                                            <Link to="/course" style={{ textDecoration: 'none' }}>
+
+                                                <button className="add-course">Tạo học phần </button>
+
+                                            </Link>
+                                        </div>
+                                    ) : null
+                                }
+                            </Col>
+                        ) : null
+                    }
                 </Col>
 
 

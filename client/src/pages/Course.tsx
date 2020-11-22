@@ -144,8 +144,19 @@ const Course = ({ module, allModules, user,addModule }: any) => {
                     <AccessRolePopup showModal={showModal} closePopup={closePopup} handleMax={handleMax}/>
                     <Row style={{ display: "flex", justifyContent: "flex-end" }}>
                         <div style={{ fontWeight: "bold", marginRight: "2rem", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                            <div style={{ fontSize: "1.5rem" }}>
-                                Quyền truy cập
+                            <div style={{ fontSize: "1.5rem" ,display: "flex"}}>
+                                <div>Quyền truy cập: </div>
+                                {
+                                    (publicc === 1) ? (
+                                        <div style={{ marginLeft: "1rem", color: "#3ccfcf" ,fontSize: "1.7rem"}}>Mọi người</div>
+                                    ) : null
+         
+                                }
+                                {
+                                    (publicc === 0) ? (
+                                        <div style={{ marginLeft: "1rem", color: "#3ccfcf", fontSize: "1.7rem"}}>Chỉ mình tôi</div>
+                                    ) : null 
+                                }
                             </div>
                             <div className="thaydoi" onClick={openPopup} style={{ fontSize: "1rem" }}>
                                 Thay đổi

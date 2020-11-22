@@ -67,7 +67,7 @@ const Overview = ({ user, allModules, module }: any) => {
 
                 <Col md={10}>
                     <MainPage />
-                    <Col md={12}>
+                    <Col md={12} className="course-part">
 
                         {
                             module.map((item: any) => {

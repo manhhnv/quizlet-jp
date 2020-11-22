@@ -1,6 +1,6 @@
 import { LOG_IN, REGISTER } from './../../graphql/user.grapql';
 import { client } from "../../apollo-graphql";
-import { LoginInput, RegisterInput } from '../../types';
+import { LoginInput, RegisterInput, ModuleCreate } from '../../types';
 import axios from 'axios';
 import { USER_REGISTER, USER_LOGIN, USER_LOGOUT } from '../../services/auth/auth.service';
 

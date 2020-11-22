@@ -4,16 +4,20 @@ import { Redirect } from 'react-router-dom';
 import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import AccessRolePopup from "../components/layouts/AccessRolePopup";
-import { allModules } from '../redux/actions/moduleAction';
+import { addModule, allModules } from '../redux/actions/moduleAction';
+import { useToasts } from "react-toast-notifications";
+import { convertRefToObject } from '../helper/converRefToObj';
 
-const Course = ({ module, allModules }: any) => {
+const Course = ({ module, allModules, user,addModule }: any) => {
 
     const [showModal, setShowModal] = useState(false);
     const [validated, setValidated] = useState(false);
     const [publicc, setPublicc] = useState(1);
     const [formData, setFormData] = useState({title: "", description: "", publicc: 1, maxscore: ""});
+    const { addToast } = useToasts();
 
     const handleMax = (max: any) => {
+        setShowModal(false);
         if(max === "1") setPublicc(1);
         if(max === "0") setPublicc(0);
 
@@ -41,10 +45,19 @@ const Course = ({ module, allModules }: any) => {
         }
         else {
             
+            
             e.preventDefault();
 
-            const data2 = {...formData,publicc}
-            console.log(data2);
+            const data1 = {...formData,publicc};
+            const data = {
+                name: data1.title,
+                public: !!data1.publicc,
+                max_score: Number(data1.maxscore),
+                description: data1.description,
+            };
+            // const credential = convertRefToObject(loginRef.current);
+            console.log(data);
+            addModule(user.token, addToast, data);
             setFormData({title: "", description: "", publicc: 1, maxscore: ""});
             setPublicc(1);
             
@@ -63,7 +76,7 @@ const Course = ({ module, allModules }: any) => {
                             Tạo học phần mới
                         </div>
                         <div>
-                            <button className="add-c" type="submit" form="thisform">Tạo </button>
+                            <button className="add-c" type="submit" form="thisform" >Tạo </button>
                         </div>
                     </Row>
                 </Col>
@@ -156,7 +169,8 @@ const mapStateToProps = (state: any) => {
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        allModules: (token: String) => dispatch()
+        allModules: (token: String) => dispatch(),
+        addModule: (token: String, addToast: any, data: object) => dispatch(addModule(token, addToast, data))
     }
 } 
 export default connect(mapStateToProps,  mapDispatchToProps)(React.memo(Course));

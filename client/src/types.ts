@@ -18,3 +18,9 @@ export type AccessRolePopupProps = {
     closePopup?: any;
     handleMax?: any;
 }
+export type ModuleCreate = {
+    name: string;
+    public: boolean;
+    max_score: number;
+    description: string;
+}

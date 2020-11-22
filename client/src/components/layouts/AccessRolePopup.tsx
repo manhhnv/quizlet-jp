@@ -15,7 +15,7 @@ const AccessRolePopup = ({ user, showModal, closePopup, handleMax }: AccessRoleP
     
 
     return (
-        <Modal show={showModal} onHide={closePopup}>
+        <Modal show={showModal} onHide={closePopup} >
             <Form>
                 <Modal.Header closeButton>
                     <Modal.Title>Đăng nhập</Modal.Title>
@@ -30,7 +30,7 @@ const AccessRolePopup = ({ user, showModal, closePopup, handleMax }: AccessRoleP
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button style={{ width: "100%", backgroundColor: " #3ccfcf", border: "none" }} onClick={() => handleMax(max)} >Lưu</Button>
+                    <Button  style={{ width: "100%", backgroundColor: " #3ccfcf", border: "none" }} onClick={() => handleMax(max)} >Lưu</Button>
                 </Modal.Footer>
             </Form>
 

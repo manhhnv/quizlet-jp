@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Folder, Set } from '../graphql';
 import { UserEntity } from '../user/user.entity';
 
@@ -10,13 +10,13 @@ export class FolderEntity extends Folder {
   description: string;
   @Column()
   title: string;
-  @ManyToOne(() => UserEntity, (folder) => folder.id, { eager: true })
+  @ManyToOne(() => UserEntity, (user) => user.id, { eager: true })
   creator: UserEntity;
   @UpdateDateColumn()
   updatedAt: Date;
   @CreateDateColumn()
   createdAt: Date;
-  @Column()
-  totalSets: number;
+  @DeleteDateColumn()
+  deletedAt: Date;
   sets: Set[];
 }

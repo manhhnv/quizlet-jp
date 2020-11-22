@@ -19,16 +19,13 @@ export enum ClassOption {
 export enum Action {
     REGISTER = "REGISTER",
     LOGIN = "LOGIN",
-    CREATE = "CREATE",
+    LOGOUT = "LOGOUT",
     UPDATE = "UPDATE",
+    CREATE = "CREATE",
     DELETE = "DELETE",
-    ADD_SET = "ADD_SET",
-    REMOVE_SET = "REMOVE_SET",
-    ADD_FOLDER = "ADD_FOLDER",
-    REMOVE_FOLDER = "REMOVE_FOLDER",
-    ADD_MEMBER = "ADD_MEMBER",
-    REMOVE_MEMBER = "REMOVE_MEMBER",
-    CHANGE_ROLE_MEMBER = "CHANGE_ROLE_MEMBER"
+    ADD = "ADD",
+    REMOVE = "REMOVE",
+    CHANGE_ROLE = "CHANGE_ROLE"
 }
 
 export enum Language {
@@ -229,6 +226,8 @@ export abstract class IQuery {
     abstract class(classId?: string): Class | Promise<Class>;
 
     abstract classes(): Class[] | Promise<Class[]>;
+
+    abstract userLog(): string[] | Promise<string[]>;
 }
 
 export class Card {

@@ -1,10 +1,11 @@
 import { Action, Folder, FolderCreate, FolderUpdate, User } from '../graphql';
+import { CFSEntity } from 'src/class/class-folder-set/cfs.entity';
 import { FolderEntity } from './folder.entity';
 import { FolderSetService } from './folder-set/folder-set.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { LogService } from 'src/log/log.service';
-import { Repository } from 'typeorm';
+import { Repository, getRepository } from 'typeorm';
 import { SetService } from '../set/set.service';
 
 @Injectable()
@@ -19,9 +20,10 @@ export class FolderService {
   }
 
   async createFolder(create: FolderCreate, user: User): Promise<Folder> {
-    const folder = await this.folderRepository.save({ ...create, totalSets: 0, creator: user });
+    const folder = await this.folderRepository.save({ ...create, creator: user });
     await this.logService.addLog(user, null, folder, null, null, Action.CREATE);
     folder.sets = [];
+    folder.totalSets = 0;
     return folder;
   }
 
@@ -37,9 +39,10 @@ export class FolderService {
   async deleteFolder(folderId: string, user: User): Promise<boolean> {
     const folder = await this.folderRepository.findOne({ id: folderId });
     if (folder && folder.creator.id === user.id) {
-      await this.folderRepository.delete({ id: folderId });
+      await getRepository(CFSEntity).delete({ folder: folder });
       await this.folderSetService.deleteFolder(folder);
       await this.logService.addLog(user, null, folder, null, null, Action.DELETE);
+      await this.folderRepository.delete({ id: folderId });
       return true;
     }
     return false;
@@ -50,7 +53,7 @@ export class FolderService {
     const folder = await this.folderRepository.findOne(folderId);
     const totalSets = await this.folderSetService.addSetsToFolder(folder, sets);
     await this.folderRepository.update({ id: folderId }, { totalSets: totalSets });
-    sets.forEach(async (set) => await this.logService.addLog(user, set, folder, null, null, Action.ADD_SET));
+    sets.forEach(async (set) => await this.logService.addLog(user, set, folder, null, null, Action.ADD));
     return this.getFolder(folderId);
   }
 
@@ -59,13 +62,14 @@ export class FolderService {
     const sets = await this.setService.getSets(setIds);
     const totalSets = await this.folderSetService.removeSetsFromFolder(folder, sets);
     await this.folderRepository.update({ id: folderId }, { totalSets: totalSets });
-    sets.forEach(async (set) => await this.logService.addLog(user, set, folder, null, null, Action.REMOVE_SET));
+    sets.forEach(async (set) => await this.logService.addLog(user, set, folder, null, null, Action.REMOVE));
     return this.getFolder(folderId);
   }
 
   async getFolder(folderId: string): Promise<Folder> {
     const folder = await this.folderRepository.findOne({ id: folderId });
     folder.sets = (await this.folderSetService.getSetsOfFolder(folder)).map(fs => fs.set);
+    folder.totalSets = folder.sets.length;
     return folder;
   }
 

@@ -14,6 +14,10 @@ type Query {
   class(classId: String): Class!
   classes: [Class!]
 
+  userLog: [String!]
+  setLog: [String!]
+  folderLog: [String!]
+  classLog: [String!]
+
   ## TO DO: ADMIN QUERY
 }
-

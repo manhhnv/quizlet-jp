@@ -30,6 +30,7 @@ export class FolderResolver {
     @Args('folderId') folderId: string,
     @Args('setIds') setIds: string[]): Promise<Folder> {
     return await this.folderService.addSetsToFolder(folderId, setIds, user);
+
   }
 
   @Mutation(() => Folder)

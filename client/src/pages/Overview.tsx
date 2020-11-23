@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { me } from '../redux/actions/userAction';
 import MainPage from '../components/layouts/MainPage';
 import ListModule from '../components/ListModule';
+import ListFolder from '../components/folder/ListFolder';
 const Overview = ({ user}: any) => {
 
     const [showList, setShowList] = useState(true);
@@ -79,6 +80,9 @@ const Overview = ({ user}: any) => {
                     <MainPage show={show} showList={showList} tabIndex={tabIndex} setTabIndex={setTabIndex} user={user}/>
                     {tabIndex === 1 ? (
                         <ListModule user={user}/>
+                    ): null}
+                    {tabIndex == 2 ? (
+                        <ListFolder user={user}/>
                     ): null}
                 </Col>
             </Row>

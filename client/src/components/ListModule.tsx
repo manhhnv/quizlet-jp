@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ModuleCard from './layouts/ModuleCard';
 import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { BiAddToQueue } from 'react-icons/bi';
 
 const ListModule = ({ module, deleteModule, user }: any) => {
     return (
@@ -27,7 +28,9 @@ const ListModule = ({ module, deleteModule, user }: any) => {
                             }
                         </div>
                         <Link to="/course" style={{ textDecoration: 'none' }}>
-                            <button className="add-course">Tạo học phần </button>
+                            <button className="add-course" title="Thêm học phần">
+                                <BiAddToQueue />
+                            </button>
                         </Link>
                     </div>
                 </Col>

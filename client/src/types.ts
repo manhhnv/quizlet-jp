@@ -1,6 +1,16 @@
+export enum HTTP_METHOD {
+    GET = "GET",
+    POST = "POST",
+    PUT = "PUT",
+    DELETE = "DELETE"
+}
 export type Api = {
     url: string;
-    method?: string;
+    method: HTTP_METHOD;
+}
+export type ActionStore = {
+    type: string;
+    payload?: any;
 }
 export type RegisterInput = {
     username: string;
@@ -23,4 +33,14 @@ export type ModuleCreate = {
     public: boolean;
     max_score: number;
     description: string;
+}
+export type CreateFolderInput = {
+    name: string;
+    public: boolean;
+    description?: string;
+}
+export type UpdateFolderInput = {
+    name?: string;
+    public?: boolean;
+    description?: string;
 }

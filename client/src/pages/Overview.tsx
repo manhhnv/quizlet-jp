@@ -9,17 +9,15 @@ import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { me } from '../redux/actions/userAction';
 import MainPage from '../components/layouts/MainPage';
-import ModuleCard from '../components/layouts/ModuleCard';
-import { allModules } from '../redux/actions/moduleAction';
-import { Placeholder } from 'semantic-ui-react'
-const Overview = ({ user, allModules, module }: any) => {
+import ListModule from '../components/ListModule';
+const Overview = ({ user}: any) => {
 
     const [showList, setShowList] = useState(true);
 
     const show = (s: any) => {
         setShowList(s);
     }
-
+    const [tabIndex, setTabIndex] = useState(1);
     useEffect(() => {
         me(user.token)
     }, [])
@@ -28,13 +26,9 @@ const Overview = ({ user, allModules, module }: any) => {
     }
     return (
         <React.Fragment>
-
             <HeaderPage />
-
-
             <Row>
                 <Col md={2} className="side-menu-container" style={{ backgroundColor: 'white' }}>
-                    {/* <div className="side-menu-container" style={{backgroundColor: 'white'}}> */}
                     <Navbar bg="light" className="side-menu__section-container active">
                         <Navbar.Brand className="side-menu">
                             <div className="side-menu__section">
@@ -82,64 +76,11 @@ const Overview = ({ user, allModules, module }: any) => {
 
                 <Col md={10}>
 
-                    <MainPage show={show} showList={showList} />
-
-                    {showList == true && module.list && module.list.length > 0 ? (
-                        <Col md={12} className="course-part">
-                            <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                                <div>
-                                    {
-                                        module.list.map((item: any) => {
-                                            return (
-                                                <React.Fragment key={item.id}>
-                                                    <ModuleCard
-                                                        id={item.id}
-                                                        name={item.name}
-                                                        description={item.description}
-                                                        create_at={item.created_at}
-                                                        author={user.user.username}
-                                                    ></ModuleCard>
-                                                </React.Fragment>
-                                            )
-                                        })
-
-                                    }
-                                </div>
-
-                                <Link to="/course" style={{ textDecoration: 'none' }}>
-
-                                    <button className="add-course">Tạo học phần </button>
-
-                                </Link>
-                            </div>
-                        </Col>
-                    ) : <>
-                            <h3 className="no-modules-notification">
-                                Bạn chưa tạo học phần nào
-                            <br />
-                                <Link to="/course" style={{ textDecoration: 'none' }}>
-
-                                    <button className="add-course" style={{ marginTop: "20px" }}>Tạo học phần </button>
-
-                                </Link>
-                            </h3>
-                            <Placeholder>
-                                <Placeholder.Header image>
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                </Placeholder.Header>
-                                <Placeholder.Paragraph>
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                </Placeholder.Paragraph>
-                            </Placeholder>
-                        </>
-                    }
+                    <MainPage show={show} showList={showList} tabIndex={tabIndex} setTabIndex={setTabIndex} user={user}/>
+                    {tabIndex === 1 ? (
+                        <ListModule user={user}/>
+                    ): null}
                 </Col>
-
-
             </Row>
         </React.Fragment>
     )
@@ -147,13 +88,11 @@ const Overview = ({ user, allModules, module }: any) => {
 const mapStateToProps = (state: any) => {
     return {
         user: state.user,
-        module: state.module
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        me: (token: string) => dispatch(me(token)),
-        allModules: (token: String) => dispatch(allModules(token))
+        me: (token: string) => dispatch(me(token))
     }
 }
 

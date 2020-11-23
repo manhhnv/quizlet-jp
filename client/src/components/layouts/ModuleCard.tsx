@@ -1,40 +1,27 @@
 import React from 'react';
-import { Row, Col, Navbar, Card, Button, Container } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { AiOutlineDelete } from 'react-icons/ai';
-import { deleteModule } from '../../redux/actions/moduleAction';
-import { connect } from 'react-redux';
 import { useToasts } from "react-toast-notifications";
 
-const ModuleCard = ({ id, name, description, create_at, author, user, deleteModule}: any) => {
+const ModuleCard = ({ deleteModule, module, user}: any) => {
     const { addToast } = useToasts();
     return (
         <Card  className="card-container">
             <Card.Header className="created-at">
-                <AiOutlineDelete className="delete-module" onClick={() => deleteModule(user.token, addToast, id)}/>
+                <AiOutlineDelete className="delete-module" onClick={() => deleteModule(user.token, addToast, module?.id)}/>
                 </Card.Header>
             <Card.Body>
-                <Card.Title>{name}</Card.Title>
+                <Card.Title>{module?.name}</Card.Title>
                 <Card.Text>
-                    {description}
+                    {module?.description}
                 </Card.Text>
             </Card.Body>
             
-            <Card.Footer className="author-name" style={{backgroundColor: "white", display: "flex", justifyContent: "flex-end"}}>create by: {author}</Card.Footer>
+            <Card.Footer className="author-name" style={{backgroundColor: "white", display: "flex", justifyContent: "flex-end"}}>create by: {user?.user?.username}</Card.Footer>
         </Card>
     )
 }
 
-const mapStateToProps = (state: any) => {
-    return {
-        user: state.user,
-        module: state.module
-    }
-}
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        deleteModule: (token: String, addToast: any, id: any) => dispatch(deleteModule(token, addToast, id)),
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(ModuleCard))
+export default React.memo(ModuleCard);
 

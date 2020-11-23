@@ -5,15 +5,12 @@ const initialModuleState = {list: []}
 const moduleReducer = (state = initialModuleState, action: any) => {
     switch(action.type) {
         case ALL_MODULES:
-            const listModules = action.payload;
-            console.log(listModules);
-            return listModules;
+            return {...state, ...{list: action.payload}};
         case CREATE_MODULE:
-            console.log(action.payload) 
-            return state;
+            return {...state, ...{list: action.payload}};
         case DELETE_MODULE:
             console.log(action.payload) 
-            return state;
+            return {...state, list: action.payload};
         default:
             return state;
     }

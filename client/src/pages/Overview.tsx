@@ -11,9 +11,10 @@ import { me } from '../redux/actions/userAction';
 import MainPage from '../components/layouts/MainPage';
 import ModuleCard from '../components/layouts/ModuleCard';
 import { allModules } from '../redux/actions/moduleAction';
+import { Placeholder } from 'semantic-ui-react'
 const Overview = ({ user, allModules, module }: any) => {
 
-    const [showList, setShowList] = useState(false);
+    const [showList, setShowList] = useState(true);
 
     const show = (s: any) => {
         setShowList(s);
@@ -21,7 +22,7 @@ const Overview = ({ user, allModules, module }: any) => {
 
     useEffect(() => {
         me(user.token)
-    },[])
+    }, [])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -50,14 +51,16 @@ const Overview = ({ user, allModules, module }: any) => {
                             </div>
                         </Navbar.Brand>
                     </Navbar>
-                    <Navbar bg="light" className="side-menu__section-container active">
-                        <Navbar.Brand className="side-menu">
-                            <div className="side-menu__section">
-                                <BsFiles style={{ fontSize: 30 }} />
-                                <span className="section__text">Course</span>
-                            </div>
-                        </Navbar.Brand>
-                    </Navbar>
+                    <Link to="/course" style={{ textDecoration: "none" }}>
+                        <Navbar bg="light" className="side-menu__section-container active">
+                            <Navbar.Brand className="side-menu">
+                                <div className="side-menu__section">
+                                    <BsFiles style={{ fontSize: 30 }} />
+                                    <span className="section__text">Course</span>
+                                </div>
+                            </Navbar.Brand>
+                        </Navbar>
+                    </Link>
                     <Navbar bg="light" className="side-menu__section-container active">
                         <Navbar.Brand className="side-menu">
                             <div className="side-menu__section">
@@ -76,50 +79,63 @@ const Overview = ({ user, allModules, module }: any) => {
                     </Navbar>
                     {/* </div> */}
                 </Col>
-        
+
                 <Col md={10}>
 
-                    <MainPage show={show} />
+                    <MainPage show={show} showList={showList} />
 
+                    {showList == true && module.list && module.list.length > 0 ? (
+                        <Col md={12} className="course-part">
+                            <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                                <div>
+                                    {
+                                        module.list.map((item: any) => {
+                                            return (
+                                                <React.Fragment key={item.id}>
+                                                    <ModuleCard
+                                                        id={item.id}
+                                                        name={item.name}
+                                                        description={item.description}
+                                                        create_at={item.created_at}
+                                                        author={user.user.username}
+                                                    ></ModuleCard>
+                                                </React.Fragment>
+                                            )
+                                        })
 
-                    {
-                        (showList) ? (
+                                    }
+                                </div>
 
-                            <Col md={12} className="course-part">
+                                <Link to="/course" style={{ textDecoration: 'none' }}>
 
-                                {
-                                    (module.length > 0) ? (
-                                        <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                                            <div>
-                                                {
-                                                    module.map((item: any) => {
-                                                        // console.log(user.user.filter((ittem: any) => ittem.id === item.id))
-                                                        return (
-                                                            <React.Fragment key={item.id}>
-                                                                <ModuleCard
-                                                                    id={item.id}
-                                                                    name={item.name}
-                                                                    description={item.description}
-                                                                    create_at={item.created_at}
-                                                                    author={user.user.username}
-                                                                ></ModuleCard>
-                                                            </React.Fragment>
-                                                        )
-                                                    })
+                                    <button className="add-course">Tạo học phần </button>
 
-                                                }
-                                            </div>
+                                </Link>
+                            </div>
+                        </Col>
+                    ) : <>
+                            <h3 className="no-modules-notification">
+                                Bạn chưa tạo học phần nào
+                            <br />
+                                <Link to="/course" style={{ textDecoration: 'none' }}>
 
-                                            <Link to="/course" style={{ textDecoration: 'none' }}>
+                                    <button className="add-course" style={{ marginTop: "20px" }}>Tạo học phần </button>
 
-                                                <button className="add-course">Tạo học phần </button>
-
-                                            </Link>
-                                        </div>
-                                    ) : null
-                                }
-                            </Col>
-                        ) : null
+                                </Link>
+                            </h3>
+                            <Placeholder>
+                                <Placeholder.Header image>
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                </Placeholder.Header>
+                                <Placeholder.Paragraph>
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                </Placeholder.Paragraph>
+                            </Placeholder>
+                        </>
                     }
                 </Col>
 

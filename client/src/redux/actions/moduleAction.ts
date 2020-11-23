@@ -27,7 +27,6 @@ export const allModules = (token: String) => {
 }
 
 export const addModule = (token: String, addToast: any, data: object) => {
-    console.log("++++++++++++++++++++", data);
     return async (dispatch: any) => {
         axios.post(MODULE_CREATE.url, data, {
             headers: {
@@ -35,8 +34,6 @@ export const addModule = (token: String, addToast: any, data: object) => {
             }
         })
             .then(response => {
-
-                console.log("++++++++++++++++++++", response);
                 if (response.data?.name) {
                     if (addToast) {
                         dispatch({
@@ -79,56 +76,46 @@ export const addModule = (token: String, addToast: any, data: object) => {
 }
 
 export const deleteModule = (token: String, addToast: any, id: any) => {
-    console.log(MODULE_DELETE.url + `/${id}`);
-    ;
-    // return async (dispatch: any) => {
-    let config = {
-        headers: {
-            "Authorization": "Bearer " + token
-        }
-    };
-    axios.delete(MODULE_DELETE.url + `/${id}`, config)
-        .then(response => {
-            console.log("oke");
-            if (response.data != null) {
-                if (addToast) {
-                        // dispatch({
-                        //     type: DELETE_MODULE,
-                        //     payload: response.data,
-                        // })
-                        addToast("deleteModule success", {
-                            appearance: "success",
+    return async (dispatch: any) => {
+        let config = {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        };
+        axios.delete(MODULE_DELETE.url + `/${id}`, config)
+            .then(response => {
+                if (response.data != null) {
+                    if (addToast) {
+                            dispatch({
+                                type: DELETE_MODULE,
+                                payload: response.data,
+                            })
+                            addToast("deleteModule success", {
+                                appearance: "success",
+                                autoDismiss: true
+                            })
+                            // setTimeout(() => {
+                            //     window.location.reload()
+                            // }, 1500)
+                    }
+    
+                }
+                else {
+                    if (addToast) {
+                        addToast("deleteModule failed !", {
+                            appearance: "error",
                             autoDismiss: true
                         })
-                        setTimeout(() => {
-                            window.location.reload()
-                        }, 1500)
+                    }
                 }
-
-            }
-            else {
+            })
+            .catch(e => {
                 if (addToast) {
-                    addToast("deleteModule failed !", {
+                    addToast("erro when send delete !", {
                         appearance: "error",
                         autoDismiss: true
                     })
                 }
-                setTimeout(() => {
-                    window.location.reload()
-                }, 1500)
-            }
-        })
-        .catch(e => {
-            if (addToast) {
-                addToast("erro when send delete !", {
-                    appearance: "error",
-                    autoDismiss: true
-                })
-            }
-            setTimeout(() => {
-                window.location.reload()
-            }, 1500)
-        })
-
-    // }
+            })
+    }
 }

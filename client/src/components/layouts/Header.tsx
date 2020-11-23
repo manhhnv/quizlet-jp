@@ -44,7 +44,7 @@ const Header = ({ user, logout }: any) => {
             <div className="header-container">
                 <div className="left-container">
                     <div className='left'>
-                        <Link to="/home" >
+                        <Link to={user.token ? "/overview" : "/home"} >
                             <div aria-label="Quizlet" className="SiteLogo" role="img" title="Quizlet">
                                 <svg fill="currentColor" viewBox="0 0 244 53" xmlns="http://www.w3.org/2000/svg">
                                     <path

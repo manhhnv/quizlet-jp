@@ -4,7 +4,7 @@ import { allModules } from '../../redux/actions/moduleAction';
 
 
 
-const MainPage = ({ user, allModules, module, show }: any) => {
+const MainPage = ({ user, allModules, module, show, showList }: any) => {
 
     const showModules = () => {
         allModules(user.token);
@@ -22,7 +22,7 @@ const MainPage = ({ user, allModules, module, show }: any) => {
                         {user.user.username}
                     </div>
                     <div className="profile-button-container">
-                        <button className="profile-button" onClick={() => showModules()}>Đã tạo</button>
+                        <button style={showList ? {background: '#15449b'} : {}} className="profile-button" onClick={() => showModules()}>Đã tạo</button>
                         <button className="profile-button">Đã học</button>
                     </div>
                 </div>

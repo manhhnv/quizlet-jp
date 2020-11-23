@@ -5,27 +5,21 @@ import { deleteModule } from '../../redux/actions/moduleAction';
 import { connect } from 'react-redux';
 import { useToasts } from "react-toast-notifications";
 
-const ModuleCard = ({ id, name, description, create_at, author, user}: any) => {
+const ModuleCard = ({ id, name, description, create_at, author, user, deleteModule}: any) => {
     const { addToast } = useToasts();
-    const handleDelete = (id: any) => {
-        console.log(id);
-        deleteModule(user.token, addToast, id);
-    }
     return (
         <Card  className="card-container">
-            <Card.Header style={{backgroundColor: "white", display: "flex", justifyContent:"space-between"}}>
-                {create_at}
-                <AiOutlineDelete style={{fontSize:"2rem", cursor: "pointer"}} onClick={() => handleDelete(id)}/>
+            <Card.Header className="created-at">
+                <AiOutlineDelete className="delete-module" onClick={() => deleteModule(user.token, addToast, id)}/>
                 </Card.Header>
             <Card.Body>
                 <Card.Title>{name}</Card.Title>
                 <Card.Text>
                     {description}
                 </Card.Text>
-                <Button variant="primary" className="start-learn">Bắt đầu học</Button>
             </Card.Body>
             
-            <Card.Footer className="text-muted" style={{backgroundColor: "white", display: "flex", justifyContent: "flex-end"}}>create by: {author}</Card.Footer>
+            <Card.Footer className="author-name" style={{backgroundColor: "white", display: "flex", justifyContent: "flex-end"}}>create by: {author}</Card.Footer>
         </Card>
     )
 }

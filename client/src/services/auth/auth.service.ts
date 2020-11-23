@@ -11,5 +11,8 @@ export const USER_LOGIN: Api = {
 }
 export const QUERY_ME: Api = {
     url: `${BASE_URL}/auth/user`,
+}
+export const USER_LOGOUT: Api = {
+    url: `${BASE_URL}/api/auth/logout`,
     method: "GET"
 }

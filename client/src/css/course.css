@@ -1,0 +1,42 @@
+
+
+.course-container{
+    /* border: 1px solid red ; */
+    margin-left: 20rem;
+    margin-right: 20rem;
+    margin-top: 10rem;
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 2rem;
+}
+
+.add-new-course-text {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-left: 2rem;
+}
+
+.add-c {
+    font-family: 'Roboto', sans-serif;
+    padding: 1rem 3rem;
+    background-color: #3ccfcf;
+    color: white;
+    font-weight: bold;
+    border: none;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    height: 4rem;
+    margin-right: 3rem;
+}
+
+.add-c:hover {
+    opacity: 0.7;
+}
+
+.thaydoi {
+    color: #3ccfcf;
+    cursor: pointer;
+}
+
+.thaydoi:hover {
+    color: coral;
+}

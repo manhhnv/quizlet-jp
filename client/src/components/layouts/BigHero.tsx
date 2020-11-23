@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Slider from "./Slider";
+import { Redirect, Link } from 'react-router-dom';
 
 
 const BigHero = () => {
+
+    const handleClick = () => {
+        window.location.replace("/overview");
+    }
 
 
     return (
@@ -15,7 +20,7 @@ const BigHero = () => {
                     <div className="quotes">
                         <p>Nắm vững mọi môn học, từng bước một</p>
                     </div>
-                    <div className="button-start">
+                    <div className="button-start" onClick={handleClick}>
                         Bắt đầu học
                     </div>
                     <div className="role">

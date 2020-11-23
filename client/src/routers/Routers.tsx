@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import HomePage from "../pages/Home";
 import Overview from "../pages/Overview";
+import Course from "../pages/Course";
 
 const AppRouters = () => {
     return (
@@ -17,6 +18,9 @@ const AppRouters = () => {
                 </Route>
                 <Route path="/overview">
                     <Overview/>
+                </Route>
+                <Route path="/course">
+                    <Course/>
                 </Route>
             </Switch>
         </Router>

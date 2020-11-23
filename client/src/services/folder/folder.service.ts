@@ -16,12 +16,12 @@ export const CREATE_FOLDER: Api = {
     method: HTTP_METHOD.POST
 }
 
-export const UPDATE_FOLDER: Api = {
+export const UPDATE_FOLDER_API: Api = {
     url: `${BASE_URL}/folder/update`,
     method: HTTP_METHOD.PUT
 }
 
-export const DELETE_FOLDER: Api ={
+export const DELETE_FOLDER_API: Api ={
     url: `${BASE_URL}/folder/delete`,
     method: HTTP_METHOD.DELETE
 }

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, } from 'react-bootstrap';
 import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillFacebook } from 'react-icons/ai';

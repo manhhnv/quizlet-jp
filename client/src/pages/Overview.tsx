@@ -1,22 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HeaderPage from '../components/layouts/Header'
 import { Row, Col, Navbar, Card, Button, Container } from 'react-bootstrap';
 import { FaHome, FaLeaf } from 'react-icons/fa';
-import { Redirect } from 'react-router-dom';
+import { SiGoogleclassroom } from 'react-icons/si';
+import { AiOutlineProject, AiOutlineFolder } from 'react-icons/ai';
+import { BsFiles } from 'react-icons/bs';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-const Overview = ({user}: any) => {
+import MainPage from '../components/layouts/MainPage';
+import ModuleCard from '../components/layouts/ModuleCard';
+import { allModules } from '../redux/actions/moduleAction';
+const Overview = ({ user, allModules, module }: any) => {
+
+    const [showList, setShowList] = useState(false);
+
+    const show = (s: any) => {
+        setShowList(s);
+    }
+
+
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
     return (
         <React.Fragment>
-            <HeaderPage></HeaderPage>
+
+            <HeaderPage />
+
+
             <Row>
-                <Col md={2} className="side-menu-container" style={{backgroundColor: 'white'}}>
+                <Col md={2} className="side-menu-container" style={{ backgroundColor: 'white' }}>
+                    {/* <div className="side-menu-container" style={{backgroundColor: 'white'}}> */}
                     <Navbar bg="light" className="side-menu__section-container active">
                         <Navbar.Brand className="side-menu">
                             <div className="side-menu__section">
-                                <FaHome/>
+                                <FaHome style={{ fontSize: 30 }} />
                                 <span className="section__text">Home</span>
                             </div>
                         </Navbar.Brand>
@@ -24,7 +42,15 @@ const Overview = ({user}: any) => {
                     <Navbar bg="light" className="side-menu__section-container active">
                         <Navbar.Brand className="side-menu">
                             <div className="side-menu__section">
-                                <FaLeaf/>
+                                <AiOutlineProject style={{ fontSize: 30 }} />
+                                <span className="section__text">Progress</span>
+                            </div>
+                        </Navbar.Brand>
+                    </Navbar>
+                    <Navbar bg="light" className="side-menu__section-container active">
+                        <Navbar.Brand className="side-menu">
+                            <div className="side-menu__section">
+                                <BsFiles style={{ fontSize: 30 }} />
                                 <span className="section__text">Course</span>
                             </div>
                         </Navbar.Brand>
@@ -32,92 +58,83 @@ const Overview = ({user}: any) => {
                     <Navbar bg="light" className="side-menu__section-container active">
                         <Navbar.Brand className="side-menu">
                             <div className="side-menu__section">
-                                <FaHome/>
-                                <span className="section__text">Home</span>
+                                <AiOutlineFolder style={{ fontSize: 30 }} />
+                                <span className="section__text">Folder</span>
                             </div>
                         </Navbar.Brand>
                     </Navbar>
                     <Navbar bg="light" className="side-menu__section-container active">
                         <Navbar.Brand className="side-menu">
                             <div className="side-menu__section">
-                                <FaHome/>
-                                <span className="section__text">Home</span>
+                                <SiGoogleclassroom style={{ fontSize: 30 }} />
+                                <span className="section__text">Class</span>
                             </div>
                         </Navbar.Brand>
                     </Navbar>
-                    <Navbar bg="light" className="side-menu__section-container active">
-                        <Navbar.Brand className="side-menu">
-                            <div className="side-menu__section">
-                                <FaHome/>
-                                <span className="section__text">Home</span>
-                            </div>
-                        </Navbar.Brand>
-                    </Navbar>
+                    {/* </div> */}
                 </Col>
-                <Col md={1}></Col>
-                <Col md={8} style={{paddingBottom: '150px'}}>
-                    <Container>
-                        <Row style={{paddingTop: '40px'}}>
-                            <Col lg={12}>
-                                <Card>
-                                    <Card.Img style={{width: '7.5rem', height: '8.75rem'}} variant="top" src="https://assets.quizlet.com/a/i/next_action/create-set.d180318ff2be4ad.svg" />
-                                    <Card.Body>
-                                        <Card.Title>Tạo một học phần cho môn bất kỳ bạn muốn dạy</Card.Title>
-                                        <Button variant="success">Start Now</Button>
-                                    </Card.Body>
-                                </Card>
+        
+                <Col md={10}>
+
+                    <MainPage show={show} />
+
+
+                    {
+                        (showList) ? (
+
+                            <Col md={12} className="course-part">
+
+                                {
+                                    (module.length > 0) ? (
+                                        <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                                            <div>
+                                                {
+                                                    module.map((item: any) => {
+                                                        // console.log(user.user.filter((ittem: any) => ittem.id === item.id))
+                                                        return (
+                                                            <React.Fragment key={item.id}>
+                                                                <ModuleCard
+                                                                    id={item.id}
+                                                                    name={item.name}
+                                                                    description={item.description}
+                                                                    create_at={item.created_at}
+                                                                    author={user.user.username}
+                                                                ></ModuleCard>
+                                                            </React.Fragment>
+                                                        )
+                                                    })
+
+                                                }
+                                            </div>
+
+                                            <Link to="/course" style={{ textDecoration: 'none' }}>
+
+                                                <button className="add-course">Tạo học phần </button>
+
+                                            </Link>
+                                        </div>
+                                    ) : null
+                                }
                             </Col>
-                        </Row>
-                        <span style={{paddingTop: '40px'}}>Recent</span>
-                        <Row style={{paddingTop: '20px'}}>
-                            <Col md={6}>
-                                <Card>
-                                    <Card.Img style={{width: '7.5rem', height: '8.75rem'}} variant="top" src="https://assets.quizlet.com/a/i/next_action/create-set.d180318ff2be4ad.svg" />
-                                    <Card.Body>
-                                        <Card.Title>Tạo một học phần cho môn bất kỳ bạn muốn dạy</Card.Title>
-                                        <Button variant="success">Start Now</Button>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col md={6}>
-                                <Card>
-                                    <Card.Img style={{width: '7.5rem', height: '8.75rem'}} variant="top" src="https://assets.quizlet.com/a/i/next_action/create-set.d180318ff2be4ad.svg" />
-                                    <Card.Body>
-                                        <Card.Title>Tạo một học phần cho môn bất kỳ bạn muốn dạy</Card.Title>
-                                        <Button variant="success">Start Now</Button>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                        <Row style={{paddingTop: '40px'}}>
-                            <Col md={6}>
-                                <Card>
-                                    <Card.Img style={{width: '7.5rem', height: '8.75rem'}} variant="top" src="https://assets.quizlet.com/a/i/next_action/create-set.d180318ff2be4ad.svg" />
-                                    <Card.Body>
-                                        <Card.Title>Tạo một học phần cho môn bất kỳ bạn muốn dạy</Card.Title>
-                                        <Button variant="success">Start Now</Button>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col md={6}>
-                                <Card>
-                                    <Card.Img style={{width: '7.5rem', height: '8.75rem'}} variant="top" src="https://assets.quizlet.com/a/i/next_action/create-set.d180318ff2be4ad.svg" />
-                                    <Card.Body>
-                                        <Card.Title>Tạo một học phần cho môn bất kỳ bạn muốn dạy</Card.Title>
-                                        <Button variant="success">Start Now</Button>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </Container>
+                        ) : null
+                    }
                 </Col>
+
+
             </Row>
         </React.Fragment>
     )
 }
 const mapStateToProps = (state: any) => {
     return {
-        user: state.user
+        user: state.user,
+        module: state.module
     }
 }
-export default connect(mapStateToProps, null)(React.memo(Overview))
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        allModules: (token: String) => dispatch(allModules(token))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Overview))

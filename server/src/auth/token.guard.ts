@@ -1,13 +1,13 @@
 import {
+  BadRequestException,
+  CanActivate,
   ExecutionContext,
   Injectable,
-  UnauthorizedException,
-  BadRequestException,
-  CanActivate
+  UnauthorizedException
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { getRepository } from 'typeorm';
 import { TokenEntity } from './token/token.entity';
+import { getRepository } from 'typeorm';
 
 @Injectable()
 export class TokenGuard implements CanActivate {

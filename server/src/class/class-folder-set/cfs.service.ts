@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { FolderSetService } from 'src/folder/folder-set/folder-set.service';
-import { FolderEntity } from 'src/folder/folder.entity';
-import { SetEntity } from 'src/set/set.entity';
-import { Repository } from 'typeorm';
-import { ClassEntity } from '../class.entity';
 import { CFSEntity } from './cfs.entity';
+import { ClassEntity } from '../class.entity';
+import { FolderEntity } from 'src/folder/folder.entity';
+import { FolderSetService } from 'src/folder/folder-set/folder-set.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { SetEntity } from 'src/set/set.entity';
 
 @Injectable()
 export class CFSService {

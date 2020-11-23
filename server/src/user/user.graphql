@@ -11,7 +11,14 @@ type User {
   updatedAt: Date!
 }
 
-input UserData {
+input UserCreate {
+  name: String!
+  email: String!
+  birthday: Date!
+  password: String!
+}
+
+input UserUpdate {
   name: String
   email: String
   birthday: Date

@@ -1,0 +1,11 @@
+enum Action {
+  REGISTER
+  LOGIN
+  LOGOUT
+  UPDATE
+  CREATE
+  DELETE
+  ADD
+  REMOVE
+  CHANGE_ROLE
+}

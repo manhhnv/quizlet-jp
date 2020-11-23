@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { SetEntity } from 'src/set/set.entity';
-import { Repository } from 'typeorm';
 import { FolderEntity } from '../folder.entity';
 import { FolderSetEntity } from './folder-set.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { SetEntity } from 'src/set/set.entity';
 
 @Injectable()
 export class FolderSetService {

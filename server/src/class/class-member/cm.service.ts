@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { ClassMember, ClassRole } from "src/graphql";
-import { UserEntity } from "src/user/user.entity";
-import { Repository } from "typeorm";
 import { ClassEntity } from "../class.entity";
+import { ClassMember, ClassRole } from "src/graphql";
 import { ClassMemberEntity } from "./cm.entity";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Injectable } from "@nestjs/common";
+import { Repository } from "typeorm";
+import { UserEntity } from "src/user/user.entity";
 
 @Injectable()
 export class ClassMemberService {

@@ -1,10 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../auth/auth.guard';
-import { FolderService } from './folder.service';
-import { Folder, FolderInput, User } from '../graphql';
 import { CtxUser } from '../options/decorators/ctx-user.decorator';
+import { Folder, FolderCreate, FolderUpdate, User } from '../graphql';
+import { FolderService } from './folder.service';
+import { GqlAuthGuard } from '../auth/auth.guard';
 import { TokenGuard } from '../auth/token.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver()
 export class FolderResolver {
@@ -29,7 +29,8 @@ export class FolderResolver {
   async addSetsToFolder(@CtxUser() user: User,
     @Args('folderId') folderId: string,
     @Args('setIds') setIds: string[]): Promise<Folder> {
-    return await this.folderService.addSetsToFolder(folderId, setIds);
+    return await this.folderService.addSetsToFolder(folderId, setIds, user);
+
   }
 
   @Mutation(() => Folder)
@@ -37,12 +38,12 @@ export class FolderResolver {
   async removeSetsFromFolder(@CtxUser() user: User,
     @Args('folderId') folderId: string,
     @Args('setIds') setIds: string[]): Promise<Folder> {
-    return await this.folderService.removeSetsFromFolder(folderId, setIds);
+    return await this.folderService.removeSetsFromFolder(folderId, setIds, user);
   }
 
   @Mutation(() => Folder)
   @UseGuards(TokenGuard, GqlAuthGuard)
-  async createFolder(@CtxUser() user: User, @Args('create') create: FolderInput): Promise<Folder> {
+  async createFolder(@CtxUser() user: User, @Args('create') create: FolderCreate): Promise<Folder> {
     return await this.folderService.createFolder(create, user);
   }
 
@@ -50,7 +51,7 @@ export class FolderResolver {
   @UseGuards(GqlAuthGuard)
   async updateFolder(@CtxUser() user: User,
     @Args('folderId') folderId: string,
-    @Args('update') update: FolderInput): Promise<Folder> {
+    @Args('update') update: FolderUpdate): Promise<Folder> {
     return await this.folderService.updateFolder(folderId, update, user);
   }
 

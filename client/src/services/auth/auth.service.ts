@@ -1,10 +1,15 @@
+import { BASE_URL } from '../../constants';
 import { Api } from '../../types';
 
 export const USER_REGISTER: Api = {
-    url: "http://localhost:9000/api/auth/signup",
+    url: `${BASE_URL}/auth/signup`,
     method: "POST"
 }
 export const USER_LOGIN: Api = {
-    url: "http://localhost:9000/api/auth/login",
+    url: `${BASE_URL}/auth/login`,
     method: "POST"
+}
+export const QUERY_ME: Api = {
+    url: `${BASE_URL}/auth/user`,
+    method: "GET"
 }

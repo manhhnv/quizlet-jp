@@ -11,15 +11,7 @@ import { ToastProvider } from "react-toast-notifications";
 import { PersistGate } from 'redux-persist/integration/react';
 ReactDOM.render(
   // <React.StrictMode>
-  <ToastProvider placement="bottom-left">
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ApolloProvider client={client}>
-          <App />
-        </ApolloProvider>
-      </PersistGate>
-    </Provider>
-  </ToastProvider>,
+  <App />,
   // </React.StrictMode>,
   document.getElementById('root')
 );

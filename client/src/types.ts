@@ -1,6 +1,6 @@
 export type Api = {
     url: string;
-    method: string;
+    method?: string;
 }
 export type RegisterInput = {
     username: string;

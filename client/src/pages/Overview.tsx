@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HeaderPage from '../components/layouts/Header'
 import { Row, Col, Navbar, Card, Button, Container } from 'react-bootstrap';
 import { FaHome, FaLeaf } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-const Overview = ({user}: any) => {
+import { me } from '../redux/actions/userAction';
+import { getAccessToken } from '../helper/getDataLocaStorage';
+const Overview = ({user, me}: any) => {
+    useEffect(() => {
+        me(user.token)
+    },[])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -120,4 +125,9 @@ const mapStateToProps = (state: any) => {
         user: state.user
     }
 }
-export default connect(mapStateToProps, null)(React.memo(Overview))
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        me: (token: string) => dispatch(me(token))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Overview))

@@ -1,0 +1,6 @@
+.curd-control > button{
+    margin-left: 20px;
+}
+.curd-control > button:first-child {
+    margin: 0;
+}

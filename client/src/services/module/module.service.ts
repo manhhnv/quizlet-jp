@@ -1,21 +1,21 @@
-import { Api } from '../../types';
+import { Api, HTTP_METHOD } from '../../types';
 import { BASE_URL } from '../../constants';
 export const MODULE_GET: Api = {
     url: `${BASE_URL}/module/allModules`,
-    method: "GET"
+    method: HTTP_METHOD.GET
 }
 
 export const MODULE_CREATE: Api = {
     url: `${BASE_URL}/module/create`,
-    method: "POST"
+    method: HTTP_METHOD.POST
 }
 
 export const MODULE_DELETE: Api = {
     url: `${BASE_URL}/module/delete`,
-    method: "DELETE"
+    method: HTTP_METHOD.DELETE
 }
 
 export const MODULE_UPDATE: Api = {
     url: `${BASE_URL}/module/update`,
-    method: "PUT"
+    method: HTTP_METHOD.PUT
 }

@@ -1,15 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { allModules } from '../../redux/actions/moduleAction';
+import React from 'react';
 
-
-
-const MainPage = ({ user, allModules, module, show }: any) => {
-
-    const showModules = () => {
-        allModules(user.token);
-        show(true);
-    }
+const MainPage = ({ user, setTabIndex, tabIndex }: any) => {
 
     return (
         <div>
@@ -22,7 +13,8 @@ const MainPage = ({ user, allModules, module, show }: any) => {
                         {user.user.username}
                     </div>
                     <div className="profile-button-container">
-                        <button className="profile-button" onClick={() => showModules()}>Đã tạo</button>
+                        <button style={tabIndex === 1 ? {background: '#15449b', color: 'white'} : {}} className="profile-button" onClick={() => setTabIndex(1)}>Học phần</button>
+                        <button style={tabIndex === 2 ? {background: '#15449b', color: 'white'} : {}} className="profile-button" onClick={() => setTabIndex(2)}>Thư mục</button>
                         <button className="profile-button">Đã học</button>
                     </div>
                 </div>
@@ -32,15 +24,4 @@ const MainPage = ({ user, allModules, module, show }: any) => {
     )
 }
 
-const mapStateToProps = (state: any) => {
-    return {
-        user: state.user,
-        module: state.module
-    }
-}
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        allModules: (token: String) => dispatch(allModules(token))
-    }
-} 
-export default connect(mapStateToProps,  mapDispatchToProps)(React.memo(MainPage));
+export default React.memo(MainPage);

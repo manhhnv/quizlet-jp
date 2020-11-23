@@ -17,3 +17,10 @@
     font-weight: bold;
     font-size: 16px;
 }
+
+.edit-module {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #4257b2;
+}
+

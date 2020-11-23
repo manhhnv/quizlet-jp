@@ -4,18 +4,15 @@ import { Modal, Button, Form, } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AccessRolePopupProps } from '../../types';
-const AccessRolePopup = ({ user, showModal, closePopup, handleMax }: AccessRolePopupProps) => {
-
+const AccessRolePopup = ({ user, showModal, closePopup, handleMax, edit }: AccessRolePopupProps) => {
     const [max, setMax] = useState("1");
 
     const handleChange = (e: any) => {
         setMax(e.target.value);
-      }
-
-    
+      } 
 
     return (
-        <Modal show={showModal} onHide={closePopup} >
+        <Modal show={showModal} onHide={closePopup} size="xl">
             <Form>
                 <Modal.Header closeButton>
                     <Modal.Title>Đăng nhập</Modal.Title>

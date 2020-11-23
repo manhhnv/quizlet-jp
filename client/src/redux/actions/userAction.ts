@@ -2,7 +2,7 @@ import { LOG_IN, REGISTER } from './../../graphql/user.grapql';
 import { client } from "../../apollo-graphql";
 import { LoginInput, RegisterInput, ModuleCreate } from '../../types';
 import axios from 'axios';
-import { USER_REGISTER, USER_LOGIN, USER_LOGOUT } from '../../services/auth/auth.service';
+import { USER_REGISTER, USER_LOGIN, QUERY_ME, USER_LOGOUT } from '../../services/auth/auth.service';
 
 export const UPDATE_USER = "UPDATE_USER";
 export const UPDATE_USER_TOKEN = "UPDATE_USER_TOKEN";
@@ -84,6 +84,24 @@ export const login = (loginInput: LoginInput, addToast: any) => {
                     appearance: "error",
                     autoDismiss: true
                 })
+            })
+    }
+}
+export const me = (token: string) => {
+    return async (dispatch: any) => {
+        await axios.get(QUERY_ME.url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                dispatch({
+                    type: UPDATE_USER,
+                    payload: response.data
+                })
+            })
+            .catch(e => {
+                console.log(e)
             })
     }
 }

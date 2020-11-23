@@ -1,34 +1,29 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { gql, useQuery } from "@apollo/client";
-import { client } from "./apollo-graphql";
-import { GET_RATES } from "./graphql/demo-graphql";
-import Demo from "./components/Demo";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
-import { Button } from "react-bootstrap";
-import { FaSearch } from "react-icons/fa";
 import AppRouters from "./routers/Routers";
-import Footer from "./components/layouts/Footer";
-import Header from "./components/layouts/Header";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { client } from './apollo-graphql';
+import { Provider } from 'react-redux';
+import store, { persistor } from './redux/store';
 import { ToastProvider } from "react-toast-notifications";
+import { PersistGate } from 'redux-persist/integration/react';
+import { resolverReload } from "./redux/actions/reloadActions";
 function App() {
-  // const {}
-  // console.log("LOADING COMPONENT")
-  // const rates = useQuery(GET_RATES, {
-  //   variables: {
-  //     currency: 'USD',
-  //   }
-  // })
-  // console.log(rates.data)
-
+  store.dispatch(resolverReload())
   return (
-        <div className="App">
-          {/* <Header></Header>
-          <Footer></Footer> */}
-          <AppRouters />
-        </div>
+    <div className="App">
+      <ToastProvider placement="bottom-left">
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <ApolloProvider client={client}>
+              <AppRouters />
+            </ApolloProvider>
+          </PersistGate>
+        </Provider>
+      </ToastProvider>
+    </div>
   );
 }
 

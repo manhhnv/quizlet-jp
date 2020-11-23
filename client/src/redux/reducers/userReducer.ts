@@ -9,7 +9,12 @@ const userReducer = (state = initialUserState, action: any) => {
             console.log(action.payload)
             return {...state, token: action.payload.access_token, user: action.payload.user}
         case UPDATE_USER:
-            return {...state, user: action.payload.user}
+            if (action.payload) {
+                return {...state, user: action.payload}
+            }
+            else {
+                return initialUserState;
+            }
         case LOGOUT_USER: 
             return initialUserState;
         default:

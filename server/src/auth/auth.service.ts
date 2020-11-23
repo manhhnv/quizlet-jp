@@ -1,18 +1,20 @@
-import { BadRequestException, ForbiddenException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
-import { UserService } from "../user/user.service";
-import { JwtService } from '@nestjs/jwt/dist/jwt.service';
-import { User, UserToken } from 'src/graphql';
-import { LoginInputDto, RegisterInputDto } from './auth.dto';
+import { Action, User, UserToken } from 'src/graphql';
 import { AuthHelper } from "./auth.helper";
+import { BadRequestException, ForbiddenException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TokenEntity } from './token/token.entity';
-import { Repository } from 'typeorm';
 import { JwoDto } from './jwt.dto';
+import { JwtService } from '@nestjs/jwt/dist/jwt.service';
+import { LogService } from 'src/log/log.service';
+import { LoginInputDto, RegisterInputDto } from './auth.dto';
+import { Repository } from 'typeorm';
+import { TokenEntity } from './token/token.entity';
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
+    private logService: LogService,
     private jwt: JwtService,
     @InjectRepository(TokenEntity)
     private tokenRepository: Repository<TokenEntity>
@@ -49,6 +51,7 @@ export class AuthService {
         const user = await this.userService.register(registerInput);
         const token = this.signToken(user);
         await this.tokenRepository.save({ token: token, user: user });
+        await this.logService.addLog(user, null, null, null, null, Action.REGISTER);
         return { user: user, token: token };
       }
     } catch (error) {
@@ -68,8 +71,8 @@ export class AuthService {
     }
 
     const token = this.signToken(user);
-
     await this.tokenRepository.save({ token: token, user: user });
+    await this.logService.addLog(user, null, null, null, null, Action.LOGIN);
     return { user: user, token: token };
   }
 

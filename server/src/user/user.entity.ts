@@ -1,5 +1,5 @@
-import { User } from "src/graphql";
 import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from "src/graphql";
 
 @Entity({ name: "users" })
 export class UserEntity extends User {

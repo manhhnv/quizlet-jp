@@ -1,16 +1,20 @@
 type Folder {
-    id: String!
-    title: String!
-    description: String!
-    creator: User!
-    sets: [Set]
-    totalSets: Int!
-    updatedAt: Date!
-    createdAt: Date!
+  id: String!
+  title: String!
+  description: String!
+  creator: User!
+  sets: [Set]
+  totalSets: Int!
+  updatedAt: Date!
+  createdAt: Date!
 }
 
-input FolderInput {
-    title: String!
-    description: String!
+input FolderCreate {
+  title: String!
+  description: String!
 }
 
+input FolderUpdate {
+  title: String
+  description: String
+}

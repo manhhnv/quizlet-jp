@@ -16,6 +16,18 @@ export enum ClassOption {
     LearnOnly = "LearnOnly"
 }
 
+export enum Action {
+    REGISTER = "REGISTER",
+    LOGIN = "LOGIN",
+    LOGOUT = "LOGOUT",
+    UPDATE = "UPDATE",
+    CREATE = "CREATE",
+    DELETE = "DELETE",
+    ADD = "ADD",
+    REMOVE = "REMOVE",
+    CHANGE_ROLE = "CHANGE_ROLE"
+}
+
 export enum Language {
     VietNam = "VietNam",
     English = "English"
@@ -46,7 +58,7 @@ export class RegisterInput {
     password: string;
 }
 
-export class ClassInput {
+export class ClassCreate {
     className: string;
     description?: string;
     option: ClassOption;
@@ -60,9 +72,14 @@ export class ClassUpdate {
     school?: string;
 }
 
-export class FolderInput {
+export class FolderCreate {
     title: string;
     description: string;
+}
+
+export class FolderUpdate {
+    title?: string;
+    description?: string;
 }
 
 export class CardInput {
@@ -70,7 +87,7 @@ export class CardInput {
     definition: string;
 }
 
-export class SetInput {
+export class SetCreate {
     title: string;
     description: string;
     visible: Visible;
@@ -81,7 +98,25 @@ export class SetInput {
     definitionLanguage?: Language;
 }
 
-export class UserData {
+export class SetUpdate {
+    title?: string;
+    description?: string;
+    visible?: Visible;
+    editable?: Editable;
+    password?: string;
+    cards?: CardInput[];
+    termLanguage?: Language;
+    definitionLanguage?: Language;
+}
+
+export class UserCreate {
+    name: string;
+    email: string;
+    birthday: Date;
+    password: string;
+}
+
+export class UserUpdate {
     name?: string;
     email?: string;
     birthday?: Date;
@@ -134,19 +169,19 @@ export abstract class IMutation {
 
     abstract logout(): boolean | Promise<boolean>;
 
-    abstract update(input?: UserData): User | Promise<User>;
+    abstract update(input?: UserUpdate): User | Promise<User>;
 
     abstract joinClass(classId?: string): boolean | Promise<boolean>;
 
-    abstract createSet(create?: SetInput): Set | Promise<Set>;
+    abstract createSet(create?: SetCreate): Set | Promise<Set>;
 
-    abstract updateSet(setId: string, update?: SetInput): Set | Promise<Set>;
+    abstract updateSet(setId: string, update?: SetUpdate): Set | Promise<Set>;
 
     abstract deleteSet(setId: string): boolean | Promise<boolean>;
 
-    abstract createFolder(create?: FolderInput): Folder | Promise<Folder>;
+    abstract createFolder(create?: FolderCreate): Folder | Promise<Folder>;
 
-    abstract updateFolder(folderId: string, update?: FolderInput): Folder | Promise<Folder>;
+    abstract updateFolder(folderId: string, update?: FolderUpdate): Folder | Promise<Folder>;
 
     abstract deleteFolder(folderId: string): boolean | Promise<boolean>;
 
@@ -154,7 +189,7 @@ export abstract class IMutation {
 
     abstract removeSetsFromFolder(folderId?: string, setIds?: string[]): Folder | Promise<Folder>;
 
-    abstract createClass(create?: ClassInput): Class | Promise<Class>;
+    abstract createClass(create?: ClassCreate): Class | Promise<Class>;
 
     abstract updateClass(classId: string, update?: ClassUpdate): Class | Promise<Class>;
 
@@ -191,6 +226,8 @@ export abstract class IQuery {
     abstract class(classId?: string): Class | Promise<Class>;
 
     abstract classes(): Class[] | Promise<Class[]>;
+
+    abstract userLog(): string[] | Promise<string[]>;
 }
 
 export class Card {

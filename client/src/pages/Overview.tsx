@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import HeaderPage from '../components/layouts/Header'
 import { Row, Col, Navbar, Card, Button, Container } from 'react-bootstrap';
 import { FaHome, FaLeaf } from 'react-icons/fa';
@@ -7,6 +7,7 @@ import { AiOutlineProject, AiOutlineFolder } from 'react-icons/ai';
 import { BsFiles } from 'react-icons/bs';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { me } from '../redux/actions/userAction';
 import MainPage from '../components/layouts/MainPage';
 import ModuleCard from '../components/layouts/ModuleCard';
 import { allModules } from '../redux/actions/moduleAction';
@@ -18,7 +19,9 @@ const Overview = ({ user, allModules, module }: any) => {
         setShowList(s);
     }
 
-
+    useEffect(() => {
+        me(user.token)
+    },[])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -133,6 +136,7 @@ const mapStateToProps = (state: any) => {
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
+        me: (token: string) => dispatch(me(token)),
         allModules: (token: String) => dispatch(allModules(token))
     }
 }

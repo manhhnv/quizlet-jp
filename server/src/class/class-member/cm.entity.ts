@@ -1,7 +1,7 @@
-import { ClassRole } from 'src/graphql';
-import { UserEntity } from 'src/user/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ClassEntity } from '../class.entity';
+import { ClassRole } from 'src/graphql';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { UserEntity } from 'src/user/user.entity';
 
 @Entity({ name: 'class_member' })
 export class ClassMemberEntity {

@@ -13,6 +13,6 @@ export const QUERY_ME: Api = {
     url: `${BASE_URL}/auth/user`,
 }
 export const USER_LOGOUT: Api = {
-    url: `${BASE_URL}/api/auth/logout`,
+    url: `${BASE_URL}/auth/logout`,
     method: "GET"
 }

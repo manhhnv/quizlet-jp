@@ -3,7 +3,7 @@
     "host": "localhost",
     "port": 3306,
     "username": "root",
-    "password": "manhuetvnuk63j",
+    "password": "01102000",
     "database": "nestjs",
     "synchronize": false,
     "logging": true,

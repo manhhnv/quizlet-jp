@@ -11,6 +11,7 @@ import { me } from '../redux/actions/userAction';
 import MainPage from '../components/layouts/MainPage';
 import ListModule from '../components/ListModule';
 import ListFolder from '../components/folder/ListFolder';
+// import { TestContext } from '../components/folder/Folder';
 const Overview = ({ user}: any) => {
 
     const [showList, setShowList] = useState(true);
@@ -18,7 +19,7 @@ const Overview = ({ user}: any) => {
     const show = (s: any) => {
         setShowList(s);
     }
-    const [tabIndex, setTabIndex] = useState(1);
+    const [tabIndex, setTabIndex] = useState(2);
     useEffect(() => {
         me(user.token)
     }, [])
@@ -82,7 +83,10 @@ const Overview = ({ user}: any) => {
                         <ListModule user={user}/>
                     ): null}
                     {tabIndex == 2 ? (
-                        <ListFolder user={user}/>
+                        <React.Fragment>
+                            <ListFolder user={user}/>
+                        {/* <TestContext/> */}
+                        </React.Fragment>
                     ): null}
                 </Col>
             </Row>

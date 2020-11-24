@@ -5,9 +5,10 @@ import { useToasts } from 'react-toast-notifications';
 import { deleteFolder, createFolder, updateFolder } from '../../redux/actions/folderActions';
 import Folder from './Folder';
 import { CreateFolderInput, UpdateFolderInput } from '../../types';
-import { Col } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { AiFillFolderAdd } from 'react-icons/ai';
 import AddFolderForm from './AddFolderForm';
+import VerticalNav from '../layouts/VerticalNav';
 
 const ListFolder = ({ folders, deleteFolder, createFolder, user, updateFolder }: any) => {
     const { addToast } = useToasts();
@@ -16,10 +17,14 @@ const ListFolder = ({ folders, deleteFolder, createFolder, user, updateFolder }:
         setShowCreateFolder(false);
     }
     return (
-        <React.Fragment>
-            <Col xs={12} className="course-part">
-                <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                    <div>
+        // <Container>
+            <Row>
+                <Col xs={1} className="col-vertical-res">
+                    
+                </Col>
+            <Col xs={10} className="course-part">
+                <div>
+                    
                         {folders && folders.list && folders.list.length > 0 ? (
                             folders.list.map((folder: any, index: any) => (
                                 <Folder
@@ -32,25 +37,11 @@ const ListFolder = ({ folders, deleteFolder, createFolder, user, updateFolder }:
                                 />
                             ))
                         ) : (<h3>Tạo thư mục ngay</h3>)}
-                    </div>
-                    <button
-                        className="add-course"
-                        title="Thêm thư mục"
-                        style={{outline: "none"}}
-                        onClick={() => setShowCreateFolder(true)}
-                    >
-                        <AiFillFolderAdd />
-                    </button>
                 </div>
             </Col>
-            <AddFolderForm
-                showCreateFolder={showCreateFolder}
-                hideCreateFolderCreateFolder={hideCreateFolderCreateFolder}
-                addToast={addToast}
-                user={user}
-                createFolder={createFolder}
-            />
-        </React.Fragment>
+            </Row>
+            
+        // </Container>
     )
 }
 const mapStateToProps = (state: any) => {

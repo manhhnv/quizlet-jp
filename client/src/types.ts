@@ -27,6 +27,7 @@ export type AccessRolePopupProps = {
     showModal: boolean;
     closePopup?: any;
     handleMax?: any;
+    edit?: any;
 }
 export type ModuleCreate = {
     name: string;

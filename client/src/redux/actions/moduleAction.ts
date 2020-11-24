@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { MODULE_GET, MODULE_CREATE, MODULE_DELETE } from '../../services/module/module.service';
+import { MODULE_GET, MODULE_CREATE, MODULE_DELETE, MODULE_UPDATE } from '../../services/module/module.service';
 import { ModuleCreate } from '../../types';
 
 export const ALL_MODULES = "ALL_MODULES";
 export const CREATE_MODULE = "CREATE_MODULE";
 export const DELETE_MODULE = "DELETE_MODULE";
+export const EDIT_MODULE = "EDIT_MODULE";
 
 export const allModules = (token: String) => {
     return async (dispatch: any) => {
@@ -47,7 +48,7 @@ export const addModule = (token: String, addToast: any, data: object) => {
                     }
                     setTimeout(() => {
                         window.location.replace("/overview");
-                    }, 1500)
+                    }, 1000)
                 }
                 else {
                     if (addToast) {
@@ -63,7 +64,7 @@ export const addModule = (token: String, addToast: any, data: object) => {
             })
             .catch(e => {
                 if (addToast) {
-                    addToast("addModule failed !", {
+                    addToast("send addModule failed !", {
                         appearance: "error",
                         autoDismiss: true
                     })
@@ -94,9 +95,9 @@ export const deleteModule = (token: String, addToast: any, id: any) => {
                                 appearance: "success",
                                 autoDismiss: true
                             })
-                            // setTimeout(() => {
-                            //     window.location.reload()
-                            // }, 1500)
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1500)
                     }
     
                 }
@@ -112,6 +113,54 @@ export const deleteModule = (token: String, addToast: any, id: any) => {
             .catch(e => {
                 if (addToast) {
                     addToast("erro when send delete !", {
+                        appearance: "error",
+                        autoDismiss: true
+                    })
+                }
+            })
+    }
+}
+
+export const editModule = (token: String, addToast: any, id: any, data: object) => {
+    console.log(token);
+    
+    console.log(MODULE_UPDATE.url + `/${id}?name=${Object(data)["name"]}&public=${Object(data)["publicc"]}`);
+    return async (dispatch: any) => {
+        let config = {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        };
+        axios.put(MODULE_UPDATE.url + `/${id}?name=${Object(data)["name"]}&public=${Object(data)["publicc"]}`, null, config)
+            .then(response => {
+                if (response.data != null) {
+                    if (addToast) {
+                            dispatch({
+                                type: EDIT_MODULE,
+                                payload: response.data,
+                            })
+                            addToast("edit Module success", {
+                                appearance: "success",
+                                autoDismiss: true
+                            })
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1500)
+                    }
+    
+                }
+                else {
+                    if (addToast) {
+                        addToast("updateModule failed !", {
+                            appearance: "error",
+                            autoDismiss: true
+                        })
+                    }
+                }
+            })
+            .catch(e => {
+                if (addToast) {
+                    addToast("erro when send update !", {
                         appearance: "error",
                         autoDismiss: true
                     })

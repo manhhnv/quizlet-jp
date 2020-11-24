@@ -10,11 +10,11 @@ import { connect } from 'react-redux';
 import { me } from '../redux/actions/userAction';
 import MainPage from '../components/layouts/MainPage';
 import ListModule from '../components/ListModule';
-import ListFolder from '../components/folder/ListFolder';
-// import { TestContext } from '../components/folder/Folder';
-const Overview = ({ user}: any) => {
+const Overview = ({ user }: any) => {
 
     const [showList, setShowList] = useState(true);
+
+
 
     const show = (s: any) => {
         setShowList(s);
@@ -47,16 +47,16 @@ const Overview = ({ user}: any) => {
                             </div>
                         </Navbar.Brand>
                     </Navbar>
-                    <Link to="/course" style={{ textDecoration: "none" }}>
-                        <Navbar bg="light" className="side-menu__section-container active">
-                            <Navbar.Brand className="side-menu">
-                                <div className="side-menu__section">
-                                    <BsFiles style={{ fontSize: 30 }} />
-                                    <span className="section__text">Course</span>
-                                </div>
-                            </Navbar.Brand>
-                        </Navbar>
-                    </Link>
+
+                    <Navbar bg="light" className="side-menu__section-container active">
+                        <Navbar.Brand className="side-menu">
+                            <div className="side-menu__section">
+                                <BsFiles style={{ fontSize: 30 }} />
+                                <span className="section__text">Course</span>
+                            </div>
+                        </Navbar.Brand>
+                    </Navbar>
+
                     <Navbar bg="light" className="side-menu__section-container active">
                         <Navbar.Brand className="side-menu">
                             <div className="side-menu__section">
@@ -78,16 +78,12 @@ const Overview = ({ user}: any) => {
 
                 <Col md={10}>
 
-                    <MainPage show={show} showList={showList} tabIndex={tabIndex} setTabIndex={setTabIndex} user={user}/>
+                    <MainPage show={show} showList={showList} tabIndex={tabIndex} setTabIndex={setTabIndex} user={user} />
                     {tabIndex === 1 ? (
-                        <ListModule user={user}/>
-                    ): null}
-                    {tabIndex == 2 ? (
-                        <React.Fragment>
-                            <ListFolder user={user}/>
-                        {/* <TestContext/> */}
-                        </React.Fragment>
-                    ): null}
+
+                        <ListModule user={user} />
+                    ) : null}
+
                 </Col>
             </Row>
         </React.Fragment>

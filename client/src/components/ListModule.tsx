@@ -1,12 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { deleteModule } from '../redux/actions/moduleAction';
 import { connect } from 'react-redux';
 import ModuleCard from './layouts/ModuleCard';
 import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { BiAddToQueue } from 'react-icons/bi';
+import Course from '../pages/Course';
+import { FiEye,FiEyeOff } from 'react-icons/fi';
 
 const ListModule = ({ module, deleteModule, user }: any) => {
+    const [addCourse, setAddCourse] = useState(false);
+
+    const handleAdd = () => {
+        console.log("dit con me may");
+        setAddCourse(true);
+    }
+
+    const handleCloseCourse = () => {
+        setAddCourse(false);
+    }
+
+    const handleAddd = () => {
+        setAddCourse(false);
+    }
+
     return (
         <React.Fragment>
             { module && module.list.length > 0 ? (
@@ -27,22 +43,25 @@ const ListModule = ({ module, deleteModule, user }: any) => {
                                 })
                             }
                         </div>
-                        <Link to="/course" style={{ textDecoration: 'none' }}>
-                            <button className="add-course" title="Thêm học phần">
-                                <BiAddToQueue />
-                            </button>
-                        </Link>
+
+                        {/* <Link to="/course" style={{ textDecoration: 'none' }}> */}
+                           
+                            <button className="add-course" onClick={handleAdd}>Tạo học phần </button>
+                            <Course showAddCourse={addCourse} closeCoursePopup={handleCloseCourse} handleAddd={handleAddd}/>
+                        {/* </Link> */}
+
                     </div>
                 </Col>
             ) : (
                     <h3 className="no-modules-notification">
                         Bạn chưa tạo học phần nào
                         <br />
-                        <Link to="/course" style={{ textDecoration: 'none' }}>
+                        {/* <Link to="/course" style={{ textDecoration: 'none' }}> */}
 
-                            <button className="add-course" style={{ marginTop: "20px" }}>Tạo học phần </button>
+                            <button className="add-course" style={{ marginTop: "20px" }} onClick={handleAdd}>Tạo học phần </button>
+                            <Course showAddCourse={addCourse} closeCoursePopup={handleCloseCourse} handleAddd={handleAddd}/>
 
-                        </Link>
+                        {/* </Link> */}
                     </h3>
                 )}
         </React.Fragment>

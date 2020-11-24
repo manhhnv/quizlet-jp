@@ -30,9 +30,9 @@ export type AccessRolePopupProps = {
 }
 export type ModuleCreate = {
     name: string;
-    public: boolean;
-    max_score: number;
-    description: string;
+    public?: boolean;
+    max_score?: number;
+    description?: string;
 }
 export type CreateFolderInput = {
     name: string;

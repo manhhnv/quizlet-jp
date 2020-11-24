@@ -19,7 +19,7 @@ const Overview = ({ user }: any) => {
     const show = (s: any) => {
         setShowList(s);
     }
-    const [tabIndex, setTabIndex] = useState(1);
+    const [tabIndex, setTabIndex] = useState(2);
     useEffect(() => {
         me(user.token)
     }, [])
@@ -80,8 +80,10 @@ const Overview = ({ user }: any) => {
 
                     <MainPage show={show} showList={showList} tabIndex={tabIndex} setTabIndex={setTabIndex} user={user} />
                     {tabIndex === 1 ? (
+
                         <ListModule user={user} />
                     ) : null}
+
                 </Col>
             </Row>
         </React.Fragment>

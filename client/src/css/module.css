@@ -6,9 +6,8 @@
     font-size: 16px;
 }
 .delete-module {
-    font-size: 2rem;
+    font-size: 25px;
     cursor: pointer;
-    color: red;
 }
 .author-name {
     background-color: white;

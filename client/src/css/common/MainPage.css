@@ -1,12 +1,8 @@
 .main-page-header {
     background-color:  white;
-    height: 15rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    align-content: center;
-    width: 100%;
-    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 25px 17px 35px -25px rgba(150,150,150,1);
+    padding-top: 30px;
+    padding-bottom: 30px;
 
 }
 
@@ -36,14 +32,6 @@
     margin-left: 3rem;
 }
 
-/* .profile-button{
-    background-color: white !important;
-    color: #3ccfcf !important;
-    font-size: 1rem;
-    padding: .5rem;
-    margin: 0.2rem;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-} */
 
 .profile-button {
     width: 7rem;
@@ -89,11 +77,31 @@
     border: none;
     font-size: 1rem;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    /* width: 50px;
+    height: 50px; */
 }
 
 .add-course:hover {
     opacity: 0.7;
 }
-
+.selections-controller {
+    max-width: 200px;
+    margin-left: 50px;
+    display: none;
+}
+.custom-form {
+    box-shadow: none;
+    border: 0;
+    border-radius: 0%;
+    outline: none;
+    background-color: transparent;
+    border-bottom: 1px solid #f0cb00;
+}
+@media only screen and (max-width: 1024px) {
+    .selections-controller {
+        display: block;
+    }
+    .controller {
+        display: none;
+    }
+}

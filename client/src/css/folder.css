@@ -4,3 +4,7 @@
 .curd-control > button:first-child {
     margin: 0;
 }
+.folder-body:hover {
+    background-color: #fff9e3;
+    cursor: pointer;
+}

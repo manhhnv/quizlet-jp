@@ -1,8 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { AiOutlineDelete, AiFillSetting, AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+import {
+    AiOutlineDelete, AiFillSetting,
+    AiOutlineEyeInvisible, AiOutlineEye, AiOutlineUpload
+}
+    from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import UpdateFolderForm from './UpdateFolderForm';
-const Folder = ({ folder, deleteFolder, addToast, user, updateFolder }: any) => {
+
+const Folder = (props: any) => {
+    const { folder, deleteFolder, addToast, user, updateFolder } = props;
     const [showUpdateFolder, setShowUpdateFolder] = useState(false);
     const hideUpdateFolderCreateFolder = () => {
         setShowUpdateFolder(false);
@@ -10,11 +17,14 @@ const Folder = ({ folder, deleteFolder, addToast, user, updateFolder }: any) => 
     return (
         <Card className="card-container">
             <Card.Header className="curd-control">
-                <Button variant="outline-danger">
+                <Button size="sm" variant="outline-danger">
                     <AiOutlineDelete className="delete-module" onClick={() => deleteFolder(user.token, folder.id, addToast)} />
                 </Button>
-                <Button variant="primary" onClick={() => setShowUpdateFolder(true)}>
+                <Button size="sm" variant="primary" onClick={() => setShowUpdateFolder(true)}>
                     <AiFillSetting className="delete-module" />
+                </Button>
+                <Button size="sm" variant="primary">
+                    <AiOutlineUpload className="delete-module" />
                 </Button>
                 <UpdateFolderForm
                     folder={folder}
@@ -25,16 +35,17 @@ const Folder = ({ folder, deleteFolder, addToast, user, updateFolder }: any) => 
                     updateFolder={updateFolder}
                 />
             </Card.Header>
-            <Card.Body>
-                <Card.Title>{folder?.name}</Card.Title>
-                <Card.Text>
-                    {folder?.description}
-                </Card.Text>
-                <Card.Text style={{fontWeight: "bold"}}>
-                    Chế độ: {folder.public == 1 ? (<AiOutlineEye />) : (<AiOutlineEyeInvisible/>)}
-                </Card.Text>
-            </Card.Body>
-
+            <Link to={`folder?code=${folder.code}&id=${folder.id}`} style={{textDecoration: "none", color: "black"}}>
+                <Card.Body className="folder-body">
+                    <Card.Title>{folder?.name}</Card.Title>
+                    <Card.Text>
+                        {folder?.description}
+                    </Card.Text>
+                    <Card.Text style={{ fontWeight: "bold" }}>
+                        Chế độ: {folder.public == 1 ? (<AiOutlineEye />) : (<AiOutlineEyeInvisible />)}
+                    </Card.Text>
+                </Card.Body>
+            </Link>
             <Card.Footer className="author-name" style={{ backgroundColor: "white", display: "flex", justifyContent: "flex-end" }}>
                 Created by: {user?.user?.username}
             </Card.Footer>

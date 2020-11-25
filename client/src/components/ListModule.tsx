@@ -26,8 +26,12 @@ const ListModule = ({ module, deleteModule, user }: any) => {
     return (
         <React.Fragment>
             { module && module.list.length > 0 ? (
-                <Col md={12} className="course-part">
-                    <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                <Col md={12} className="course-module-part">
+                    <div>
+                        <button className="add-course" onClick={handleAdd}>Tạo học phần </button>
+                        <Course showAddCourse={addCourse} closeCoursePopup={handleCloseCourse} handleAddd={handleAddd}/>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "flex-start", width: "100%", flexDirection: "column" }}>
                         <div>
                             {
                                 module.list.map((item: any) => {
@@ -46,8 +50,7 @@ const ListModule = ({ module, deleteModule, user }: any) => {
 
                         {/* <Link to="/course" style={{ textDecoration: 'none' }}> */}
                            
-                            <button className="add-course" onClick={handleAdd}>Tạo học phần </button>
-                            <Course showAddCourse={addCourse} closeCoursePopup={handleCloseCourse} handleAddd={handleAddd}/>
+                            
                         {/* </Link> */}
 
                     </div>

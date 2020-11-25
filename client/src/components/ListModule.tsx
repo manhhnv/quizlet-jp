@@ -43,11 +43,13 @@ const ListModule = ({ module, deleteModule, user }: any) => {
                                 })
                             }
                         </div>
+
                         {/* <Link to="/course" style={{ textDecoration: 'none' }}> */}
                            
                             <button className="add-course" onClick={handleAdd}>Tạo học phần </button>
                             <Course showAddCourse={addCourse} closeCoursePopup={handleCloseCourse} handleAddd={handleAddd}/>
                         {/* </Link> */}
+
                     </div>
                 </Col>
             ) : (

@@ -1,0 +1,92 @@
+.folder-name {
+    font-size: 30px;
+    margin-left: 30px;
+    font-weight: 500;
+}
+.folder-header {
+    padding: 20px;
+    box-shadow: 25px 17px 35px -25px rgba(150,150,150,1);
+}
+.folder-info {
+    padding-top: 20px;
+}
+.folder-auhor {
+    font-weight: 600;
+}
+.author {
+    color: #3ccfcf;
+    cursor: pointer;
+}
+.author:hover {
+    color: #ffcd1f
+}
+.folder-actions {
+    background-color: #3ccfcf;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: white;
+    margin-left: 10px;
+    border-radius: 50%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.folder-delete {
+    background-color: red;
+}
+.link {
+    text-decoration: none;
+    color: black;
+}
+.list-module-folder {
+    padding-top: 40px;
+}
+.module-item {
+    margin-left: 25px;
+    margin-top: 15px;
+    margin-right: 20px;
+    width: 24rem;
+}
+.avatar-small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.add-module-folder-container {
+    margin-top: 30px;
+}
+.create-option {
+    text-align: center;
+}
+.import-modules {
+    height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.your-module {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    vertical-align: middle;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 2px solid gray;
+}
+.your-module > button {
+    margin-right: 50px;
+    background-color: #fcdc00;
+    float: right;
+    vertical-align: middle;
+}
+@media only screen and (max-width: 767px) {
+    .list-module-folder {
+        margin-left: 15%;
+    }
+}
+@media only screen and (max-width: 576px) {
+    .list-module-folder {
+        margin-left: 0%;
+    }
+}

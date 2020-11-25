@@ -16,12 +16,32 @@ export const CREATE_FOLDER: Api = {
     method: HTTP_METHOD.POST
 }
 
-export const UPDATE_FOLDER: Api = {
+export const UPDATE_FOLDER_API: Api = {
     url: `${BASE_URL}/folder/update`,
     method: HTTP_METHOD.PUT
 }
 
-export const DELETE_FOLDER: Api ={
+export const DELETE_FOLDER_API: Api = {
     url: `${BASE_URL}/folder/delete`,
+    method: HTTP_METHOD.DELETE
+}
+
+export const CREATE_MODULE_IN_FOLDER: Api = {
+    url: `${BASE_URL}/folder/module/add-module-in-folder`,
+    method: HTTP_METHOD.POST
+}
+
+export const GET_MODULES_IN_FOLDER: Api = {
+    url: `${BASE_URL}/folder/module/list`,
+    method: HTTP_METHOD.GET
+}
+
+export const ASSIGN_MODULE_IN_FOLDER: Api = {
+    url: `${BASE_URL}/folder/module/assign-to-folder`,
+    method: HTTP_METHOD.POST
+}
+
+export const DELETE_MODULE_FROM_FOLDER: Api ={
+    url: `${BASE_URL}/folder/module/delete-from-folder`,
     method: HTTP_METHOD.DELETE
 }

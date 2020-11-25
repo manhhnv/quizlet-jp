@@ -7,34 +7,34 @@ import { CreateFolderInput } from '../../types';
 import { connect } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
 
-const VerticalNav = ({createFolder, folders, user }: any) => {
+const VerticalNav = ({ createFolder, folders, user, setTabIndex, tabIndex }: any) => {
     const [showCreateFolder, setShowCreateFolder] = useState(false);
     const hideCreateFolderCreateFolder = () => {
         setShowCreateFolder(false);
     }
-    const {addToast} = useToasts();
+    const { addToast } = useToasts();
     return (
         <div>
             <ul className="vertical-nav">
                 <li className="nav-home">
-                    
-                        <Link to="/overview" className="active">
-                            
-                            <AiFillHome></AiFillHome> Trang chủ
-                            
+
+                    <Link to="/overview" className="active">
+
+                        <AiFillHome></AiFillHome> Trang chủ
+
                         </Link>
-                    
+
                 </li>
                 <hr />
                 <li>
-                    <a href="#news">
+                    <Link to="/overview#sets" onClick={() => setTabIndex(2)} className={tabIndex == 2 ? "active" : ''}>
                         <AiFillCarryOut></AiFillCarryOut> Học phần
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="#contact">
+                    <Link to="/overview#folders" onClick={() => setTabIndex(3)} className={tabIndex == 3 ? "active" : ''}>
                         <AiFillFolderOpen></AiFillFolderOpen> Thư mục ( {folders.totalFolders} )
-                    </a>
+                    </Link>
                     <ul className="vertical-nav-child">
                         {folders && folders.list.length > 0 ? folders.list.map((folder: any, index: any) => (
                             <li key={index}>
@@ -42,7 +42,7 @@ const VerticalNav = ({createFolder, folders, user }: any) => {
                                     {folder.name}
                                 </a>
                             </li>
-                        )): null}
+                        )) : null}
                         <li>
                             <a
                                 style={{ color: "#3ccfcf" }}
@@ -77,7 +77,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
     return {
         createFolder: (token: string, input: CreateFolderInput,
-            addToast: any)=> dispatch(createFolder(token, input, addToast))
+            addToast: any) => dispatch(createFolder(token, input, addToast))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(VerticalNav));

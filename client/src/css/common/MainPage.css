@@ -97,6 +97,18 @@
     background-color: transparent;
     border-bottom: 1px solid #f0cb00;
 }
+.controller {
+    border: 1px solid green;
+}
+.controller > button {
+    border: 1px solid green;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+}
+.active-tab {
+    background-color: #ffcd1f !important;
+}
 @media only screen and (max-width: 1024px) {
     .selections-controller {
         display: block;

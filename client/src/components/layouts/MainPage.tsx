@@ -14,11 +14,41 @@ const MainPage = ({ user, setTabIndex, tabIndex }: any) => {
             </Col>
             <Col xs={8} style={{ marginTop: "40px" }}>
                 <ButtonGroup className="controller mb-2">
-                    <Button variant="light">Hoạt động gần đây</Button>
-                    <Button variant="light">Học phần</Button>
-                    <Button>Thư mục</Button>
-                    <Button variant="light">Lớp học</Button>
-                    <Button variant="light">Đã học</Button>
+                    <Button
+                        variant="light"
+                        className={tabIndex === 1 ? "active-tab" : ''}
+                        onClick={() => setTabIndex(1)}
+                    >
+                        Hoạt động gần đây
+                    </Button>
+                    <Button
+                        variant="light"
+                        className={tabIndex === 2 ? "active-tab" : ''}
+                        onClick={() => setTabIndex(2)}
+                    >
+                        Học phần
+                    </Button>
+                    <Button
+                        variant="light"
+                        className={tabIndex === 3 ? "active-tab" : ''}
+                        onClick={() => setTabIndex(3)}
+                    >
+                        Thư mục
+                    </Button>
+                    <Button
+                        variant="light"
+                        className={tabIndex === 4 ? "active-tab" : ''}
+                        onClick={() => setTabIndex(4)}
+                    >
+                        Lớp học
+                    </Button>
+                    <Button
+                        variant="light"
+                        className={tabIndex === 5 ? "active-tab" : ''}
+                        onClick={() => setTabIndex(5)}
+                    >
+                        Đã học
+                    </Button>
                 </ButtonGroup>
                 <Form className="selections-controller">
                     <Form.Control as="select" size="sm" className="mr-sm-2 custom-form" defaultValue={3} custom>

@@ -1,11 +1,16 @@
 import Axios from 'axios';
-import { CreateFolderInput, UpdateFolderInput } from '../../types';
-import { LIST_FOLDERS, CREATE_FOLDER, DELETE_FOLDER_API, UPDATE_FOLDER_API } from '../../services/folder/folder.service';
+import { CreateFolderInput, UpdateFolderInput, ModuleCreate } from '../../types';
+import { LIST_FOLDERS, CREATE_FOLDER,
+    DELETE_FOLDER_API, UPDATE_FOLDER_API,
+    CREATE_MODULE_IN_FOLDER, GET_MODULES_IN_FOLDER,
+    DELETE_MODULE_FROM_FOLDER, ASSIGN_MODULE_IN_FOLDER
+} from '../../services/folder/folder.service';
 
 export const ADD_FOLDER = "ADD_FOLDER";
 export const UPDATE_FOLDER = "UPDATE_FOLDER";
 export const DELETE_FOLDER = "DELETE FOLDER";
 export const UPDATE_BY_API = "UPDATE_BY_API";
+export const UPDATE_MODULE_IN_FOLDER = "UPDATE_MODULE_IN_FOLDER";
 
 export const getListFolders = (token: string) => {
     return async (dispatch: any) => {
@@ -109,6 +114,134 @@ export const updateFolder = (token: string, folder_id: number, input: UpdateFold
             console.log(e)
             if (addToast) {
                 addToast("Update folder failed", {
+                    appearance: "error",
+                    autoDismiss: true
+                })
+            }
+        })
+    }
+}
+export const createModuleInFolder = (token: string, folder_id: number, code: string, input: ModuleCreate, addToast: any) => {
+    return async (dispatch: any) => {
+        Axios.post(`${CREATE_MODULE_IN_FOLDER.url}/${folder_id}/${code}`, input, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            if (res.data !== null) {
+                dispatch({
+                    type: UPDATE_MODULE_IN_FOLDER,
+                    payload: res.data
+                })
+                if (addToast) {
+                    addToast("Add Module To Folder Success", {
+                        appearance: "success",
+                        autoDismiss: true
+                    })
+                }
+            }
+        })
+        .catch(e => {
+            if (addToast) {
+                addToast("Add Module To Folder Failed", {
+                    appearance: "error",
+                    autoDismiss: true
+                })
+            }
+            console.log(e)
+        })
+    }
+}
+
+export const assignModuleToFolder = (token: string, module_id: number, folder_id: number, addToast: any) => {
+    return async (dispatch: any) => {
+        Axios.post(`${ASSIGN_MODULE_IN_FOLDER.url}/${module_id}/${folder_id}`, null, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            if (res.data !== null) {
+                dispatch({
+                    type: UPDATE_MODULE_IN_FOLDER,
+                    payload: res.data
+                })
+                if (addToast) {
+                    addToast("Add module into folder success", {
+                        appearance: "success",
+                        autoDismiss: true
+                    })
+                }
+            }
+        })
+        .catch(e => {
+            console.log(e)
+            if (addToast) {
+                addToast("This module already exists in folder", {
+                    appearance: "error",
+                    autoDismiss: true
+                })
+            }
+        })
+    }
+}
+
+export const getModulesInFolder = (token: string, folder_id: number, addToast: any) => {
+    return async (dispatch: any) => {
+        Axios.get(`${GET_MODULES_IN_FOLDER.url}?folder_id=${folder_id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            if (res.data !== null) {
+                dispatch({
+                    type: UPDATE_MODULE_IN_FOLDER,
+                    payload: res.data
+                })
+                console.log("Fetching...")
+                return res.data
+            }
+        })
+        .catch(e => {
+            addToast("Get set in this folder failed", {
+                appearance: "error",
+                autoDismiss: true
+            })
+            console.log(e)
+        })
+    }
+}
+export const deleteModuleFromFolder = (token: string, module_id: number, folder_id: number, addToast: any) => {
+    return async (dispatch: any) => {
+        Axios.delete(`${DELETE_MODULE_FROM_FOLDER.url}`, {
+            params: {
+                module_id: module_id,
+                folder_id: folder_id
+            },
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            if (res.data !== null) {
+                dispatch({
+                    type: UPDATE_MODULE_IN_FOLDER,
+                    payload: res.data
+                })
+                if (addToast) {
+                    addToast("Deleted module from folder", {
+                        appearance: "success",
+                        autoDismiss: true
+                    })
+                }
+            }
+        })
+        .catch(e => {
+            console.log(e)
+            if (addToast) {
+                addToast("Delete module from folder failed", {
                     appearance: "error",
                     autoDismiss: true
                 })

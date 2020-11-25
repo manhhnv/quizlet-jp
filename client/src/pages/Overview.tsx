@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { me } from '../redux/actions/userAction';
 import MainPage from '../components/layouts/MainPage';
 import ListModule from '../components/ListModule';
+import ListFolder from '../components/folder/ListFolder';
+import VerticalNav from '../components/layouts/VerticalNav';
 const Overview = ({ user }: any) => {
 
     const [showList, setShowList] = useState(true);
@@ -28,62 +30,20 @@ const Overview = ({ user }: any) => {
     }
     return (
         <React.Fragment>
-            <HeaderPage />
             <Row>
-                <Col md={2} className="side-menu-container" style={{ backgroundColor: 'white' }}>
-                    <Navbar bg="light" className="side-menu__section-container active">
-                        <Navbar.Brand className="side-menu">
-                            <div className="side-menu__section">
-                                <FaHome style={{ fontSize: 30 }} />
-                                <span className="section__text">Home</span>
-                            </div>
-                        </Navbar.Brand>
-                    </Navbar>
-                    <Navbar bg="light" className="side-menu__section-container active">
-                        <Navbar.Brand className="side-menu">
-                            <div className="side-menu__section">
-                                <AiOutlineProject style={{ fontSize: 30 }} />
-                                <span className="section__text">Progress</span>
-                            </div>
-                        </Navbar.Brand>
-                    </Navbar>
-
-                    <Navbar bg="light" className="side-menu__section-container active">
-                        <Navbar.Brand className="side-menu">
-                            <div className="side-menu__section">
-                                <BsFiles style={{ fontSize: 30 }} />
-                                <span className="section__text">Course</span>
-                            </div>
-                        </Navbar.Brand>
-                    </Navbar>
-
-                    <Navbar bg="light" className="side-menu__section-container active">
-                        <Navbar.Brand className="side-menu">
-                            <div className="side-menu__section">
-                                <AiOutlineFolder style={{ fontSize: 30 }} />
-                                <span className="section__text">Folder</span>
-                            </div>
-                        </Navbar.Brand>
-                    </Navbar>
-                    <Navbar bg="light" className="side-menu__section-container active">
-                        <Navbar.Brand className="side-menu">
-                            <div className="side-menu__section">
-                                <SiGoogleclassroom style={{ fontSize: 30 }} />
-                                <span className="section__text">Class</span>
-                            </div>
-                        </Navbar.Brand>
-                    </Navbar>
-                    {/* </div> */}
+                <Col md={12} >
+                    <HeaderPage />
                 </Col>
-
-                <Col md={10}>
-
+            </Row>
+            <Row>
+                <Col md={3} className="vertical-nav-container">
+                    <VerticalNav />
+                </Col>
+                <Col md={9} style={{paddingBottom: "200px"}}>
                     <MainPage show={show} showList={showList} tabIndex={tabIndex} setTabIndex={setTabIndex} user={user} />
-                    {tabIndex === 1 ? (
-
-                        <ListModule user={user} />
-                    ) : null}
-
+                    <React.Fragment>
+                        <ListFolder user={user} />
+                    </React.Fragment>
                 </Col>
             </Row>
         </React.Fragment>

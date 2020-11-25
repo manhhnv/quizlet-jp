@@ -1,4 +1,4 @@
-.side-menu__section-container::before {
+/* .side-menu__section-container::before {
     color: transparent;
     content: " |";
     background-color: #44ac25;
@@ -47,21 +47,26 @@
     .side-menu__section-container {
         display: none;
     }
-}
+} */
 
-.course-part{
+/* .course-part{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     height: 100%;
-}
+} */
 
 .card-container{
-    width: 50rem;
+    /* width: 50rem; */
     box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
-    margin: 1rem;
-    margin-left: 7rem;
+    /* margin: 1rem;
+    margin-left: 7rem; */
+    
+    /* max-width: 70%; */
+    margin: 0 auto;
+    margin-top: 50px;
+    float: none;
 }
 
 .start-learn {

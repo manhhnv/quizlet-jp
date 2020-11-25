@@ -77,7 +77,7 @@ const Header = ({ user, logout }: any) => {
                     {user?.token ? (
                         <div>
 
-                            <img src={require('../../assets/avatar.png')} alt="Avatar" className="avatar" onClick={openLogout} />
+                            <img src={user?.user?.avatar ? `${user?.user?.avatar}`: require('../../assets/avatar.png')} alt="Avatar" className="avatar" onClick={openLogout} />
                             <div>
                                 {
 

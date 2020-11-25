@@ -23,9 +23,6 @@ const Folder = (props: any) => {
                 <Button size="sm" variant="primary" onClick={() => setShowUpdateFolder(true)}>
                     <AiFillSetting className="delete-module" />
                 </Button>
-                <Button size="sm" variant="primary">
-                    <AiOutlineUpload className="delete-module" />
-                </Button>
                 <UpdateFolderForm
                     folder={folder}
                     showUpdateFolder={showUpdateFolder}
@@ -47,7 +44,7 @@ const Folder = (props: any) => {
                 </Card.Body>
             </Link>
             <Card.Footer className="author-name" style={{ backgroundColor: "white", display: "flex", justifyContent: "flex-end" }}>
-                Created by: {user?.user?.username}
+                Tạo bởi: {user?.user?.username}
             </Card.Footer>
         </Card>
     )

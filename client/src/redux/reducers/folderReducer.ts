@@ -1,7 +1,9 @@
 import { ActionStore } from "../../types";
-import { ADD_FOLDER, UPDATE_FOLDER, DELETE_FOLDER, UPDATE_BY_API } from '../actions/folderActions';
+import { ADD_FOLDER, UPDATE_FOLDER, DELETE_FOLDER,
+    UPDATE_BY_API, UPDATE_MODULE_IN_FOLDER }
+from '../actions/folderActions';
 
-const initialFolderState = {list: [] as any, totalFolders: 0}
+const initialFolderState = {list: [] as any, totalFolders: 0, modules: [], totalModules: 0}
 
 const folderReducer = (state = initialFolderState, action: ActionStore) => {
     switch(action.type) {
@@ -20,6 +22,8 @@ const folderReducer = (state = initialFolderState, action: ActionStore) => {
             return {...state, ...{list: action.payload}, totalFolders: action.payload.length};
         case UPDATE_BY_API:
             return {...state, ...{list: action.payload}, totalFolders: action.payload.length};
+        case UPDATE_MODULE_IN_FOLDER:
+            return {...state, ...{modules: action.payload}, totalModules: action.payload?.length}
         default:
             return state;
     }

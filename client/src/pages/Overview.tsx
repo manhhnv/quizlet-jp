@@ -19,7 +19,7 @@ const Overview = ({ user }: any) => {
     const show = (s: any) => {
         setShowList(s);
     }
-    const [tabIndex, setTabIndex] = useState(2);
+    const [tabIndex, setTabIndex] = useState(3);
     useEffect(() => {
         me(user.token)
     }, [])
@@ -35,13 +35,16 @@ const Overview = ({ user }: any) => {
             </Row>
             <Row>
                 <Col md={3} className="vertical-nav-container">
-                    <VerticalNav />
+                    <VerticalNav setTabIndex={setTabIndex} tabIndex={tabIndex}/>
                 </Col>
                 <Col md={9} style={{paddingBottom: "200px"}}>
                     <MainPage show={show} showList={showList} tabIndex={tabIndex} setTabIndex={setTabIndex} user={user} />
-                    <React.Fragment>
+                    {tabIndex === 3 ? (
                         <ListFolder user={user} />
-                    </React.Fragment>
+                    ) : null}
+                    {tabIndex == 2 ? (
+                        <ListModule user={user} />
+                    ): null}
                 </Col>
             </Row>
         </React.Fragment>

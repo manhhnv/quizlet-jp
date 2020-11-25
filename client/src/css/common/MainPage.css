@@ -1,119 +1,117 @@
 .main-page-header {
-    background-color:  white;
-    box-shadow: 25px 17px 35px -25px rgba(150,150,150,1);
-    padding-top: 30px;
-    padding-bottom: 30px;
-
+  background-color: white;
+  box-shadow: 25px 17px 35px -25px rgba(150, 150, 150, 1);
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
-.info-part{
-    display: flex;
-    flex-direction: column;
+.info-part {
+  display: flex;
+  flex-direction: column;
 }
 
 .profile-image {
-    margin-left:  15rem;
+  margin-left: 15rem;
 }
 
 .profile-image > img {
-    width: 8rem;
-    height: 8rem;
+  width: 8rem;
+  height: 8rem;
 }
 
 .profile-name {
-    margin-left: 3rem;
-    font-weight: bold;
-    font-size: 2.5rem;
-    padding-bottom: 20px;
-    font-family: '';
+  margin-left: 3rem;
+  font-weight: bold;
+  font-size: 2.5rem;
+  padding-bottom: 20px;
+  font-family: "";
 }
 
 .profile-button-container {
-    margin-left: 3rem;
+  margin-left: 3rem;
 }
-
 
 .profile-button {
-    width: 7rem;
-    height: 45px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #3ccfcf;
-    background-color: #fff;
-    border: 1px solid gray;
-    margin: 1px;
-    /* border: none; */
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    outline: none;
+  width: 7rem;
+  height: 45px;
+  font-family: "Roboto", sans-serif;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #3ccfcf;
+  background-color: #fff;
+  border: 1px solid gray;
+  margin: 1px;
+  /* border: none; */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
 }
-  
+
 .profile-button:hover {
-    /* background-color: #ffcd1f; */
-    color: #ffcd1f
+  /* background-color: #ffcd1f; */
+  color: #ffcd1f;
 }
 
 .main-page-body {
-    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
-    background-color: #f6f7fb;
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    width: 100%; 
-    align-items: center;
-
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #f6f7fb;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
 }
 
-
 .add-course {
-    font-family: 'Roboto', sans-serif;
-    background-color: #3ccfcf;
-    color: white;
-    font-weight: bold;
-    border: none;
-    font-size: 1rem;
-    border-radius: 50%;
-    /* width: 50px;
+  font-family: "Roboto", sans-serif;
+  background-color: #3ccfcf;
+  color: white;
+  font-weight: bold;
+  border: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 1rem;
+  /* width: 50px;
     height: 50px; */
 }
 
 .add-course:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 .selections-controller {
-    max-width: 200px;
-    margin-left: 50px;
-    display: none;
+  max-width: 200px;
+  margin-left: 50px;
+  display: none;
 }
 .custom-form {
-    box-shadow: none;
-    border: 0;
-    border-radius: 0%;
-    outline: none;
-    background-color: transparent;
-    border-bottom: 1px solid #f0cb00;
+  box-shadow: none;
+  border: 0;
+  border-radius: 0%;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px solid #f0cb00;
 }
 .controller {
-    border: 1px solid green;
+  border: 1px solid green;
 }
 .controller > button {
-    border: 1px solid green;
-    border-radius: 0;
-    box-shadow: none;
-    outline: none;
+  border: 1px solid green;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
 }
 .active-tab {
-    background-color: #ffcd1f !important;
+  background-color: #ffcd1f !important;
 }
 @media only screen and (max-width: 1024px) {
-    .selections-controller {
-        display: block;
-    }
-    .controller {
-        display: none;
-    }
+  .selections-controller {
+    display: block;
+  }
+  .controller {
+    display: none;
+  }
 }

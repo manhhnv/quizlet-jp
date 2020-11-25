@@ -49,34 +49,35 @@
     }
 } */
 
-/* .course-part{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100%;
-} */
+.course-module-part {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
 
-.card-container{
-    /* width: 50rem; */
-    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
-    /* margin: 1rem;
+.card-container {
+  /* width: 50rem; */
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* margin: 1rem;
     margin-left: 7rem; */
-    
-    /* max-width: 70%; */
-    margin: 0 auto;
-    margin-top: 50px;
-    float: none;
+
+  /* max-width: 70%; */
+  margin: 0 auto;
+  margin-top: 50px;
+  float: none;
 }
 
 .start-learn {
-    background-color: #3ccfcf;
-    border: none;
-    cursor: pointer;
+  background-color: #3ccfcf;
+  border: none;
+  cursor: pointer;
 }
 
 .start-learn:hover {
-    /* color: coral; */
-    background-color: #3ccfcf;
-    opacity: 0.7;
+  /* color: coral; */
+  background-color: #3ccfcf;
+  opacity: 0.7;
 }

@@ -9,6 +9,7 @@ import HomePage from "../pages/Home";
 import Overview from "../pages/Overview";
 import Course from "../pages/Course";
 import FolderDetail from "../pages/FolderDetail";
+// import ClassDetail from "../pages/ClassDetail";
 
 const AppRouters = () => {
     return (
@@ -26,6 +27,9 @@ const AppRouters = () => {
                 <Route path="/folder">
                     <FolderDetail/>
                 </Route>
+                {/* <Route path="/class">
+                    <ClassDetail/>
+                </Route> */}
             </Switch>
         </Router>
     )

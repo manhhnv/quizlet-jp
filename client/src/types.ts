@@ -45,3 +45,13 @@ export type UpdateFolderInput = {
     public?: boolean;
     description?: string;
 }
+
+export type UpdateClassInput = {
+    name?: string;
+    public?: boolean;
+}
+
+export type CreateClassInput = {
+    name: string;
+    public: boolean;
+}

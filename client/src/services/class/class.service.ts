@@ -40,3 +40,12 @@ export const CLASS_DETAIL: Api = {
   url: `${BASE_URL}/class/detail`,
   method: HTTP_METHOD.GET
 }
+export const GENERATE_SHARED_LINK_CLASS: Api = {
+  url: `${BASE_URL}/class/generate-shared-link`,
+  method: HTTP_METHOD.GET
+}
+
+export const SHARE_CLASS_LINK: Api = {
+  url: `${BASE_URL}/class/send-shared-link`,
+  method: HTTP_METHOD.POST
+}

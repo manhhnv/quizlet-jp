@@ -13,7 +13,9 @@ import {
     AiOutlineFolder, AiOutlinePlusCircle,
     AiOutlineSetting, AiOutlineShareAlt, AiOutlineDelete,
     AiOutlineFolderAdd,
-    AiOutlineUsergroupAdd
+    AiOutlineUsergroupAdd,
+    AiFillEyeInvisible,
+    AiFillEye
 }
     from 'react-icons/ai';
 import {
@@ -21,12 +23,16 @@ import {
     deleteModuleFromFolder, assignModuleToFolder
 }
     from '../redux/actions/folderActions';
-import { ModuleCreate, UpdateFolderInput } from '../types';
+import { updateClass }
+from '../redux/actions/classActions';
+import { ModuleCreate, UpdateFolderInput, UpdateClassInput, CreateFolderInput } from '../types';
 import UpdateFolderForm from '../components/folder/UpdateFolderForm';
 import AddModuleToFolder from '../components/folder/AddModuleToFolder';
 import AllModuleInFolder from '../components/folder/AllModuleInFolder';
 import ShareFolder from '../components/folder/ShareFolder';
 import { CLASS_DETAIL } from '../services/class/class.service';
+import ShareClass from '../components/class/ShareClass';
+import UpdateClassForm from '../components/class/UpdateClassForm';
 
 const ClassDetail = ({
     user,
@@ -36,7 +42,9 @@ const ClassDetail = ({
     module,
     createModuleInFolder,
     deleteModuleFromFolder,
-    assignModuleToFolder
+    assignModuleToFolder,
+    updateClass,
+    classes
 }: any) => {
     const [folder, setFolder]: any = useState(null);
     const query = getQuerySearch();
@@ -44,17 +52,17 @@ const ClassDetail = ({
     const code = query.get('code');
     const usernamePath = getPathUrl()[1];
     const { addToast } = useToasts();
-    const [showUpdateFolder, setShowUpdateFolder] = useState(false);
-    const hideUpdateFolderCreateFolder = () => {
-        setShowUpdateFolder(false);
+    const [showUpdateClass, setShowUpdateClass] = useState(false);
+    const hideUpdateClass = () => {
+        setShowUpdateClass(false);
     }
     const [showAddModule, setShowAddModule] = useState(false);
     const hideAddModuleModal = () => {
         setShowAddModule(false);
     }
-    const [showShareFolder, setShowShareFolder] = useState(false);
-    const hideShareFolder = () => {
-        setShowShareFolder(false);
+    const [showShareClass, setShowShareClass] = useState(false);
+    const hideShareClass = () => {
+        setShowShareClass(false);
     }
     const [classItem, setClassItem]: any = useState(null);
     useEffect(() => {
@@ -75,14 +83,14 @@ const ClassDetail = ({
                         autoDismiss: true
                     })
                 })
-                // if (folders && folders.list.length > 0) {
-                //     const findResult = folders.list.find((item: any) => item.id == id && item.code == code)
-                //     if (findResult !== undefined) {
-                //         setFolder(findResult)
-                //     }
-                // }
+                if (classes && classes.list.length > 0) {
+                    const findResult = classes.list.find((item: any) => item.id == id && item.code == code)
+                    if (findResult !== undefined) {
+                        setClassItem(findResult)
+                    }
+                }
         }
-    }, [])
+    }, [classes])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -114,6 +122,19 @@ const ClassDetail = ({
                                         </span>
                                         <div>
                                             {classItem?.description}
+                                        </div>
+                                        <div className="mode_des">
+                                            {classItem?.public == 1 ? (
+                                                <>
+                                                    <AiFillEye></AiFillEye>
+                                                    Mọi người
+                                                </>
+                                            ): (
+                                                <>
+                                                    <AiFillEyeInvisible></AiFillEyeInvisible>
+                                                    Chỉ mình tôi
+                                                </>
+                                            )}
                                         </div>
                                     </div>
                                 </Col>
@@ -172,7 +193,7 @@ const ClassDetail = ({
                                             >
                                                 <Button
                                                     className="folder-actions"
-                                                    onClick={() => setShowUpdateFolder(true)}
+                                                    onClick={() => setShowUpdateClass(true)}
                                                 >
                                                     <AiOutlineSetting />
                                                 </Button>
@@ -186,11 +207,19 @@ const ClassDetail = ({
                                                 updateFolder={updateFolder}
 
                                             /> */}
+                                            <UpdateClassForm
+                                                showUpdateClass={showUpdateClass}
+                                                hideUpdateClass={hideUpdateClass}
+                                                user={user}
+                                                addToast={addToast}
+                                                class_={classItem}
+                                                updateClass={updateClass}
+                                            />
                                             <OverlayTrigger
                                                 placement="bottom"
                                                 overlay={
                                                     <Tooltip id="folder-delete">
-                                                        Xóa thư mục
+                                                        Xóa lớp học
                                         </Tooltip>
                                                 }
                                             >
@@ -217,17 +246,17 @@ const ClassDetail = ({
                                     >
                                         <Button
                                             className="folder-actions"
-                                            onClick={() => setShowShareFolder(true)}
+                                            onClick={() => setShowShareClass(true)}
                                         >
                                             <AiOutlineShareAlt />
                                         </Button>
                                     </OverlayTrigger>
-                                    {/* <ShareFolder
-                                        showShareFolder={showShareFolder}
-                                        hideShareFolder={hideShareFolder}
+                                    <ShareClass
+                                        showShareFolder={showShareClass}
+                                        hideShareFolder={hideShareClass}
                                         user={user}
                                         addToast={addToast}
-                                    /> */}
+                                    />
                                 </Col>
                             </Row>
                             {/* <AllModuleInFolder
@@ -255,7 +284,8 @@ const mapStateToProps = (state: any) => {
     return {
         user: state.user,
         module: state.module,
-        folders: state.folders
+        folders: state.folders,
+        classes: state.classes
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
@@ -269,7 +299,9 @@ const mapDispatchToProps = (dispatch: any) => {
         deleteModuleFromFolder: (token: string, module_id: number,
             folder_id: number, addToast: any) => dispatch(deleteModuleFromFolder(token, module_id, folder_id, addToast)),
         assignModuleToFolder: (token: string, module_id: number,
-            folder_id: number, addToast: any) => dispatch(assignModuleToFolder(token, module_id, folder_id, addToast))
+            folder_id: number, addToast: any) => dispatch(assignModuleToFolder(token, module_id, folder_id, addToast)),
+        updateClass: (token: string, class_id: number, input: UpdateClassInput,
+            addToast: any) => dispatch(updateClass(token, class_id, input, addToast))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(ClassDetail))

@@ -4,7 +4,15 @@ import { getModulesInFolder } from '../../redux/actions/folderActions';
 import { connect } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
 
-const AllModuleInFolder = ({ user, folder, getModulesInFolder, addToast, folders, deleteModuleFromFolder }: any) => {
+const AllModuleInFolder = ({
+    user,
+    folder,
+    getModulesInFolder,
+    addToast,
+    folders,
+    deleteModuleFromFolder,
+    usernamePath
+    }: any) => {
     useEffect(() => {
         if (user?.token) {
             getModulesInFolder(user.token, folder.id, addToast)
@@ -23,13 +31,14 @@ const AllModuleInFolder = ({ user, folder, getModulesInFolder, addToast, folders
                                         <Card.Title>{module.name}</Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted">
                                             <img src={user?.user?.avatar ? `${user?.user?.avatar}` : require('../../assets/avatar.png')} className="avatar-small" />
-                                            {" " + user?.user?.username}
+                                            {" " + usernamePath}
                                         </Card.Subtitle>
                                         <Card.Text>
                                             {module?.description}
                                         </Card.Text>
                                         <Card.Link>
-                                            <OverlayTrigger
+                                            {usernamePath === user?.user?.username ? (
+                                                <OverlayTrigger
                                                 placement="bottom"
                                                 overlay={
                                                     <Tooltip id="folder-delete">
@@ -46,6 +55,7 @@ const AllModuleInFolder = ({ user, folder, getModulesInFolder, addToast, folders
                                                     <AiOutlineDelete />
                                                 </Button>
                                             </OverlayTrigger>
+                                            ): null}
                                         </Card.Link>
                                     </Card.Body>
                                 </Card>
@@ -55,7 +65,7 @@ const AllModuleInFolder = ({ user, folder, getModulesInFolder, addToast, folders
                 </Row>
             ) : (
                     <Row style={{ marginTop: "100px" }} className="d-flex justify-content-center">
-                        <Spinner animation="border" variant="primary"></Spinner>
+                        <h3>Chưa có học phần nào trong thư mục</h3>
                     </Row>
                 )}
         </React.Fragment>

@@ -23,7 +23,7 @@ const AppRouters = () => {
                 <Route path="/course">
                     <Course/>
                 </Route>
-                <Route path="/folder">
+                <Route path="/:username/folder">
                     <FolderDetail/>
                 </Route>
             </Switch>

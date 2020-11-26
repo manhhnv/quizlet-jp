@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { getQuerySearch } from '../helper/getQuerySearch';
+import { getPathUrl } from '../helper/getPathUrl';
 import { FOLDER_DETAIL } from '../services/folder/folder.service';
 import HeaderPage from '../components/layouts/Header';
 import VerticalNav from '../components/layouts/VerticalNav';
@@ -13,16 +14,20 @@ import {
     AiOutlineSetting, AiOutlineShareAlt, AiOutlineDelete
 }
     from 'react-icons/ai';
-import { deleteFolder, updateFolder, createModuleInFolder,
-    deleteModuleFromFolder, assignModuleToFolder } 
-from '../redux/actions/folderActions';
+import {
+    deleteFolder, updateFolder, createModuleInFolder,
+    deleteModuleFromFolder, assignModuleToFolder
+}
+    from '../redux/actions/folderActions';
 import { ModuleCreate, UpdateFolderInput } from '../types';
 import UpdateFolderForm from '../components/folder/UpdateFolderForm';
 import AddModuleToFolder from '../components/folder/AddModuleToFolder';
 import AllModuleInFolder from '../components/folder/AllModuleInFolder';
+import ShareFolder from '../components/folder/ShareFolder';
 
 const FolderDetail = ({
     user,
+    folders,
     deleteFolder,
     updateFolder,
     module,
@@ -33,6 +38,7 @@ const FolderDetail = ({
     const query = getQuerySearch();
     const id = query.get('id');
     const code = query.get('code');
+    const usernamePath = getPathUrl()[1];
     const { addToast } = useToasts();
     const [showUpdateFolder, setShowUpdateFolder] = useState(false);
     const hideUpdateFolderCreateFolder = () => {
@@ -41,6 +47,10 @@ const FolderDetail = ({
     const [showAddModule, setShowAddModule] = useState(false);
     const hideAddModuleModal = () => {
         setShowAddModule(false);
+    }
+    const [showShareFolder, setShowShareFolder] = useState(false);
+    const hideShareFolder = () => {
+        setShowShareFolder(false);
     }
     useEffect(() => {
         if (user?.token) {
@@ -60,8 +70,14 @@ const FolderDetail = ({
                         autoDismiss: true
                     })
                 })
+                if (folders && folders.list.length > 0) {
+                    const findResult = folders.list.find((item: any) => item.id == id && item.code == code)
+                    if (findResult !== undefined) {
+                        setFolder(findResult)
+                    }
+                }
         }
-    }, [])
+    }, [folders])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -85,7 +101,7 @@ const FolderDetail = ({
                             <Row className="folder-header">
                                 <Col lg={4}>
                                     <div className="folder-auhor">
-                                        1 học phần {" "} | Tạo bởi<span className="author">{" " + user.user.username}</span>
+                                        {folders?.totalModules} học phần {" "} | Tạo bởi<span className="author">{" " + usernamePath}</span>
                                     </div>
                                     <div className="folder-info">
                                         <AiOutlineFolder style={{ fontSize: "50px", marginBottom: "10px" }} />
@@ -100,31 +116,78 @@ const FolderDetail = ({
                                 <Col lg={5}>
                                 </Col>
                                 <Col lg={3}>
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        overlay={
-                                            <Tooltip id="folder-add-module">
-                                                Thêm học phần
+                                    {usernamePath === user?.user?.username ? (
+                                        <React.Fragment>
+                                            <OverlayTrigger
+                                                placement="bottom"
+                                                overlay={
+                                                    <Tooltip id="folder-add-module">
+                                                        Thêm học phần
                                         </Tooltip>
-                                        }
-                                    >
-                                        <Button
-                                            className="folder-actions"
-                                            onClick={() => setShowAddModule(true)}
-                                        >
-                                            <AiOutlinePlusCircle />
-                                        </Button>
-                                    </OverlayTrigger>
-                                    <AddModuleToFolder
-                                        showAddModule={showAddModule}
-                                        hideAddModuleModal={hideAddModuleModal}
-                                        addToast={addToast}
-                                        module={module}
-                                        folder={folder}
-                                        user={user}
-                                        createModuleInFolder={createModuleInFolder}
-                                        assignModuleToFolder={assignModuleToFolder}
-                                    />
+                                                }
+                                            >
+                                                <Button
+                                                    className="folder-actions"
+                                                    onClick={() => setShowAddModule(true)}
+                                                >
+                                                    <AiOutlinePlusCircle />
+                                                </Button>
+                                            </OverlayTrigger>
+                                            <AddModuleToFolder
+                                                showAddModule={showAddModule}
+                                                hideAddModuleModal={hideAddModuleModal}
+                                                addToast={addToast}
+                                                module={module}
+                                                folder={folder}
+                                                user={user}
+                                                createModuleInFolder={createModuleInFolder}
+                                                assignModuleToFolder={assignModuleToFolder}
+                                            />
+                                            <OverlayTrigger
+                                                placement="bottom"
+                                                overlay={
+                                                    <Tooltip id="folder-update">
+                                                        Chỉnh sửa
+                                                    </Tooltip>
+                                                }
+                                            >
+                                                <Button
+                                                    className="folder-actions"
+                                                    onClick={() => setShowUpdateFolder(true)}
+                                                >
+                                                    <AiOutlineSetting />
+                                                </Button>
+                                            </OverlayTrigger>
+                                            <UpdateFolderForm
+                                                folder={folder}
+                                                showUpdateFolder={showUpdateFolder}
+                                                hideUpdateFolderCreateFolder={hideUpdateFolderCreateFolder}
+                                                user={user}
+                                                addToast={addToast}
+                                                updateFolder={updateFolder}
+
+                                            />
+                                            <OverlayTrigger
+                                                placement="bottom"
+                                                overlay={
+                                                    <Tooltip id="folder-delete">
+                                                        Xóa thư mục
+                                        </Tooltip>
+                                                }
+                                            >
+                                                <Link to="/overview" className="link">
+                                                    <Button
+                                                        variant="outline-danger"
+                                                        className="folder-actions folder-delete"
+                                                        onClick={() => deleteFolderHandle(user.token, folder.id, addToast)}
+                                                    >
+                                                        <AiOutlineDelete />
+                                                    </Button>
+                                                </Link>
+                                            </OverlayTrigger>
+                                        </React.Fragment>
+                                    ) : null}
+
                                     <OverlayTrigger
                                         placement="bottom"
                                         overlay={
@@ -133,52 +196,19 @@ const FolderDetail = ({
                                         </Tooltip>
                                         }
                                     >
-                                        <Button className="folder-actions">
+                                        <Button
+                                            className="folder-actions"
+                                            onClick={() => setShowShareFolder(true)}
+                                        >
                                             <AiOutlineShareAlt />
                                         </Button>
                                     </OverlayTrigger>
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        overlay={
-                                            <Tooltip id="folder-update">
-                                                Chỉnh sửa
-                                        </Tooltip>
-                                        }
-                                    >
-                                        <Button
-                                            className="folder-actions"
-                                            onClick={() => setShowUpdateFolder(true)}
-                                        >
-                                            <AiOutlineSetting />
-                                        </Button>
-                                    </OverlayTrigger>
-                                    <UpdateFolderForm
-                                        folder={folder}
-                                        showUpdateFolder={showUpdateFolder}
-                                        hideUpdateFolderCreateFolder={hideUpdateFolderCreateFolder}
+                                    <ShareFolder
+                                        showShareFolder={showShareFolder}
+                                        hideShareFolder={hideShareFolder}
                                         user={user}
                                         addToast={addToast}
-                                        updateFolder={updateFolder}
-                                        
                                     />
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        overlay={
-                                            <Tooltip id="folder-delete">
-                                                Xóa thư mục
-                                        </Tooltip>
-                                        }
-                                    >
-                                        <Link to="/overview" className="link">
-                                            <Button
-                                                variant="outline-danger"
-                                                className="folder-actions folder-delete"
-                                                onClick={() => deleteFolderHandle(user.token, folder.id, addToast)}
-                                            >
-                                                <AiOutlineDelete />
-                                            </Button>
-                                        </Link>
-                                    </OverlayTrigger>
                                 </Col>
                             </Row>
                             <AllModuleInFolder
@@ -186,6 +216,7 @@ const FolderDetail = ({
                                 folder={folder}
                                 addToast={addToast}
                                 deleteModuleFromFolder={deleteModuleFromFolder}
+                                usernamePath={usernamePath}
                             />
                         </React.Fragment>
 
@@ -204,7 +235,8 @@ const FolderDetail = ({
 const mapStateToProps = (state: any) => {
     return {
         user: state.user,
-        module: state.module
+        module: state.module,
+        folders: state.folders
     }
 }
 const mapDispatchToProps = (dispatch: any) => {

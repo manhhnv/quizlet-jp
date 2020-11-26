@@ -38,7 +38,8 @@ const VerticalNav = ({ createFolder, folders, user, setTabIndex, tabIndex }: any
                     <ul className="vertical-nav-child">
                         {folders && folders.list.length > 0 ? folders.list.map((folder: any, index: any) => (
                             <li key={index}>
-                                <a href={`folder?code=${folder.code}&id=${folder.id}`}>
+
+                                <a href={`${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`}>
                                     {folder.name}
                                 </a>
                             </li>

@@ -119,6 +119,9 @@ export const updateFolder = (token: string, folder_id: number, input: UpdateFold
                 })
             }
         })
+        // .finally(() => {
+        //     window.location.reload()
+        // })
     }
 }
 export const createModuleInFolder = (token: string, folder_id: number, code: string, input: ModuleCreate, addToast: any) => {

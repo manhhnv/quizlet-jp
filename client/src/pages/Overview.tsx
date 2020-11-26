@@ -12,6 +12,7 @@ import MainPage from '../components/layouts/MainPage';
 import ListModule from '../components/ListModule';
 import ListFolder from '../components/folder/ListFolder';
 import VerticalNav from '../components/layouts/VerticalNav';
+import ListClass from '../components/class/ListClass';
 const Overview = ({ user }: any) => {
 
     const [showList, setShowList] = useState(true);
@@ -41,11 +42,14 @@ const Overview = ({ user }: any) => {
                 </Col>
                 <Col md={9} style={{paddingBottom: "200px"}}>
                     <MainPage show={show} showList={showList} tabIndex={tabIndex} setTabIndex={setTabIndex} user={user} />
+                    {tabIndex == 2 ? (
+                        <ListModule user={user} />
+                    ): null}
                     {tabIndex === 3 ? (
                         <ListFolder user={user} />
                     ) : null}
-                    {tabIndex == 2 ? (
-                        <ListModule user={user} />
+                    {tabIndex === 4 ? (
+                        <ListClass user={user} />
                     ): null}
                 </Col>
             </Row>

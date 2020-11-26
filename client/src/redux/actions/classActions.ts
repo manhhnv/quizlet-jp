@@ -5,7 +5,7 @@ import * as classService from '../../services/class/class.service';
 export const ADD_CLASS = "ADD_CLASS";
 export const UPDATE_CLASS = "UPDATE_CLASS";
 export const DELETE_CLASS = "DELETE_CLASS";
-export const UPDATE_BY_API = "UPDATE_BY_API";
+export const UPDATE_CLASSES_BY_API = "UPDATE_CLASSES_BY_API";
 export const UPDATE_MODULE_IN_CLASS = "UPDATE_MODULE_IN_CLASS";
 
 export const getListOfCLasses = (token: string) => {
@@ -16,7 +16,7 @@ export const getListOfCLasses = (token: string) => {
       }
     }).then(res => {
       dispatch({
-        type: UPDATE_BY_API,
+        type: UPDATE_CLASSES_BY_API,
         payload: res.data
       })
     }).catch(e => {

@@ -6,11 +6,6 @@ export const LIST_CLASS: Api = {
   method: HTTP_METHOD.GET
 }
 
-// export const CLASS_DETAIL: Api = {
-//   url: `${BASE_URL}/class/all`,
-//   method: HTTP_METHOD.GET
-// }
-
 export const CREATE_CLASS: Api = {
   url: `${BASE_URL}/class/create`,
   method: HTTP_METHOD.POST
@@ -39,4 +34,9 @@ export const ASSIGN_MODULE_TO_ClASS: Api = {
 export const DELETE_MODULE_FROM_CLASS: Api = {
   url: `${BASE_URL}/class/delete-module/module`,
   method: HTTP_METHOD.DELETE
+}
+
+export const CLASS_DETAIL: Api = {
+  url: `${BASE_URL}/class/detail`,
+  method: HTTP_METHOD.GET
 }

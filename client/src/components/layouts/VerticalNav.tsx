@@ -3,14 +3,28 @@ import { AiFillGolden, AiFillFolderOpen, AiFillHome, AiFillCarryOut } from 'reac
 import { Link } from 'react-router-dom';
 import AddFolderForm from '../folder/AddFolderForm';
 import { createFolder } from '../../redux/actions/folderActions';
-import { CreateFolderInput } from '../../types';
+import { CreateFolderInput, CreateClassInput } from '../../types';
+import { createClass } from "../../redux/actions/classActions";
 import { connect } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
+import AddClassForm from '../class/AddClassForm';
 
-const VerticalNav = ({ createFolder, folders, user, setTabIndex, tabIndex }: any) => {
+const VerticalNav = ({
+    createFolder,
+    folders,
+    user,
+    setTabIndex,
+    tabIndex,
+    classes,
+    createClass
+}: any) => {
     const [showCreateFolder, setShowCreateFolder] = useState(false);
     const hideCreateFolderCreateFolder = () => {
         setShowCreateFolder(false);
+    }
+    const [showCreateClass, setShowCreateClass] = useState(false);
+    const hideCreateClass = () => {
+        setShowCreateClass(false);
     }
     const { addToast } = useToasts();
     return (
@@ -62,9 +76,34 @@ const VerticalNav = ({ createFolder, folders, user, setTabIndex, tabIndex }: any
                     </ul>
                 </li>
                 <li>
-                    <a href="#about">
-                        <AiFillGolden></AiFillGolden> Lớp học
-                    </a></li>
+                    <Link to="overview#class" onClick={() => setTabIndex(4)} className={tabIndex == 4 ? "active" : ''}>
+                        <AiFillGolden></AiFillGolden> Lớp học ( {classes.totalClasses} )
+                    </Link>
+                    <ul className="vertical-nav-child">
+                        {classes && classes.list.length > 0 ? classes.list.map((item: any, index: any) => (
+                            <li key={index}>
+
+                                <a href={`${user?.user?.username}/class?code=${item.code}&id=${item.id}`}>
+                                    {item.name}
+                                </a>
+                            </li>
+                        )) : null}
+                        <li>
+                            <a
+                                style={{ color: "#3ccfcf" }}
+                                onClick={() => setShowCreateClass(true)}
+                            >
+                                Thêm thư mục
+                            </a>
+                            <AddClassForm
+                                showCreateClass={showCreateClass}
+                                hideCreateClass={hideCreateClass}
+                                user={user}
+                                addToast={addToast}
+                            />
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     )
@@ -72,13 +111,16 @@ const VerticalNav = ({ createFolder, folders, user, setTabIndex, tabIndex }: any
 const mapStateToProps = (state: any) => {
     return {
         user: state.user,
-        folders: state.folders
+        folders: state.folders,
+        classes: state.classes
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
         createFolder: (token: string, input: CreateFolderInput,
-            addToast: any) => dispatch(createFolder(token, input, addToast))
+            addToast: any) => dispatch(createFolder(token, input, addToast)),
+        createClass: (token: string, input: CreateClassInput,
+            addToast: any) => dispatch(createClass(token, input, addToast))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(VerticalNav));

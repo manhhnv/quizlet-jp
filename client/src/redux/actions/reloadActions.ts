@@ -2,6 +2,7 @@ import { getAccessToken } from "../../helper/getDataLocaStorage"
 import { me } from "./userAction"
 import { allModules } from "./moduleAction";
 import { getListFolders } from "./folderActions";
+import { getListOfCLasses } from "./classActions";
 
 
 export const resolverReload = () => {
@@ -10,5 +11,6 @@ export const resolverReload = () => {
         dispatch(me(accessToken))
         dispatch(allModules(accessToken))
         dispatch(getListFolders(accessToken))
+        dispatch(getListOfCLasses(accessToken))
     }
 }

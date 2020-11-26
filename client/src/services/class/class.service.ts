@@ -6,11 +6,6 @@ export const LIST_CLASS: Api = {
   method: HTTP_METHOD.GET
 }
 
-// export const CLASS_DETAIL: Api = {
-//   url: `${BASE_URL}/class/all`,
-//   method: HTTP_METHOD.GET
-// }
-
 export const CREATE_CLASS: Api = {
   url: `${BASE_URL}/class/create`,
   method: HTTP_METHOD.POST

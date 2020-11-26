@@ -1,5 +1,5 @@
 import { ActionStore } from "../../types";
-import { ADD_CLASS, DELETE_CLASS, UPDATE_CLASS, UPDATE_BY_API } from "../actions/classActions";
+import { ADD_CLASS, DELETE_CLASS, UPDATE_CLASS, UPDATE_CLASSES_BY_API } from "../actions/classActions";
 
 const initialClassState = { list: [] as any, totalClasses: 0, modules: [], totalModules: 0 }
 
@@ -18,10 +18,8 @@ const classReducer = (state = initialClassState, action: ActionStore) => {
       return { ...state, list: listClone };
     case DELETE_CLASS:
       return { ...state, ...{ list: action.payload }, totalClasses: action.payload.length };
-    case UPDATE_BY_API:
+    case UPDATE_CLASSES_BY_API:
       return { ...state, ...{ list: action.payload }, totalClasses: action.payload.length };
-    // case UPDATE_MODULE_IN_FOLDER:
-    // return { ...state, ...{ modules: action.payload }, totalModules: action.payload?.length }
     default:
       return state;
   }

@@ -7,7 +7,7 @@ const AddClassForm = ({
     hideCreateClass,
     createClass,
     user,
-    addToast
+    addToast,
 }: any) => {
     const classRef: any = useRef([]);
     const createClassHandle = () => {

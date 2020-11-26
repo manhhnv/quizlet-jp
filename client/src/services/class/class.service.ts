@@ -35,3 +35,8 @@ export const DELETE_MODULE_FROM_CLASS: Api = {
   url: `${BASE_URL}/class/delete-module/module`,
   method: HTTP_METHOD.DELETE
 }
+
+export const CLASS_DETAIL: Api = {
+  url: `${BASE_URL}/class/detail`,
+  method: HTTP_METHOD.GET
+}

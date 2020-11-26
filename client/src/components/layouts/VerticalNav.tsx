@@ -93,13 +93,14 @@ const VerticalNav = ({
                                 style={{ color: "#3ccfcf" }}
                                 onClick={() => setShowCreateClass(true)}
                             >
-                                Thêm thư mục
+                                Thêm lớp học mới
                             </a>
                             <AddClassForm
                                 showCreateClass={showCreateClass}
                                 hideCreateClass={hideCreateClass}
                                 user={user}
                                 addToast={addToast}
+                                createClass={createClass}
                             />
                         </li>
                     </ul>

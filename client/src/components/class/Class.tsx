@@ -6,40 +6,40 @@ import {
 }
     from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import UpdateFolderForm from './UpdateFolderForm';
+import UpdateClassFrom from './UpdateClassForm';
 
 const Folder = (props: any) => {
-    const { folder, deleteFolder, addToast, user, updateFolder } = props;
-    const [showUpdateFolder, setShowUpdateFolder] = useState(false);
-    const hideUpdateFolderCreateFolder = () => {
-        setShowUpdateFolder(false);
+    const { class_, deleteClass, addToast, user, updateClass } = props;
+    const [showUpdateClass, setShowUpdateClass] = useState(false);
+    const hideUpdateClass = () => {
+        setShowUpdateClass(false);
     }
     return (
         <Card className="card-container">
             <Card.Header className="curd-control">
                 <Button size="sm" variant="outline-danger">
-                    <AiOutlineDelete className="delete-module" onClick={() => deleteFolder(user.token, folder.id, addToast)} />
+                    <AiOutlineDelete className="delete-module" onClick={() => deleteClass(user.token, class_.id, addToast)} />
                 </Button>
-                <Button size="sm" variant="primary" onClick={() => setShowUpdateFolder(true)}>
+                <Button size="sm" variant="primary" onClick={() => setShowUpdateClass(true)}>
                     <AiFillSetting className="delete-module" />
                 </Button>
-                <UpdateFolderForm
-                    folder={folder}
-                    showUpdateFolder={showUpdateFolder}
-                    hideUpdateFolderCreateFolder={hideUpdateFolderCreateFolder}
+                <UpdateClassFrom
+                    class_={class_}
+                    showUpdateClass={showUpdateClass}
+                    hideUpdateClass={hideUpdateClass}
                     user={user}
                     addToast={addToast}
-                    updateFolder={updateFolder}
+                    updateClass={updateClass}
                 />
             </Card.Header>
-            <Link to={`${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`} style={{textDecoration: "none", color: "black"}}>
+            <Link to={`${user?.user?.username}/class?code=${class_.code}&id=${class_.id}`} style={{textDecoration: "none", color: "black"}}>
                 <Card.Body className="folder-body">
-                    <Card.Title>{folder?.name}</Card.Title>
+                    <Card.Title>{class_?.name}</Card.Title>
                     <Card.Text>
-                        {folder?.description}
+                        {class_?.description}
                     </Card.Text>
                     <Card.Text style={{ fontWeight: "bold" }}>
-                        Chế độ: {folder.public == 1 ? (<AiOutlineEye />) : (<AiOutlineEyeInvisible />)}
+                        Chế độ: {class_.public === 1 ? (<AiOutlineEye />) : (<AiOutlineEyeInvisible />)}
                     </Card.Text>
                 </Card.Body>
             </Link>

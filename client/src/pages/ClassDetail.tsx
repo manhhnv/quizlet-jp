@@ -11,7 +11,9 @@ import HeaderPage from '../components/layouts/Header';
 import VerticalNav from '../components/layouts/VerticalNav';
 import {
     AiOutlineFolder, AiOutlinePlusCircle,
-    AiOutlineSetting, AiOutlineShareAlt, AiOutlineDelete
+    AiOutlineSetting, AiOutlineShareAlt, AiOutlineDelete,
+    AiOutlineFolderAdd,
+    AiOutlineUsergroupAdd
 }
     from 'react-icons/ai';
 import {
@@ -24,8 +26,9 @@ import UpdateFolderForm from '../components/folder/UpdateFolderForm';
 import AddModuleToFolder from '../components/folder/AddModuleToFolder';
 import AllModuleInFolder from '../components/folder/AllModuleInFolder';
 import ShareFolder from '../components/folder/ShareFolder';
+import { CLASS_DETAIL } from '../services/class/class.service';
 
-const FolderDetail = ({
+const ClassDetail = ({
     user,
     folders,
     deleteFolder,
@@ -33,7 +36,8 @@ const FolderDetail = ({
     module,
     createModuleInFolder,
     deleteModuleFromFolder,
-    assignModuleToFolder }: any) => {
+    assignModuleToFolder
+}: any) => {
     const [folder, setFolder]: any = useState(null);
     const query = getQuerySearch();
     const id = query.get('id');
@@ -52,32 +56,33 @@ const FolderDetail = ({
     const hideShareFolder = () => {
         setShowShareFolder(false);
     }
+    const [classItem, setClassItem]: any = useState(null);
     useEffect(() => {
         if (user?.token) {
-            Axios.get(`${FOLDER_DETAIL.url}?code=${code}&id=${id}`, {
+            Axios.get(`${CLASS_DETAIL.url}?code=${code}&id=${id}`, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
             })
                 .then(res => {
                     if (res.data !== null) {
-                        setFolder(res.data)
+                        setClassItem(res.data)
                     }
                 })
                 .catch(e => {
-                    addToast("Error when trying get folder", {
+                    addToast("Error when trying get class", {
                         appearance: "error",
                         autoDismiss: true
                     })
                 })
-                if (folders && folders.list.length > 0) {
-                    const findResult = folders.list.find((item: any) => item.id == id && item.code == code)
-                    if (findResult !== undefined) {
-                        setFolder(findResult)
-                    }
-                }
+                // if (folders && folders.list.length > 0) {
+                //     const findResult = folders.list.find((item: any) => item.id == id && item.code == code)
+                //     if (findResult !== undefined) {
+                //         setFolder(findResult)
+                //     }
+                // }
         }
-    }, [folders])
+    }, [])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -96,20 +101,19 @@ const FolderDetail = ({
                     <VerticalNav />
                 </Col>
                 <Col md={9} style={{ paddingBottom: "200px" }}>
-                    {folder !== null ? (
+                    {classItem !== null ? (
                         <React.Fragment>
                             <Row className="folder-header">
                                 <Col lg={4}>
                                     <div className="folder-auhor">
-                                        {folders?.totalModules} học phần {" "} | Tạo bởi<span className="author">{" " + usernamePath}</span>
                                     </div>
                                     <div className="folder-info">
-                                        <AiOutlineFolder style={{ fontSize: "50px", marginBottom: "10px" }} />
+                                        <AiOutlineUsergroupAdd style={{ fontSize: "50px", marginBottom: "10px" }} />
                                         <span className="folder-name">
-                                            {folder?.name}
+                                            {classItem?.name}
                                         </span>
                                         <div>
-                                            {folder?.description}
+                                            {classItem?.description}
                                         </div>
                                     </div>
                                 </Col>
@@ -133,7 +137,22 @@ const FolderDetail = ({
                                                     <AiOutlinePlusCircle />
                                                 </Button>
                                             </OverlayTrigger>
-                                            <AddModuleToFolder
+                                            <OverlayTrigger
+                                                placement="bottom"
+                                                overlay={
+                                                    <Tooltip id="folder-add-module">
+                                                        Thêm thư mục
+                                        </Tooltip>
+                                                }
+                                            >
+                                                <Button
+                                                    className="folder-actions"
+                                                    onClick={() => setShowAddModule(true)}
+                                                >
+                                                    <AiOutlineFolderAdd />
+                                                </Button>
+                                            </OverlayTrigger>
+                                            {/* <AddModuleToFolder
                                                 showAddModule={showAddModule}
                                                 hideAddModuleModal={hideAddModuleModal}
                                                 addToast={addToast}
@@ -142,7 +161,7 @@ const FolderDetail = ({
                                                 user={user}
                                                 createModuleInFolder={createModuleInFolder}
                                                 assignModuleToFolder={assignModuleToFolder}
-                                            />
+                                            /> */}
                                             <OverlayTrigger
                                                 placement="bottom"
                                                 overlay={
@@ -158,7 +177,7 @@ const FolderDetail = ({
                                                     <AiOutlineSetting />
                                                 </Button>
                                             </OverlayTrigger>
-                                            <UpdateFolderForm
+                                            {/* <UpdateFolderForm
                                                 folder={folder}
                                                 showUpdateFolder={showUpdateFolder}
                                                 hideUpdateFolderCreateFolder={hideUpdateFolderCreateFolder}
@@ -166,7 +185,7 @@ const FolderDetail = ({
                                                 addToast={addToast}
                                                 updateFolder={updateFolder}
 
-                                            />
+                                            /> */}
                                             <OverlayTrigger
                                                 placement="bottom"
                                                 overlay={
@@ -203,21 +222,21 @@ const FolderDetail = ({
                                             <AiOutlineShareAlt />
                                         </Button>
                                     </OverlayTrigger>
-                                    <ShareFolder
+                                    {/* <ShareFolder
                                         showShareFolder={showShareFolder}
                                         hideShareFolder={hideShareFolder}
                                         user={user}
                                         addToast={addToast}
-                                    />
+                                    /> */}
                                 </Col>
                             </Row>
-                            <AllModuleInFolder
+                            {/* <AllModuleInFolder
                                 user={user}
                                 folder={folder}
                                 addToast={addToast}
                                 deleteModuleFromFolder={deleteModuleFromFolder}
                                 usernamePath={usernamePath}
-                            />
+                            /> */}
                         </React.Fragment>
 
                     ) : (
@@ -253,4 +272,4 @@ const mapDispatchToProps = (dispatch: any) => {
             folder_id: number, addToast: any) => dispatch(assignModuleToFolder(token, module_id, folder_id, addToast))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(FolderDetail))
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(ClassDetail))

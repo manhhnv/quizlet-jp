@@ -4,41 +4,32 @@ import { getModulesInFolder } from '../../redux/actions/folderActions';
 import { connect } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
 
-const AllModuleInFolder = ({
-    user,
-    folder,
-    getModulesInFolder,
-    addToast,
-    folders,
-    deleteModuleFromFolder,
-    usernamePath
-    }: any) => {
+const AllModuleInClass = ({ user, class_, getModulesInClass, addToast, classes, deleteModuleFromClass }: any) => {
     useEffect(() => {
         if (user?.token) {
-            getModulesInFolder(user.token, folder.id, addToast)
+          getModulesInClass(user.token, class_.id, addToast)
         }
-    }, [])
+    }, [addToast, class_.id, getModulesInClass, user])
     return (
         <React.Fragment>
-            {folders && folders.totalModules > 0 ? (
+            {classes && classes.totalModules > 0 ? (
                 <Row className="list-module-folder">
                     <Col sm={1}></Col>
                     <Col sm={11}>
                         <Row>
-                            {folders.modules.map((module: any, i: any) => (
+                            {classes.modules.map((module: any, i: any) => (
                                 <Card className="module-item" key={i}>
                                     <Card.Body>
                                         <Card.Title>{module.name}</Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted">
                                             <img src={user?.user?.avatar ? `${user?.user?.avatar}` : require('../../assets/avatar.png')} className="avatar-small" />
-                                            {" " + usernamePath}
+                                            {" " + user?.user?.username}
                                         </Card.Subtitle>
                                         <Card.Text>
                                             {module?.description}
                                         </Card.Text>
                                         <Card.Link>
-                                            {usernamePath === user?.user?.username ? (
-                                                <OverlayTrigger
+                                            <OverlayTrigger
                                                 placement="bottom"
                                                 overlay={
                                                     <Tooltip id="folder-delete">
@@ -49,13 +40,11 @@ const AllModuleInFolder = ({
                                                 <Button
                                                     variant="outline-danger"
                                                     className="folder-actions"
-                                                    onClick={() => deleteModuleFromFolder(user.token, module.id, folder.id, addToast)}
-
+                                                    onClick={() => deleteModuleFromClass(user.token, module.id, class_.id, addToast)}
                                                 >
                                                     <AiOutlineDelete />
                                                 </Button>
                                             </OverlayTrigger>
-                                            ): null}
                                         </Card.Link>
                                     </Card.Body>
                                 </Card>
@@ -65,7 +54,7 @@ const AllModuleInFolder = ({
                 </Row>
             ) : (
                     <Row style={{ marginTop: "100px" }} className="d-flex justify-content-center">
-                        <h3>Chưa có học phần nào trong thư mục</h3>
+                        <Spinner animation="border" variant="primary"></Spinner>
                     </Row>
                 )}
         </React.Fragment>
@@ -81,4 +70,4 @@ const mapDispatchToProps = (dispatch: any) => {
         getModulesInFolder: (token: string, folder_id: number, addToast: any) => dispatch(getModulesInFolder(token, folder_id, addToast))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AllModuleInFolder));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AllModuleInClass));

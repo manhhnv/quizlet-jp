@@ -16,7 +16,7 @@ const AddModuleToClass = ({
     const moduleRef: any = useRef([]);
     const addNewModuleHandle = () => {
         const input = convertRefToObject(moduleRef.current)
-        console.log(input)
+        // console.log(input)
         createModuleInClass(user.token, class_.id, class_.code, input, addToast)
         hideAddModuleModal()
     }
@@ -72,7 +72,7 @@ const AddModuleToClass = ({
                         <Form.Control
                             type="button"
                             name="create"
-                            value="Tạo thư mục"
+                            value="Tạo học phần"
                             className="login-button"
                             onClick={addNewModuleHandle}
                         >

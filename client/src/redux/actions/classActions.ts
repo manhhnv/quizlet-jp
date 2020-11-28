@@ -1,9 +1,10 @@
 import Axios from 'axios';
 import {
-  UpdateClassInput, CreateClassInput, ModuleCreate,
+  UpdateClassInput, CreateClassInput, ModuleCreate, CreateFolderInput,
 } from '../../types';
 import * as classService from '../../services/class/class.service';
 import { CREATE_MODULE } from './moduleAction';
+import { ADD_FOLDER } from './folderActions';
 
 export const ADD_CLASS = "ADD_CLASS";
 export const UPDATE_CLASS = "UPDATE_CLASS";
@@ -196,7 +197,7 @@ export const createModuleInClass = (
   }
 }
 
-export const getModulesInClass = (token: string, class_id: number, addToast: any) => {
+export const getModulesInClass = (token: string, class_id: number, addToast: any, setLoading: any) => {
   return async (dispatch: any) => {
     Axios.get(`${classService.GET_MODULES_IN_CLASS.url}?class_id=${class_id}`, {
       headers: {
@@ -209,8 +210,9 @@ export const getModulesInClass = (token: string, class_id: number, addToast: any
             type: UPDATE_MODULE_IN_CLASS,
             payload: res.data
           })
-          console.log("Fetching...")
-          return res.data
+          if (setLoading) {
+            setLoading(false)
+          }
         }
       })
       .catch(e => {
@@ -261,7 +263,7 @@ export const deleteModuleFromClass = (token: string, module_id: number, class_id
   }
 }
 
-export const getFoldersInClass = (token: string, class_id: number, addToast: any) => {
+export const getFoldersInClass = (token: string, class_id: number, addToast: any, callback?: any) => {
   return (dispatch: any) => {
     Axios.get(`${classService.GET_FOLDERS_IN_CLASS.url}?class_id=${class_id}`, {
       headers: {
@@ -274,6 +276,9 @@ export const getFoldersInClass = (token: string, class_id: number, addToast: any
             type: UPDATE_FOLDER_IN_CLASS,
             payload: res.data
           })
+          if (callback) {
+            callback()
+          }
         }
       })
       .catch(e => {
@@ -324,10 +329,10 @@ export const assignFolderToClass = (
 
 export const createFolderInClass = (
   token: string, class_id: number,
-  code: string, input: CreateClassInput, addToast: any
+  code: string, input: CreateFolderInput, addToast: any
 ) => {
   return (dispatch: any) => {
-    Axios.post(`${classService.CREATE_FOLDER_IN_CLASS}/${class_id}/${code}`, input, {
+    Axios.post(`${classService.CREATE_FOLDER_IN_CLASS.url}/${class_id}/${code}`, input, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -338,6 +343,14 @@ export const createFolderInClass = (
           type: UPDATE_FOLDER_IN_CLASS,
           payload: res.data
         })
+        const l = res.data.length;
+        if (l > 0) {
+          const newFolder = res.data[l-1];
+          dispatch({
+            type: ADD_FOLDER,
+            payload: newFolder
+          })
+        }
       }
       if (addToast) {
         addToast("Add folder to class success", {
@@ -363,7 +376,7 @@ export const deleteFolderFromClass = (
   class_id: number, addToast: any
 ) => {
   return async (dispatch: any) => {
-    Axios.delete(`${classService.DELETE_FOLDER_FROM_CLASS}?folder_id=${folder_id}&class_id=${class_id}`, {
+    Axios.delete(`${classService.DELETE_FOLDER_FROM_CLASS.url}?folder_id=${folder_id}&class_id=${class_id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }

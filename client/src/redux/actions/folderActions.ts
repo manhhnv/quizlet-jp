@@ -199,7 +199,7 @@ export const assignModuleToFolder = (token: string, module_id: number, folder_id
     }
 }
 
-export const getModulesInFolder = (token: string, folder_id: number, addToast: any) => {
+export const getModulesInFolder = (token: string, folder_id: number, addToast: any, setLoading?: any) => {
     return async (dispatch: any) => {
         Axios.get(`${GET_MODULES_IN_FOLDER.url}?folder_id=${folder_id}`, {
             headers: {
@@ -212,6 +212,9 @@ export const getModulesInFolder = (token: string, folder_id: number, addToast: a
                     type: UPDATE_MODULE_IN_FOLDER,
                     payload: res.data
                 })
+                if (setLoading) {
+                    setLoading(false);
+                }
                 console.log("Fetching...")
                 return res.data
             }

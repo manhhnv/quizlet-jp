@@ -24,7 +24,7 @@ import {
     createFolderInClass, assignFolderToClass,
     deleteFolderFromClass
 }
-from '../redux/actions/classActions';
+    from '../redux/actions/classActions';
 import { ModuleCreate, UpdateClassInput, CreateFolderInput } from '../types';
 import { CLASS_DETAIL } from '../services/class/class.service';
 import ShareClass from '../components/class/ShareClass';
@@ -50,7 +50,7 @@ const ClassDetail = ({
     assignFolderToClass,
     deleteFolderFromClass
 }: any) => {
-    const [folder, setFolder]: any = useState(null);
+    // const [folder, setFolder]: any = useState(null);
     const query = getQuerySearch();
     const id = query.get('id');
     const code = query.get('code');
@@ -73,6 +73,7 @@ const ClassDetail = ({
         setShowShareClass(false);
     }
     const [classItem, setClassItem]: any = useState(null);
+    
     useEffect(() => {
         if (user?.token) {
             Axios.get(`${CLASS_DETAIL.url}?code=${code}&id=${id}`, {
@@ -91,14 +92,14 @@ const ClassDetail = ({
                         autoDismiss: true
                     })
                 })
-                if (classes && classes.list.length > 0) {
-                    const findResult = classes.list.find((item: any) => item.id == id && item.code == code)
-                    if (findResult !== undefined) {
-                        setClassItem(findResult)
-                    }
+            if (classes && classes.list.length > 0) {
+                const findResult = classes.list.find((item: any) => item.id == id && item.code == code)
+                if (findResult !== undefined) {
+                    setClassItem(findResult)
                 }
+            }
         }
-    }, [location])
+    }, [location.search])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -140,12 +141,12 @@ const ClassDetail = ({
                                                     <AiFillEye></AiFillEye>
                                                     Mọi người
                                                 </>
-                                            ): (
-                                                <>
-                                                    <AiFillEyeInvisible></AiFillEyeInvisible>
+                                            ) : (
+                                                    <>
+                                                        <AiFillEyeInvisible></AiFillEyeInvisible>
                                                     Chỉ mình tôi
                                                 </>
-                                            )}
+                                                )}
                                         </div>
                                     </div>
                                 </Col>
@@ -315,11 +316,11 @@ const mapDispatchToProps = (dispatch: any) => {
         createModuleInClass: (
             token: string, class_id: number, code: string,
             input: ModuleCreate, addToast: any
-            ) => dispatch(createModuleInClass(token, class_id, code, input, addToast)),
+        ) => dispatch(createModuleInClass(token, class_id, code, input, addToast)),
         deleteModuleFromClass: (
             token: string, module_id: number,
             class_id: number, addToast: any
-            ) => dispatch(deleteModuleFromClass(token, module_id, class_id, addToast)),
+        ) => dispatch(deleteModuleFromClass(token, module_id, class_id, addToast)),
         assignModuleToClass: (
             token: string, module_id: number,
             class_id: number, addToast: any

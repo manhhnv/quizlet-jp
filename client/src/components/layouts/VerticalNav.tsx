@@ -33,7 +33,7 @@ const VerticalNav = ({
             <ul className="vertical-nav">
                 <li className="nav-home">
 
-                    <Link to="/overview" className="active">
+                    <Link to="/overview" onClick={() => setTabIndex(3)} className="active">
 
                         <AiFillHome></AiFillHome> Trang chủ
 

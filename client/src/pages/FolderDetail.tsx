@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Card, Col, OverlayTrigger, Row, Spinner, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -36,7 +36,6 @@ const FolderDetail = ({
     createModuleInFolder,
     deleteModuleFromFolder,
     assignModuleToFolder }: any) => {
-        console.log("Location", location)
     const [folder, setFolder]: any = useState(null);
     const query = getQuerySearch();
     const id = query.get('id');
@@ -55,6 +54,15 @@ const FolderDetail = ({
     const hideShareFolder = () => {
         setShowShareFolder(false);
     }
+    const allModuleInFolder = useMemo(() => (
+        <AllModuleInFolder
+            user={user}
+            folder={folder}
+            addToast={addToast}
+            deleteModuleFromFolder={deleteModuleFromFolder}
+            usernamePath={usernamePath}
+        />
+    ), [folder])
     useEffect(() => {
         if (user?.token) {
             Axios.get(`${FOLDER_DETAIL.url}?code=${code}&id=${id}`, {
@@ -214,13 +222,7 @@ const FolderDetail = ({
                                     />
                                 </Col>
                             </Row>
-                            <AllModuleInFolder
-                                user={user}
-                                folder={folder}
-                                addToast={addToast}
-                                deleteModuleFromFolder={deleteModuleFromFolder}
-                                usernamePath={usernamePath}
-                            />
+                            {allModuleInFolder}
                         </React.Fragment>
 
                     ) : (

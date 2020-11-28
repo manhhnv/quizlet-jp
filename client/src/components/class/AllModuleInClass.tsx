@@ -4,7 +4,15 @@ import { getModulesInClass } from '../../redux/actions/classActions';
 import { connect } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
 
-const AllModuleInClass = ({ user, class_, getModulesInClass, addToast, classes, deleteModuleFromClass }: any) => {
+const AllModuleInClass = ({
+    user,
+    class_,
+    getModulesInClass,
+    addToast,
+    classes,
+    deleteModuleFromClass,
+    usernamePath
+}: any) => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(true);
@@ -21,7 +29,7 @@ const AllModuleInClass = ({ user, class_, getModulesInClass, addToast, classes, 
                     <Row style={{ marginTop: "15px" }} className="d-flex justify-content-center">
                         {classes.totalModules > 0 ? (
                             <h3>Học phần ( {classes.totalModules} )</h3>
-                        ): null}
+                        ) : null}
                     </Row>
                     <Row className="list-module-folder">
                         <Col sm={1}></Col>
@@ -39,22 +47,24 @@ const AllModuleInClass = ({ user, class_, getModulesInClass, addToast, classes, 
                                                 {module?.description}
                                             </Card.Text>
                                             <Card.Link>
-                                                <OverlayTrigger
-                                                    placement="bottom"
-                                                    overlay={
-                                                        <Tooltip id="folder-delete">
-                                                            Xóa học phần
+                                                {usernamePath === user?.user?.username ? (
+                                                    <OverlayTrigger
+                                                        placement="bottom"
+                                                        overlay={
+                                                            <Tooltip id="folder-delete">
+                                                                Xóa học phần
                                                      </Tooltip>
-                                                    }
-                                                >
-                                                    <Button
-                                                        variant="outline-danger"
-                                                        className="folder-actions"
-                                                        onClick={() => deleteModuleFromClass(user.token, module.id, class_.id, addToast)}
+                                                        }
                                                     >
-                                                        <AiOutlineDelete />
-                                                    </Button>
-                                                </OverlayTrigger>
+                                                        <Button
+                                                            variant="outline-danger"
+                                                            className="folder-actions"
+                                                            onClick={() => deleteModuleFromClass(user.token, module.id, class_.id, addToast)}
+                                                        >
+                                                            <AiOutlineDelete />
+                                                        </Button>
+                                                    </OverlayTrigger>
+                                                ) : null}
                                             </Card.Link>
                                         </Card.Body>
                                     </Card>

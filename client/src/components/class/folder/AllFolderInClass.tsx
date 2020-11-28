@@ -11,7 +11,8 @@ const AllFolderInClass = ({
     addToast,
     getFoldersInClass,
     deleteFolderFromClass,
-    classes
+    classes,
+    usernamePath
 }: any) => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -29,7 +30,7 @@ const AllFolderInClass = ({
                     <Row style={{ marginTop: "20px" }} className="d-flex justify-content-center">
                         {classes.totalFolders > 0 ? (
                             <h3>Thư mục ( {classes.totalFolders} )</h3>
-                        ): null}
+                        ) : null}
                     </Row>
                     <Row className="list-module-folder">
                         <Col sm={1}></Col>
@@ -38,8 +39,8 @@ const AllFolderInClass = ({
                                 {classes && classes.totalFolders > 0 && classes.folders.map((folder: any, i: any) => (
                                     <Card className="module-item" key={i}>
                                         <Card.Body>
-                                            <a
-                                                href={`/${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`}
+                                            <Link
+                                                to={`/${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`}
                                                 style={{ textDecoration: "none", color: "black" }}
                                             >
                                                 <Card.Title>{folder.name}</Card.Title>
@@ -50,24 +51,26 @@ const AllFolderInClass = ({
                                                 <Card.Text>
                                                     {folder?.description}
                                                 </Card.Text>
-                                            </a>
+                                            </Link>
                                             <Card.Link>
-                                                <OverlayTrigger
-                                                    placement="bottom"
-                                                    overlay={
-                                                        <Tooltip id="folder-delete">
-                                                            Xóa học phần
+                                                {usernamePath === user?.user?.username ? (
+                                                    <OverlayTrigger
+                                                        placement="bottom"
+                                                        overlay={
+                                                            <Tooltip id="folder-delete">
+                                                                Xóa học phần
                                                      </Tooltip>
-                                                    }
-                                                >
-                                                    <Button
-                                                        variant="outline-danger"
-                                                        className="folder-actions"
-                                                        onClick={() => deleteFolderFromClass(user.token, folder.id, classItem.id, addToast)}
+                                                        }
                                                     >
-                                                        <AiOutlineDelete />
-                                                    </Button>
-                                                </OverlayTrigger>
+                                                        <Button
+                                                            variant="outline-danger"
+                                                            className="folder-actions"
+                                                            onClick={() => deleteFolderFromClass(user.token, folder.id, classItem.id, addToast)}
+                                                        >
+                                                            <AiOutlineDelete />
+                                                        </Button>
+                                                    </OverlayTrigger>
+                                                ): null}
                                             </Card.Link>
                                         </Card.Body>
                                     </Card>

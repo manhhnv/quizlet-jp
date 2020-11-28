@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, OverlayTrigger, Row, Spinner, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -11,7 +11,8 @@ import HeaderPage from '../components/layouts/Header';
 import VerticalNav from '../components/layouts/VerticalNav';
 import {
     AiOutlineFolder, AiOutlinePlusCircle,
-    AiOutlineSetting, AiOutlineShareAlt, AiOutlineDelete
+    AiOutlineSetting, AiOutlineShareAlt, AiOutlineDelete,
+    AiFillEye, AiFillEyeInvisible
 }
     from 'react-icons/ai';
 import {
@@ -54,15 +55,7 @@ const FolderDetail = ({
     const hideShareFolder = () => {
         setShowShareFolder(false);
     }
-    const allModuleInFolder = useMemo(() => (
-        <AllModuleInFolder
-            user={user}
-            folder={folder}
-            addToast={addToast}
-            deleteModuleFromFolder={deleteModuleFromFolder}
-            usernamePath={usernamePath}
-        />
-    ), [folder])
+
     useEffect(() => {
         if (user?.token) {
             Axios.get(`${FOLDER_DETAIL.url}?code=${code}&id=${id}`, {
@@ -81,14 +74,16 @@ const FolderDetail = ({
                         autoDismiss: true
                     })
                 })
-                if (folders && folders.list.length > 0) {
-                    const findResult = folders.list.find((item: any) => item.id == id && item.code == code)
-                    if (findResult !== undefined) {
-                        setFolder(findResult)
-                    }
-                }
         }
     }, [location.search])
+    useEffect(() => {
+        if (folders && folders.list.length > 0) {
+            const findResult = folders.list.find((item: any) => item.id == id && item.code == code)
+            if (findResult !== undefined) {
+                setFolder(findResult)
+            }
+        }
+    }, [folders])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -121,6 +116,19 @@ const FolderDetail = ({
                                         </span>
                                         <div>
                                             {folder?.description}
+                                        </div>
+                                        <div className="mode_des">
+                                            {folder?.public == 1 ? (
+                                                <>
+                                                    <AiFillEye></AiFillEye>
+                                                    Mọi người
+                                                </>
+                                            ) : (
+                                                    <>
+                                                        <AiFillEyeInvisible></AiFillEyeInvisible>
+                                                    Chỉ mình tôi
+                                                </>
+                                                )}
                                         </div>
                                     </div>
                                 </Col>
@@ -222,7 +230,13 @@ const FolderDetail = ({
                                     />
                                 </Col>
                             </Row>
-                            {allModuleInFolder}
+                            <AllModuleInFolder
+                                user={user}
+                                folder={folder}
+                                addToast={addToast}
+                                deleteModuleFromFolder={deleteModuleFromFolder}
+                                usernamePath={usernamePath}
+                            />
                         </React.Fragment>
 
                     ) : (

@@ -36,6 +36,7 @@ import AddFolderToClass from '../components/class/folder/AddFolderToClass';
 
 const ClassDetail = ({
     location,
+    match,
     user,
     folders,
     deleteFolder,
@@ -54,7 +55,7 @@ const ClassDetail = ({
     const query = getQuerySearch();
     const id = query.get('id');
     const code = query.get('code');
-    const usernamePath = getPathUrl()[1];
+    const usernamePath = match?.params?.username
     const { addToast } = useToasts();
     const [showUpdateClass, setShowUpdateClass] = useState(false);
     const hideUpdateClass = () => {
@@ -92,14 +93,16 @@ const ClassDetail = ({
                         autoDismiss: true
                     })
                 })
-            if (classes && classes.list.length > 0) {
-                const findResult = classes.list.find((item: any) => item.id == id && item.code == code)
-                if (findResult !== undefined) {
-                    setClassItem(findResult)
-                }
-            }
         }
     }, [location.search])
+    useEffect(() => {
+        if (classes && classes.list.length > 0) {
+            const findResult = classes.list.find((item: any) => item.id == id && item.code == code)
+            if (findResult !== undefined) {
+                setClassItem(findResult)
+            }
+        }
+    }, [classes])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -278,6 +281,7 @@ const ClassDetail = ({
                                 addToast={addToast}
                                 classes={classes}
                                 deleteModuleFromClass={deleteModuleFromClass}
+                                usernamePath={usernamePath}
                             />
                             <AllFolderInClass
                                 user={user}
@@ -285,6 +289,7 @@ const ClassDetail = ({
                                 addToast={addToast}
                                 classes={classes}
                                 deleteFolderFromClass={deleteFolderFromClass}
+                                usernamePath={usernamePath}
                             />
                         </React.Fragment>
 

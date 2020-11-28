@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AiFillGolden, AiFillFolderOpen, AiFillHome, AiFillCarryOut } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import AddFolderForm from '../folder/AddFolderForm';
@@ -8,13 +8,12 @@ import { createClass } from "../../redux/actions/classActions";
 import { connect } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
 import AddClassForm from '../class/AddClassForm';
+import { ControlContext } from '../../hooks/ControlContext';
 
 const VerticalNav = ({
     createFolder,
     folders,
     user,
-    setTabIndex,
-    tabIndex,
     classes,
     createClass
 }: any) => {
@@ -27,6 +26,8 @@ const VerticalNav = ({
         setShowCreateClass(false);
     }
     const { addToast } = useToasts();
+    const {tabIndex, setTabIndex} = useContext(ControlContext);
+    // console.log(a)
     return (
         <div>
             <ul className="vertical-nav">

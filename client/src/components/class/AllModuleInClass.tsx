@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { Row, Col, Card, Spinner, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
-import { getModulesInFolder } from '../../redux/actions/folderActions';
+import { getModulesInClass } from '../../redux/actions/classActions';
 import { connect } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 const AllModuleInClass = ({ user, class_, getModulesInClass, addToast, classes, deleteModuleFromClass }: any) => {
-    useEffect(() => {
+    useEffect(() => {   
         if (user?.token) {
           getModulesInClass(user.token, class_.id, addToast)
         }
@@ -13,6 +13,10 @@ const AllModuleInClass = ({ user, class_, getModulesInClass, addToast, classes, 
     return (
         <React.Fragment>
             {classes && classes.totalModules > 0 ? (
+                <React.Fragment>
+                    <Row style={{ marginTop: "15px" }} className="d-flex justify-content-center">
+                        <h3>Học phần</h3>
+                    </Row>
                 <Row className="list-module-folder">
                     <Col sm={1}></Col>
                     <Col sm={11}>
@@ -52,22 +56,23 @@ const AllModuleInClass = ({ user, class_, getModulesInClass, addToast, classes, 
                         </Row>
                     </Col>
                 </Row>
+                </React.Fragment>
             ) : (
                     <Row style={{ marginTop: "100px" }} className="d-flex justify-content-center">
-                        <Spinner animation="border" variant="primary"></Spinner>
+                        <h3>Chưa có học phần nào trong lớp học</h3>
                     </Row>
                 )}
         </React.Fragment>
     )
 }
-const mapStateToProps = (state: any) => {
-    return {
-        folders: state.folders
-    }
-}
+// const mapStateToProps = (state: any) => {
+//     return {
+        
+//     }
+// }
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        getModulesInFolder: (token: string, folder_id: number, addToast: any) => dispatch(getModulesInFolder(token, folder_id, addToast))
+        getModulesInClass: (token: string, class_id: number, addToast: any) => dispatch(getModulesInClass(token, class_id, addToast))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AllModuleInClass));
+export default connect(null, mapDispatchToProps)(React.memo(AllModuleInClass));

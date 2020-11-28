@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Card, Col, OverlayTrigger, Row, Spinner, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -26,6 +26,8 @@ import AllModuleInFolder from '../components/folder/AllModuleInFolder';
 import ShareFolder from '../components/folder/ShareFolder';
 
 const FolderDetail = ({
+    location,
+    match,
     user,
     folders,
     deleteFolder,
@@ -38,7 +40,7 @@ const FolderDetail = ({
     const query = getQuerySearch();
     const id = query.get('id');
     const code = query.get('code');
-    const usernamePath = getPathUrl()[1];
+    const usernamePath = match?.params?.username;
     const { addToast } = useToasts();
     const [showUpdateFolder, setShowUpdateFolder] = useState(false);
     const hideUpdateFolderCreateFolder = () => {
@@ -52,6 +54,15 @@ const FolderDetail = ({
     const hideShareFolder = () => {
         setShowShareFolder(false);
     }
+    const allModuleInFolder = useMemo(() => (
+        <AllModuleInFolder
+            user={user}
+            folder={folder}
+            addToast={addToast}
+            deleteModuleFromFolder={deleteModuleFromFolder}
+            usernamePath={usernamePath}
+        />
+    ), [folder])
     useEffect(() => {
         if (user?.token) {
             Axios.get(`${FOLDER_DETAIL.url}?code=${code}&id=${id}`, {
@@ -77,7 +88,7 @@ const FolderDetail = ({
                     }
                 }
         }
-    }, [folders])
+    }, [location.search])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -211,13 +222,7 @@ const FolderDetail = ({
                                     />
                                 </Col>
                             </Row>
-                            <AllModuleInFolder
-                                user={user}
-                                folder={folder}
-                                addToast={addToast}
-                                deleteModuleFromFolder={deleteModuleFromFolder}
-                                usernamePath={usernamePath}
-                            />
+                            {allModuleInFolder}
                         </React.Fragment>
 
                     ) : (

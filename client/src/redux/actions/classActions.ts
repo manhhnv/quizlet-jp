@@ -319,7 +319,7 @@ export const assignFolderToClass = (
     })
     .catch(e => {
       console.log(e)
-      addToast("Add folder to class failed" || e, {
+      addToast("This folder already exists in class" || e, {
         appearance: "error",
         autoDismiss: true
       })

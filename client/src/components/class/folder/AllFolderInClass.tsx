@@ -15,12 +15,13 @@ const AllFolderInClass = ({
 }: any) => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
+        setLoading(true)
         if (user?.token) {
             getFoldersInClass(user.token, classItem.id, addToast, () => {
                 setLoading(false)
             })
         }
-    }, [])
+    }, [classItem])
     return (
         <React.Fragment>
             {loading == false ? (

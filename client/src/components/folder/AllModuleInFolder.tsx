@@ -11,16 +11,17 @@ const AllModuleInFolder = ({
     addToast,
     folders,
     deleteModuleFromFolder,
-    usernamePath
+    usernamePath,
 }: any) => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
+        setLoading(true)
         if (user?.token) {
             getModulesInFolder(user.token, folder.id, addToast, () => {
                 setLoading(false)
             })
         }
-    }, [])
+    }, [folder])
     return (
         <React.Fragment>
             {loading === false ? (

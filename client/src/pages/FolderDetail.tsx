@@ -26,6 +26,8 @@ import AllModuleInFolder from '../components/folder/AllModuleInFolder';
 import ShareFolder from '../components/folder/ShareFolder';
 
 const FolderDetail = ({
+    location,
+    match,
     user,
     folders,
     deleteFolder,
@@ -34,11 +36,12 @@ const FolderDetail = ({
     createModuleInFolder,
     deleteModuleFromFolder,
     assignModuleToFolder }: any) => {
+        console.log("Location", location)
     const [folder, setFolder]: any = useState(null);
     const query = getQuerySearch();
     const id = query.get('id');
     const code = query.get('code');
-    const usernamePath = getPathUrl()[1];
+    const usernamePath = match?.params?.username;
     const { addToast } = useToasts();
     const [showUpdateFolder, setShowUpdateFolder] = useState(false);
     const hideUpdateFolderCreateFolder = () => {
@@ -77,7 +80,7 @@ const FolderDetail = ({
                     }
                 }
         }
-    }, [folders])
+    }, [location.search])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }

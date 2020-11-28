@@ -7,12 +7,13 @@ import { AiOutlineDelete } from 'react-icons/ai';
 const AllModuleInClass = ({ user, class_, getModulesInClass, addToast, classes, deleteModuleFromClass }: any) => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
+        setLoading(true);
         if (user?.token) {
             getModulesInClass(user.token, class_.id, addToast, () => {
                 setLoading(false)
             })
         }
-    }, [])
+    }, [class_])
     return (
         <React.Fragment>
             {loading === false ? (

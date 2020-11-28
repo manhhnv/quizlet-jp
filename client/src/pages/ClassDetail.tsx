@@ -35,6 +35,7 @@ import AllFolderInClass from '../components/class/folder/AllFolderInClass';
 import AddFolderToClass from '../components/class/folder/AddFolderToClass';
 
 const ClassDetail = ({
+    location,
     user,
     folders,
     deleteFolder,
@@ -97,7 +98,7 @@ const ClassDetail = ({
                     }
                 }
         }
-    }, [classes])
+    }, [location])
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }

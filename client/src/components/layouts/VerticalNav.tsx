@@ -53,7 +53,7 @@ const VerticalNav = ({
                         {folders && folders.list.length > 0 ? folders.list.map((folder: any, index: any) => (
                             <li key={index}>
 
-                                <a href={`${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`}>
+                                <a href={`/${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`}>
                                     {folder.name}
                                 </a>
                             </li>
@@ -76,14 +76,13 @@ const VerticalNav = ({
                     </ul>
                 </li>
                 <li>
-                    <Link to="overview#class" onClick={() => setTabIndex(4)} className={tabIndex == 4 ? "active" : ''}>
+                    <Link to="/overview#class" onClick={() => setTabIndex(4)} className={tabIndex == 4 ? "active" : ''}>
                         <AiFillGolden></AiFillGolden> Lớp học ( {classes.totalClasses} )
                     </Link>
                     <ul className="vertical-nav-child">
                         {classes && classes.list.length > 0 ? classes.list.map((item: any, index: any) => (
                             <li key={index}>
-
-                                <a href={`${user?.user?.username}/class?code=${item.code}&id=${item.id}`}>
+                                <a href={`/${user?.user?.username}/class?code=${item.code}&id=${item.id}`}>
                                     {item.name}
                                 </a>
                             </li>

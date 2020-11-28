@@ -47,9 +47,9 @@ export const addModule = (token: String, addToast: any, data: object) => {
                             autoDismiss: true
                         })
                     }
-                    setTimeout(() => {
-                        window.location.replace("/overview");
-                    }, 1000)
+                    // setTimeout(() => {
+                    //     window.location.replace("/overview");
+                    // }, 1000)
                 }
                 else {
                     if (addToast) {
@@ -58,9 +58,9 @@ export const addModule = (token: String, addToast: any, data: object) => {
                             autoDismiss: true
                         })
                     }
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 1500)
+                    // setTimeout(() => {
+                    //     window.location.reload()
+                    // }, 1500)
                 }
             })
             .catch(e => {
@@ -70,9 +70,9 @@ export const addModule = (token: String, addToast: any, data: object) => {
                         autoDismiss: true
                     })
                 }
-                setTimeout(() => {
-                    window.location.reload()
-                }, 1500)
+                // setTimeout(() => {
+                //     window.location.reload()
+                // }, 1500)
             })
     }
 }

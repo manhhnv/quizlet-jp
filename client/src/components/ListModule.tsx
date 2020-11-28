@@ -11,7 +11,6 @@ const ListModule = ({ module, deleteModule, user }: any) => {
     const [addCourse, setAddCourse] = useState(false);
 
     const handleAdd = () => {
-        console.log("dit con me may");
         setAddCourse(true);
     }
 

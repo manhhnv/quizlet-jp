@@ -6,6 +6,7 @@ export const ALL_MODULES = "ALL_MODULES";
 export const CREATE_MODULE = "CREATE_MODULE";
 export const DELETE_MODULE = "DELETE_MODULE";
 export const EDIT_MODULE = "EDIT_MODULE";
+export const CREATE_MODULE_BY_OTHER_WAY = "CREATE_MODULE_BY_OTHER_WAY";
 
 export const allModules = (token: String) => {
     return async (dispatch: any) => {
@@ -95,9 +96,6 @@ export const deleteModule = (token: String, addToast: any, id: any) => {
                                 appearance: "success",
                                 autoDismiss: true
                             })
-                            setTimeout(() => {
-                                window.location.reload()
-                            }, 1500)
                     }
     
                 }
@@ -143,9 +141,9 @@ export const editModule = (token: String, addToast: any, id: any, data: object) 
                                 appearance: "success",
                                 autoDismiss: true
                             })
-                            setTimeout(() => {
-                                window.location.reload()
-                            }, 1500)
+                            // setTimeout(() => {
+                            //     window.location.reload()
+                            // }, 1500)
                     }
     
                 }

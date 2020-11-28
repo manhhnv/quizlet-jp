@@ -5,6 +5,7 @@ import { LIST_FOLDERS, CREATE_FOLDER,
     CREATE_MODULE_IN_FOLDER, GET_MODULES_IN_FOLDER,
     DELETE_MODULE_FROM_FOLDER, ASSIGN_MODULE_IN_FOLDER
 } from '../../services/folder/folder.service';
+import { CREATE_MODULE, CREATE_MODULE_BY_OTHER_WAY } from './moduleAction';
 
 export const ADD_FOLDER = "ADD_FOLDER";
 export const UPDATE_FOLDER = "UPDATE_FOLDER";
@@ -137,6 +138,14 @@ export const createModuleInFolder = (token: string, folder_id: number, code: str
                     type: UPDATE_MODULE_IN_FOLDER,
                     payload: res.data
                 })
+                const l =  res.data.length;
+                if (l > 0) {
+                    const newModule = res.data[l-1]
+                    dispatch({
+                        type: CREATE_MODULE,
+                        payload: newModule
+                    })
+                }
                 if (addToast) {
                     addToast("Add Module To Folder Success", {
                         appearance: "success",

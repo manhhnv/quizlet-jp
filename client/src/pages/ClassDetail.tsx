@@ -23,7 +23,10 @@ import {
     deleteModuleFromFolder, assignModuleToFolder
 }
     from '../redux/actions/folderActions';
-import { updateClass }
+import {
+    updateClass, deleteClass, createModuleInClass,
+    deleteModuleFromClass, assignModuleToClass
+}
 from '../redux/actions/classActions';
 import { ModuleCreate, UpdateFolderInput, UpdateClassInput, CreateFolderInput } from '../types';
 import UpdateFolderForm from '../components/folder/UpdateFolderForm';
@@ -33,6 +36,8 @@ import ShareFolder from '../components/folder/ShareFolder';
 import { CLASS_DETAIL } from '../services/class/class.service';
 import ShareClass from '../components/class/ShareClass';
 import UpdateClassForm from '../components/class/UpdateClassForm';
+import AddModuleToClass from '../components/class/AddModuleToClass';
+import AllModuleInClass from '../components/class/AllModuleInClass';
 
 const ClassDetail = ({
     user,
@@ -44,6 +49,10 @@ const ClassDetail = ({
     deleteModuleFromFolder,
     assignModuleToFolder,
     updateClass,
+    deleteClass,
+    createModuleInClass,
+    deleteModuleFromClass,
+    assignModuleToClass,
     classes
 }: any) => {
     const [folder, setFolder]: any = useState(null);
@@ -97,6 +106,9 @@ const ClassDetail = ({
     const deleteFolderHandle = (token: string, folder_id: number, addToast: any) => {
         deleteFolder(token, folder_id, addToast)
     }
+    // const deleteClassHandle = (token: string, class_id: number, addToast: any) => {
+    //     deleteClass(token, class_id, addToast);
+    // }
     return (
         <React.Fragment>
             <Row>
@@ -158,6 +170,16 @@ const ClassDetail = ({
                                                     <AiOutlinePlusCircle />
                                                 </Button>
                                             </OverlayTrigger>
+                                            <AddModuleToClass
+                                                showAddModule={showAddModule}
+                                                hideAddModuleModal={hideAddModuleModal}
+                                                user={user}
+                                                addToast={addToast}
+                                                module={module}
+                                                class_={classItem}
+                                                createModuleInClass={createModuleInClass}
+                                                assignModuleToClass={assignModuleToClass}
+                                            />
                                             <OverlayTrigger
                                                 placement="bottom"
                                                 overlay={
@@ -227,7 +249,7 @@ const ClassDetail = ({
                                                     <Button
                                                         variant="outline-danger"
                                                         className="folder-actions folder-delete"
-                                                        onClick={() => deleteFolderHandle(user.token, folder.id, addToast)}
+                                                        onClick={() => deleteClass(user.token, classItem.id, addToast)}
                                                     >
                                                         <AiOutlineDelete />
                                                     </Button>
@@ -266,6 +288,13 @@ const ClassDetail = ({
                                 deleteModuleFromFolder={deleteModuleFromFolder}
                                 usernamePath={usernamePath}
                             /> */}
+                            <AllModuleInClass
+                                user={user}
+                                class_={classItem}
+                                addToast={addToast}
+                                classes={classes}
+                                deleteModuleFromClass={deleteModuleFromClass}
+                            />
                         </React.Fragment>
 
                     ) : (
@@ -292,16 +321,29 @@ const mapDispatchToProps = (dispatch: any) => {
     return {
         deleteFolder: (token: string, folder_id: number,
             addToast: any) => dispatch(deleteFolder(token, folder_id, addToast)),
-        updateFolder: (token: string, folder_id: number, input: UpdateFolderInput,
-            addToast: any) => dispatch(updateFolder(token, folder_id, input, addToast)),
-        createModuleInFolder: (token: string, folder_id: number, code: string,
-            input: ModuleCreate, addToast: any) => dispatch(createModuleInFolder(token, folder_id, code, input, addToast)),
-        deleteModuleFromFolder: (token: string, module_id: number,
-            folder_id: number, addToast: any) => dispatch(deleteModuleFromFolder(token, module_id, folder_id, addToast)),
-        assignModuleToFolder: (token: string, module_id: number,
-            folder_id: number, addToast: any) => dispatch(assignModuleToFolder(token, module_id, folder_id, addToast)),
+        // updateFolder: (token: string, folder_id: number, input: UpdateFolderInput,
+        //     addToast: any) => dispatch(updateFolder(token, folder_id, input, addToast)),
+        // createModuleInFolder: (token: string, folder_id: number, code: string,
+        //     input: ModuleCreate, addToast: any) => dispatch(createModuleInFolder(token, folder_id, code, input, addToast)),
+        // deleteModuleFromFolder: (token: string, module_id: number,
+        //     folder_id: number, addToast: any) => dispatch(deleteModuleFromFolder(token, module_id, folder_id, addToast)),
+        // assignModuleToFolder: (token: string, module_id: number,
+        //     folder_id: number, addToast: any) => dispatch(assignModuleToFolder(token, module_id, folder_id, addToast)),
         updateClass: (token: string, class_id: number, input: UpdateClassInput,
-            addToast: any) => dispatch(updateClass(token, class_id, input, addToast))
+            addToast: any) => dispatch(updateClass(token, class_id, input, addToast)),
+        deleteClass: (token: string, class_id: number, addToast: any) => dispatch(deleteClass(token, class_id, addToast)),
+        createModuleInClass: (
+            token: string, class_id: number, code: string,
+            input: ModuleCreate, addToast: any
+            ) => dispatch(createModuleInClass(token, class_id, code, input, addToast)),
+        deleteModuleFromClass: (
+            token: string, module_id: number,
+            class_id: number, addToast: any
+            ) => dispatch(deleteModuleFromClass(token, module_id, class_id, addToast)),
+        assignModuleToClass: (
+            token: string, module_id: number,
+            class_id: number, addToast: any
+        ) => dispatch(assignModuleToClass(token, module_id, class_id, addToast))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(ClassDetail))

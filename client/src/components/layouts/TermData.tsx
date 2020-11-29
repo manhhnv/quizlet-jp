@@ -10,12 +10,21 @@ import { useHistory, useLocation, useParams, Link } from 'react-router-dom';
 import { Row, Col, Navbar, Card, Button, Container, Spinner } from 'react-bootstrap';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import ReactCardFlip from 'react-card-flip';
-
+import TermEdit from "../../pages/TermEdit";
 
 const TermData = ({ allTerms, terms, user }: any) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const [loading, setLoading] = useState(true);
     const [itemsIndex, setItemsIndex] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+
+    const closePopup = () => {
+        setShowModal(false);
+    };
+    const openPopup = () => {
+        setShowModal(true);
+    };
+
 
     useEffect(() => {
 
@@ -128,8 +137,8 @@ const TermData = ({ allTerms, terms, user }: any) => {
                         )
                     })}
                     <div>
-                        <button className="add-course" style={{ margin: "3rem", width: "30rem", fontSize: "1.5rem" }}>Thêm thuật ngữ</button>
-
+                        <button className="add-course" style={{ margin: "3rem", width: "30rem", fontSize: "1.5rem" }}  onClick={openPopup}>Thêm thuật ngữ</button>
+                        <TermEdit showAddTerm={showModal} closePopup={closePopup} module_id={id}/>
                     </div>
                 </div>
             ) : (

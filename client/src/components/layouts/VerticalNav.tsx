@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AiFillGolden, AiFillFolderOpen, AiFillHome, AiFillCarryOut } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import AddFolderForm from '../folder/AddFolderForm';
@@ -8,13 +8,12 @@ import { createClass } from "../../redux/actions/classActions";
 import { connect } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
 import AddClassForm from '../class/AddClassForm';
+import { ControlContext } from '../../hooks/ControlContext';
 
 const VerticalNav = ({
     createFolder,
     folders,
     user,
-    setTabIndex,
-    tabIndex,
     classes,
     createClass
 }: any) => {
@@ -27,12 +26,14 @@ const VerticalNav = ({
         setShowCreateClass(false);
     }
     const { addToast } = useToasts();
+    const {tabIndex, setTabIndex} = useContext(ControlContext);
+    // console.log(a)
     return (
         <div>
             <ul className="vertical-nav">
                 <li className="nav-home">
 
-                    <Link to="/overview" className="active">
+                    <Link to="/overview" onClick={() => setTabIndex(3)} className="active">
 
                         <AiFillHome></AiFillHome> Trang chủ
 
@@ -53,9 +54,9 @@ const VerticalNav = ({
                         {folders && folders.list.length > 0 ? folders.list.map((folder: any, index: any) => (
                             <li key={index}>
 
-                                <a href={`${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`}>
+                                <Link to={`/${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`}>
                                     {folder.name}
-                                </a>
+                                </Link>
                             </li>
                         )) : null}
                         <li>
@@ -76,16 +77,15 @@ const VerticalNav = ({
                     </ul>
                 </li>
                 <li>
-                    <Link to="overview#class" onClick={() => setTabIndex(4)} className={tabIndex == 4 ? "active" : ''}>
+                    <Link to="/overview#class" onClick={() => setTabIndex(4)} className={tabIndex == 4 ? "active" : ''}>
                         <AiFillGolden></AiFillGolden> Lớp học ( {classes.totalClasses} )
                     </Link>
                     <ul className="vertical-nav-child">
                         {classes && classes.list.length > 0 ? classes.list.map((item: any, index: any) => (
                             <li key={index}>
-
-                                <a href={`${user?.user?.username}/class?code=${item.code}&id=${item.id}`}>
+                                <Link to={`/${user?.user?.username}/class?code=${item.code}&id=${item.id}`}>
                                     {item.name}
-                                </a>
+                                </Link>
                             </li>
                         )) : null}
                         <li>

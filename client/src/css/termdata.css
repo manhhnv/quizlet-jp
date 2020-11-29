@@ -43,6 +43,12 @@
     box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
     height: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    
+    cursor: pointer;
 }
 
 .list-term-container{
@@ -56,13 +62,13 @@
     
 }
 
-/* .term-item {
-    width: 60rem;
-    height: 3rem;
-    border-radius: 5px;
-    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 1rem;
-    display: flex;
+.arrow {
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin: 0 1rem;
 }
- */
+
+.arrow:hover{
+    color: coral;
+}
+

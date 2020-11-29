@@ -13,10 +13,6 @@ export const optionsSearch = () => {
                 {
                     label: "Lớp học",
                     value: "class"
-                },
-                {
-                    label: "Người dùng",
-                    value: "user"
                 }
             ],
             fields: [

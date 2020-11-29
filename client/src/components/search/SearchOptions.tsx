@@ -4,9 +4,12 @@ import { AiOutlineSortAscending, AiOutlineFilter } from 'react-icons/ai';
 import { Form } from 'react-bootstrap';
 import { optionsSearch } from '../../helper/optionsSeacrh';
 
-const SearchOptions = () => {
+const SearchOptions = ({
+    categorySearch,
+    changeCategorySearch
+}: any) => {
     const options = optionsSearch();
-    console.log(options)
+    // console.log(options)
     return (
         <div>
             <ul className="vertical-nav">
@@ -21,10 +24,11 @@ const SearchOptions = () => {
                                 <Form.Check
                                     type='radio'
                                     label={c.label}
-                                    defaultChecked={i === 0 ? true : false}
+                                    defaultChecked={c.value === categorySearch}
                                     name='category'
                                     custom
                                     id={c.label}
+                                    onChange={() => changeCategorySearch(c.value)}
                                 />
                             </li>
                         ))}

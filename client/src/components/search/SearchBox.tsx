@@ -34,7 +34,7 @@ const SearchBox = ({
                                 </Form.Group>
                             </Col>
                             <Col sm={3}>
-                                <Link to={`/subject/search?key=${keyWord}`}>
+                                <Link to={`/subject/search?name=${keyWord}`}>
                                     <Button variant="success" onClick={() => hideSearchBox()}>
                                         Tìm kiếm
                                     </Button>

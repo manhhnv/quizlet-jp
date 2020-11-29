@@ -3,8 +3,8 @@ import { Modal, Form } from 'react-bootstrap';
 import { convertRefToObject } from '../../helper/converRefToObj';
 
 const AddClassForm = ({
-    showCreateClass,
-    hideCreateClass,
+    showAddClass,
+    hideAddClass,
     createClass,
     user,
     addToast,
@@ -13,10 +13,10 @@ const AddClassForm = ({
     const createClassHandle = () => {
         const input = convertRefToObject(classRef.current)
         createClass(user.token, input, addToast)
-        hideCreateClass()
+        hideAddClass()
     }
     return (
-        <Modal show={showCreateClass} onHide={hideCreateClass}>
+        <Modal show={showAddClass} onHide={hideAddClass}>
             <Modal.Header closeButton>
                 <Modal.Title>
                     Thêm class mới

@@ -26,7 +26,11 @@ const VerticalNav = ({
         setShowCreateClass(false);
     }
     const { addToast } = useToasts();
-    const {tabIndex, setTabIndex} = useContext(ControlContext);
+    const {
+        tabIndex, setTabIndex,
+        showAddFolder, setShowAddFolder, hideAddFolder,
+        showAddClass, setShowAddClass, hideAddClass
+    } = useContext(ControlContext);
     // console.log(a)
     return (
         <div>
@@ -62,13 +66,13 @@ const VerticalNav = ({
                         <li>
                             <a
                                 style={{ color: "#3ccfcf" }}
-                                onClick={() => setShowCreateFolder(true)}
+                                onClick={setShowAddFolder}
                             >
                                 Thêm thư mục
                             </a>
                             <AddFolderForm
-                                showCreateFolder={showCreateFolder}
-                                hideCreateFolderCreateFolder={hideCreateFolderCreateFolder}
+                                showAddFolder={showAddFolder}
+                                hideAddFolder={hideAddFolder}
                                 createFolder={createFolder}
                                 addToast={addToast}
                                 user={user}
@@ -91,13 +95,13 @@ const VerticalNav = ({
                         <li>
                             <a
                                 style={{ color: "#3ccfcf" }}
-                                onClick={() => setShowCreateClass(true)}
+                                onClick={setShowAddClass}
                             >
                                 Thêm lớp học mới
                             </a>
                             <AddClassForm
-                                showCreateClass={showCreateClass}
-                                hideCreateClass={hideCreateClass}
+                                showAddClass={showAddClass}
+                                hideAddClass={hideAddClass}
                                 user={user}
                                 addToast={addToast}
                                 createClass={createClass}

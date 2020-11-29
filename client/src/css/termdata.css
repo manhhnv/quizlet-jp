@@ -48,5 +48,21 @@
 .list-term-container{
     width: 100%;
     background-color: #f6f7fb;
-    height: 50rem;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    
 }
+
+/* .term-item {
+    width: 60rem;
+    height: 3rem;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 1rem;
+    display: flex;
+}
+ */

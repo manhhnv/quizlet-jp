@@ -5,8 +5,11 @@ import { useToasts } from "react-toast-notifications";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import CourseEdit from '../../pages/CourseEdit';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { allTerms } from '../../redux/actions/termActions';
+import { allModules } from '../../redux/actions/moduleAction';
 
-const ModuleCard = ({ deleteModule, module, user }: any) => {
+const ModuleCard = ({ deleteModule, module, user, allTerms }: any) => {
     const [addCourse, setAddCourse] = useState(false);
     const handleEdit = (mod: any) => {
         setAddCourse(true);
@@ -20,6 +23,12 @@ const ModuleCard = ({ deleteModule, module, user }: any) => {
         setAddCourse(false);
     }
 
+    const seeModuleTerm = () => {
+        allTerms(user.token, module.id);
+        window.location.replace(`/course/${module.id}`);
+
+    }
+
     const { addToast } = useToasts();
     return (
 
@@ -28,14 +37,14 @@ const ModuleCard = ({ deleteModule, module, user }: any) => {
                 <AiOutlineDelete className="delete-module" onClick={() => deleteModule(user.token, addToast, module?.id)} />
                 <AiOutlineEdit className="edit-module" style={{ marginLeft: "1rem" }} onClick={() => handleEdit(module)} />
             </Card.Header>
-            <Link to={`/course/${module.id}`} style={{ textDecoration: "none" , color: "black"}}>
-                <Card.Body>
-                    <Card.Title>{module?.name}</Card.Title>
-                    <Card.Text>
-                        {module?.description}
-                    </Card.Text>
-                </Card.Body>
-            </Link>
+            {/* <Link to={`/course/${module.id}`} style={{ textDecoration: "none" , color: "black"}}> */}
+            <Card.Body onClick={seeModuleTerm}>
+                <Card.Title>{module?.name}</Card.Title>
+                <Card.Text>
+                    {module?.description}
+                </Card.Text>
+            </Card.Body>
+            {/* </Link> */}
             <Card.Footer className="author-name" style={{ backgroundColor: "white", display: "flex", justifyContent: "space-between" }}>
                 <div>
                     {
@@ -52,5 +61,12 @@ const ModuleCard = ({ deleteModule, module, user }: any) => {
 }
 
 
-export default React.memo(ModuleCard);
+const mapDispatchToProps = (dispatch: any) => {
+
+    return {
+        allTerms: (token: String, id: any) => dispatch(allTerms(token, id)),
+    }
+}
+export default connect(null, mapDispatchToProps)(React.memo(ModuleCard));
+
 

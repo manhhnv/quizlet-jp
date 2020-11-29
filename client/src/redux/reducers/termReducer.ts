@@ -1,5 +1,5 @@
 import { ActionStore } from '../../types';
-import { ALL_TERMS, CREATE_TERM } from './../actions/termActions';
+import { ALL_TERMS, CREATE_TERM ,DELETE_TERM} from './../actions/termActions';
 
 const initialModuleState = { list: [] as any, total: 0 }
 
@@ -10,6 +10,8 @@ const termReducer = (state = initialModuleState, action: ActionStore) => {
         case CREATE_TERM:
             const totalClone = state.total + 1
             return { ...state, list: [...state.list, action.payload], total: totalClone };
+        case DELETE_TERM:
+            return {...state, list: action.payload};
         default:
             return state;
     }

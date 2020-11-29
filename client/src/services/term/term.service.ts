@@ -9,3 +9,8 @@ export const TERM_CREATE: Api = {
     url: `${BASE_URL}/module/term/create`,
     method: HTTP_METHOD.POST
 }
+
+export const TERM_DELETE: Api = {
+    url: `${BASE_URL}/module/term/delete`,
+    method: HTTP_METHOD.DELETE
+}

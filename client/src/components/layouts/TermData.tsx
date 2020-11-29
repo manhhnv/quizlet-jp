@@ -5,18 +5,20 @@ import { BsPencil, BsCardChecklist } from 'react-icons/bs';
 import { BiMeteor } from 'react-icons/bi';
 import { AiFillSound, AiOutlineFileText, AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { connect } from 'react-redux';
-import { allTerms } from '../../redux/actions/termActions';
+import { allTerms, deleteTerm } from '../../redux/actions/termActions';
 import { useHistory, useLocation, useParams, Link } from 'react-router-dom';
 import { Row, Col, Navbar, Card, Button, Container, Spinner } from 'react-bootstrap';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import ReactCardFlip from 'react-card-flip';
 import TermEdit from "../../pages/TermEdit";
+import { useToasts } from "react-toast-notifications";
 
-const TermData = ({ allTerms, terms, user }: any) => {
+const TermData = ({ allTerms, terms, user, deleteTerm }: any) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const [loading, setLoading] = useState(true);
     const [itemsIndex, setItemsIndex] = useState(0);
     const [showModal, setShowModal] = useState(false);
+    const { addToast } = useToasts();
 
     const closePopup = () => {
         setShowModal(false);
@@ -118,7 +120,7 @@ const TermData = ({ allTerms, terms, user }: any) => {
                             <React.Fragment key={item.id}>
                                 <Card className="card-container" style={{ width: "60rem" }} >
                                     <Card.Header className="created-at" style={{ justifyContent: "flex-start" }}>
-                                        <AiOutlineDelete className="delete-module" />
+                                        <AiOutlineDelete className="delete-module" onClick={() => deleteTerm(user.token, addToast, id, item.id)}/>
                                         <AiOutlineEdit className="edit-module" style={{ marginLeft: "1rem" }} />
                                     </Card.Header>
 
@@ -163,6 +165,7 @@ const mapDispatchToProps = (dispatch: any) => {
 
     return {
         allTerms: (token: String, id: any, setLoading: any) => dispatch(allTerms(token, id, setLoading)),
+        deleteTerm: (token: String, addToast: any, module_id: any, term_id: any) => dispatch(deleteTerm(token, addToast, module_id, term_id)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(TermData));

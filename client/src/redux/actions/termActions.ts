@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { TERM_GET, TERM_CREATE } from '../../services/term/term.service';
+import { TERM_GET, TERM_CREATE, TERM_DELETE } from '../../services/term/term.service';
 
 export const ALL_TERMS = "ALL_TERMS";
 export const CREATE_TERM = "CREATE_TERM";
+export const DELETE_TERM = "DELETE_TERM";
 
 export const allTerms = (token: String, id: any, setLoading?: any) => {
     return async (dispatch: any) => {
@@ -73,6 +74,48 @@ export const addTerm = (token: String, addToast: any, data: object) => {
                 // setTimeout(() => {
                 //     window.location.reload()
                 // }, 1500)
+            })
+    }
+}
+
+export const deleteTerm = (token: String, addToast: any, module_id: any, term_id: any) => {
+    return async (dispatch: any) => {
+        let config = {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        };
+        axios.delete(TERM_DELETE.url + `/${module_id}/${term_id}`, config)
+            .then(response => {
+                if (response.data != null) {
+                    if (addToast) {
+                            dispatch({
+                                type: DELETE_TERM,
+                                payload: response.data,
+                            })
+                            addToast("delete term success", {
+                                appearance: "success",
+                                autoDismiss: true
+                            })
+                    }
+    
+                }
+                else {
+                    if (addToast) {
+                        addToast("delete term failed !", {
+                            appearance: "error",
+                            autoDismiss: true
+                        })
+                    }
+                }
+            })
+            .catch(e => {
+                if (addToast) {
+                    addToast("erro when send delete !", {
+                        appearance: "error",
+                        autoDismiss: true
+                    })
+                }
             })
     }
 }

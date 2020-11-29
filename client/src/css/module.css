@@ -5,10 +5,12 @@
     font-weight: bold;
     font-size: 16px;
 }
+
 .delete-module {
     font-size: 25px;
     cursor: pointer;
 }
+
 .author-name {
     background-color: white;
     display: flex;
@@ -21,5 +23,11 @@
     font-size: 2rem;
     cursor: pointer;
     color: #4257b2;
+}
+
+.create-module {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #f08700;
 }
 

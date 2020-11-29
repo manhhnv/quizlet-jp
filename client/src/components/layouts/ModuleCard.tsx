@@ -1,13 +1,24 @@
 import React, {useState} from 'react';
-import { Card } from 'react-bootstrap';
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
-import { useToasts } from "react-toast-notifications";
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import {Card} from 'react-bootstrap';
+import {AiOutlineDelete, AiOutlineEdit, AiOutlinePlus} from 'react-icons/ai';
+import {useToasts} from "react-toast-notifications";
+import {FiEye, FiEyeOff} from 'react-icons/fi';
 import CourseEdit from '../../pages/CourseEdit';
+import TermAdd from "../../pages/TermAdd";
 
-const ModuleCard = ({ deleteModule, module, user }: any) => {
+const ModuleCard = ({deleteModule, module, user}: any) => {
     const [addCourse, setAddCourse] = useState(false);
-    const handleEdit = (mod: any) => {    
+    const [addTerm, setAddTerm] = useState(false);
+
+    const handleAddTerm = () => {
+        setAddTerm(true);
+    }
+
+    const handleCloseAddTerm = () => {
+        setAddTerm(false);
+    }
+
+    const handleEdit = (mod: any) => {
         setAddCourse(true);
     }
 
@@ -19,12 +30,15 @@ const ModuleCard = ({ deleteModule, module, user }: any) => {
         setAddCourse(false);
     }
 
-    const { addToast } = useToasts();
+    const {addToast} = useToasts();
     return (
         <Card className="card-container">
-            <Card.Header className="created-at" style={{ justifyContent: "flex-start" }}>
-                <AiOutlineDelete className="delete-module" onClick={() => deleteModule(user.token, addToast, module?.id)} />
-                <AiOutlineEdit className="edit-module" style={{ marginLeft: "1rem"}} onClick={() => handleEdit(module)}/>
+            <Card.Header className="created-at" style={{justifyContent: "flex-start"}}>
+                <AiOutlineDelete className="delete-module"
+                                 onClick={() => deleteModule(user.token, addToast, module?.id)}/>
+                <AiOutlineEdit className="edit-module" style={{marginLeft: "1rem"}} onClick={() => handleEdit(module)}/>
+                <AiOutlinePlus className="create-module" style={{marginLeft: "1rem"}}
+                               onClick={handleAddTerm}/>
             </Card.Header>
             <Card.Body>
                 <Card.Title>{module?.name}</Card.Title>
@@ -33,17 +47,21 @@ const ModuleCard = ({ deleteModule, module, user }: any) => {
                 </Card.Text>
             </Card.Body>
 
-            <Card.Footer className="author-name" style={{ backgroundColor: "white", display: "flex", justifyContent: "space-between" }}>
+            <Card.Footer className="author-name"
+                         style={{backgroundColor: "white", display: "flex", justifyContent: "space-between"}}>
                 <div>
                     {
-                        (module.public === 1) ? (<div><FiEye /> public</div>) : <div><FiEyeOff /> private</div>
+                        (module.public === 1) ? (<div><FiEye/> public</div>) : <div><FiEyeOff/> private</div>
                     }
                 </div>
                 <div>
                     create by: {user?.user?.username}
                 </div>
             </Card.Footer>
-            <CourseEdit showAddCourse={addCourse} closeCoursePopup={handleCloseCourse} handleAddd={handleAddd} currentModule={module}/>
+            <CourseEdit showAddCourse={addCourse} closeCoursePopup={handleCloseCourse} handleAddd={handleAddd}
+                        currentModule={module}/>
+            <TermAdd showAddTerm={addTerm} closeTermPopup={handleCloseAddTerm} handleAddd={handleAddd}
+                     currentModule={module}/>
         </Card>
     )
 }

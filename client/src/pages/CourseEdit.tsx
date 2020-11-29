@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
-import HeaderPage from '../components/layouts/Header'
-import { Redirect } from 'react-router-dom';
-import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import React, {useState} from 'react';
+import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
+import {connect} from 'react-redux';
 import AccessRolePopup from "../components/layouts/AccessRolePopup";
-import { editModule } from '../redux/actions/moduleAction';
-import { useToasts } from "react-toast-notifications";
+import {editModule} from '../redux/actions/moduleAction';
+import {useToasts} from "react-toast-notifications";
 
-const CourseEdit = ({ module, user, addModule, showAddCourse, closeCoursePopup, handleAddd, currentModule, editModule }: any) => {
+const CourseEdit = ({module, user, addModule, showAddCourse, closeCoursePopup, handleAddd, currentModule, editModule}: any) => {
 
     const [showModal, setShowModal] = useState(false);
     const [validated, setValidated] = useState(false);
     const [publicc, setPublicc] = useState(currentModule.public);
     const [name, setName] = useState(currentModule.name);
-    const [formData, setFormData] = useState({ title: "", publicc: 1 });
-    const { addToast } = useToasts();
+    const [formData, setFormData] = useState({title: "", publicc: 1});
+    const {addToast} = useToasts();
 
     const handleMax = (max: any) => {
         setShowModal(false);
@@ -41,8 +39,7 @@ const CourseEdit = ({ module, user, addModule, showAddCourse, closeCoursePopup, 
             e.preventDefault();
             e.stopPropagation();
             console.log("validatefalse");
-        }
-        else {
+        } else {
             e.preventDefault();
             const data = {
                 name,
@@ -50,7 +47,7 @@ const CourseEdit = ({ module, user, addModule, showAddCourse, closeCoursePopup, 
             };
 
             console.log(data);
-        
+
             editModule(user.token, addToast, currentModule.id, data);
         }
 
@@ -64,8 +61,8 @@ const CourseEdit = ({ module, user, addModule, showAddCourse, closeCoursePopup, 
                 <Modal.Title>Edit học phần</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Col md={7} >
-                    <div className="login-form-container" >
+                <Col md={7}>
+                    <div className="login-form-container">
                         <Form id="thatform" noValidate validated={validated} onSubmit={handleSubmit}>
                             <Form.Group as={Col}>
                                 <Form.Label>Tiêu đề</Form.Label>
@@ -76,7 +73,7 @@ const CourseEdit = ({ module, user, addModule, showAddCourse, closeCoursePopup, 
                                     name="title"
                                     className="login-form"
                                     required
-                                    style={{ borderBottomColor: "black" }}
+                                    style={{borderBottomColor: "black"}}
                                     onChange={handleChange}
                                 >
                                 </Form.Control>
@@ -91,24 +88,33 @@ const CourseEdit = ({ module, user, addModule, showAddCourse, closeCoursePopup, 
                 </Col>
 
                 <Col md={12}>
-                    <AccessRolePopup showModal={showModal} closePopup={closePopup} handleMax={handleMax} edit={currentModule} />
-                    <Row style={{ display: "flex", justifyContent: "flex-end" }}>
-                        <div style={{ fontWeight: "bold", marginRight: "2rem", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                            <div style={{ fontSize: "1.5rem", display: "flex" }}>
-                                <div>Quyền truy cập: </div>
+                    <AccessRolePopup showModal={showModal} closePopup={closePopup} handleMax={handleMax}
+                                     edit={currentModule}/>
+                    <Row style={{display: "flex", justifyContent: "flex-end"}}>
+                        <div style={{
+                            fontWeight: "bold",
+                            marginRight: "2rem",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-end"
+                        }}>
+                            <div style={{fontSize: "1.5rem", display: "flex"}}>
+                                <div>Quyền truy cập:</div>
                                 {
                                     (publicc === 1) ? (
-                                        <div style={{ marginLeft: "1rem", color: "#3ccfcf", fontSize: "1.7rem" }}>Mọi người</div>
+                                        <div style={{marginLeft: "1rem", color: "#3ccfcf", fontSize: "1.7rem"}}>Mọi
+                                            người</div>
                                     ) : null
 
                                 }
                                 {
                                     (publicc === 0) ? (
-                                        <div style={{ marginLeft: "1rem", color: "#3ccfcf", fontSize: "1.7rem" }}>Chỉ mình tôi</div>
+                                        <div style={{marginLeft: "1rem", color: "#3ccfcf", fontSize: "1.7rem"}}>Chỉ mình
+                                            tôi</div>
                                     ) : null
                                 }
                             </div>
-                            <div className="thaydoi" onClick={openPopup} style={{ fontSize: "1rem" }}>
+                            <div className="thaydoi" onClick={openPopup} style={{fontSize: "1rem"}}>
                                 Thay đổi
                             </div>
                         </div>
@@ -118,10 +124,11 @@ const CourseEdit = ({ module, user, addModule, showAddCourse, closeCoursePopup, 
 
             </Modal.Body>
             <Modal.Footer>
-                <Button style={{ width: "100%", backgroundColor: " #3ccfcf", border: "none" }} type="submit" form="thatform">Lưu</Button>
+                <Button style={{width: "100%", backgroundColor: " #3ccfcf", border: "none"}} type="submit"
+                        form="thatform">Lưu</Button>
             </Modal.Footer>
 
-        </Modal >
+        </Modal>
     )
 }
 const mapStateToProps = (state: any) => {

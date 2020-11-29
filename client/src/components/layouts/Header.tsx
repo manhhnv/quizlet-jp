@@ -13,6 +13,7 @@ const Header = ({ user, logout }: any) => {
     const [show, setShow] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const [logoutModal, setLogoutModal] = useState(false);
+    const [openSearch, setOpenSearch] = useState(false);
 
     const closeLoginPopup = () => {
         setShow(false);
@@ -36,6 +37,7 @@ const Header = ({ user, logout }: any) => {
         setLogoutModal(false);
         logout(token);
     }
+    console.log(openSearch);
 
     return (
         <React.Fragment>
@@ -54,20 +56,34 @@ const Header = ({ user, logout }: any) => {
                             </div>
                         </Link>
                     </div>
-
-                    <div className="right">
-                        <div>
-                            <AiOutlineSearch className="icon" />
-                            <div>Tìm kiếm</div>
-                        </div>
-                        <div className="line">
-                            |
+                    {
+                        (!openSearch) ? (
+                            <div className="right">
+                                <div onClick={() => setOpenSearch(!openSearch)}>
+                                    <AiOutlineSearch className="icon" />
+                                    <div>Tìm kiếm</div>
                                 </div>
-                        <div>
-                            <BiAddToQueue className="icon" />
-                            <div>Tạo</div>
-                        </div>
-                    </div>
+                                <div className="line">
+                                    |
+                                </div>
+                                <div>
+                                    <BiAddToQueue className="icon" />
+                                    <div>Tạo</div>
+                                </div>
+                            </div>
+                        ) : (
+                                <Form className="right" style={{display: "flex", width: "100%"}} onSubmit={(e) => e.preventDefault()}>
+                                    <Form.Group  >
+                                        <Form.Control type="text" placeholder="Seach..." size="lg" style={{marginLeft: "1rem"}}/>
+                                    </Form.Group>
+
+                                    <Button type="submit" onClick={() => setOpenSearch(!openSearch)}>
+                                        <AiOutlineSearch  />
+                                    </Button>
+                                </Form>
+                            )
+                    }
+
 
 
 
@@ -77,7 +93,7 @@ const Header = ({ user, logout }: any) => {
                     {user?.token ? (
                         <div>
 
-                            <img src={user?.user?.avatar ? `${user?.user?.avatar}`: require('../../assets/avatar.png')} alt="Avatar" className="avatar" onClick={openLogout} />
+                            <img src={user?.user?.avatar ? `${user?.user?.avatar}` : require('../../assets/avatar.png')} alt="Avatar" className="avatar" onClick={openLogout} />
                             <div>
                                 {
 
@@ -134,5 +150,5 @@ const mapDispatchToProps = (dispatch: any) => {
     return {
         logout: (token: String) => dispatch(logout(token))
     }
-} 
-export default connect(mapStateToProps,  mapDispatchToProps)(React.memo(Header));
+}
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Header));

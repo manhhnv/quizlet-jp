@@ -4,7 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import LoginPopup from './LoginPopup';
 import RegisterPopup from './RegisterPopup';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
 import { logout } from '../../redux/actions/userAction';
@@ -13,6 +13,8 @@ const Header = ({ user, logout }: any) => {
     const [show, setShow] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const [logoutModal, setLogoutModal] = useState(false);
+    const [openSearch, setOpenSearch] = useState(false);
+    const [search, setSearch] = useState("");
 
     const closeLoginPopup = () => {
         setShow(false);
@@ -36,6 +38,22 @@ const Header = ({ user, logout }: any) => {
         setLogoutModal(false);
         logout(token);
     }
+    // console.log(openSearch);
+
+    const handleSearch = (e: any) => {
+        e.preventDefault();
+        console.log(search);
+        let sr = search;
+        setSearch("");
+        window.location.replace(`/search/${sr}`);
+        
+    }
+
+    const handleChange = (e: any) => {
+        setSearch(e.target.value);
+    }
+
+
 
     return (
         <React.Fragment>
@@ -54,30 +72,53 @@ const Header = ({ user, logout }: any) => {
                             </div>
                         </Link>
                     </div>
+                    {
+                        (!openSearch) ? (
+                            <div className="right">
+                                <div onClick={() => setOpenSearch(!openSearch)}>
 
-                    <div className="right">
-                        <div>
-                            <AiOutlineSearch className="icon" />
-                            <div>Tìm kiếm</div>
-                        </div>
-                        <div className="line">
-                            |
+                                    {/* <Link to="/search" style={{ display: "flex", alignItems: "center", justifyContent: "space-around", color: "white" }}> */}
+                                    <AiOutlineSearch className="icon" />
+                                    <div>Tìm kiếm</div>
+                                    {/* </Link> */}
                                 </div>
-                        <div>
-                            <BiAddToQueue className="icon" />
-                            <div>Tạo</div>
-                        </div>
-                    </div>
+                                <div className="line">
+                                    |
+                                </div>
+                                <div>
+                                    <BiAddToQueue className="icon" />
+                                    <div>Tạo</div>
+                                </div>
+                            </div>
+                        ) : (
+                                <Form className="right" style={{ display: "flex", width: "100%" }} onSubmit={handleSearch}>
+                                    <Form.Group  >
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Seach..."
+                                            size="lg"
+                                            style={{ marginLeft: "1rem" }}
+                                            onChange={handleChange} />
+                                    </Form.Group>
+                                    {/* <Link to="/search" style={{ display: "flex", alignItems: "center", justifyContent: "space-around", color: "white" }}> */}
+                                    <Button type="submit">
+                                        <AiOutlineSearch />
+                                    </Button>
+                                    {/* </Link> */}
+                                </Form>
+                            )
+                    }
+
 
 
 
                 </div>
-                {console.log("++++++", user)}
+                {/* {console.log("++++++", user)} */}
                 <div className="rigth-container">
                     {user?.token ? (
                         <div>
 
-                            <img src={user?.user?.avatar ? `${user?.user?.avatar}`: require('../../assets/avatar.png')} alt="Avatar" className="avatar" onClick={openLogout} />
+                            <img src={user?.user?.avatar ? `${user?.user?.avatar}` : require('../../assets/avatar.png')} alt="Avatar" className="avatar" onClick={openLogout} />
                             <div>
                                 {
 
@@ -134,5 +175,5 @@ const mapDispatchToProps = (dispatch: any) => {
     return {
         logout: (token: String) => dispatch(logout(token))
     }
-} 
-export default connect(mapStateToProps,  mapDispatchToProps)(React.memo(Header));
+}
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Header));

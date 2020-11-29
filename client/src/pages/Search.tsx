@@ -1,12 +1,22 @@
 import React from 'react'
+import { Col, Row } from 'react-bootstrap';
+import HeaderPage from '../components/layouts/Header';
+import SearchOptions from '../components/search/SearchOptions';
 
 const Search = () => {
     return (
-        <div>
-            Page này sẽ import component search result, call API ở page này, các thành phần như select để chọn cột sort hoặc chọn kiểu sort
-            cũng ở page này, tham khảo phần search của quizlet.com , mình làm đơn giản chỉ search 4 cái module, class, folder, user,
-            call API trả về result thì nhớ phân trang kết quả ớ dưới nữa, truyền data sang compoent Search Result để hiện thị
-        </div>
+        <React.Fragment>
+            <Row>
+                <Col md={12}>
+                    <HeaderPage />
+                </Col>
+            </Row>
+            <Row>
+                <Col md={3} className="vertical-nav-container">
+                    <SearchOptions></SearchOptions>
+                </Col>
+            </Row>
+        </React.Fragment>
     )
 }
 

@@ -4,6 +4,14 @@ export enum HTTP_METHOD {
     PUT = "PUT",
     DELETE = "DELETE"
 }
+export enum ENABLE_FIELD_SEARCH  {
+    NAME = "name",
+    CREATED_AT = "created_at"
+}
+export enum ENABLE_SORT_TYPE {
+    DESC = "desc",
+    ASC = "asc"
+}
 export type Api = {
     url: string;
     method: HTTP_METHOD;
@@ -56,4 +64,9 @@ export type CreateClassInput = {
     name: string;
     public: boolean;
     description?: string;
+}
+export type QuerySearchInput = {
+    name: ENABLE_FIELD_SEARCH.NAME,
+    sortBy: ENABLE_FIELD_SEARCH.NAME | ENABLE_FIELD_SEARCH.CREATED_AT,
+    sortType: ENABLE_SORT_TYPE.ASC | ENABLE_SORT_TYPE.DESC
 }

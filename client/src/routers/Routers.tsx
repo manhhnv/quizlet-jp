@@ -10,6 +10,7 @@ import Overview from "../pages/Overview";
 import Course from "../pages/Course";
 import FolderDetail from "../pages/FolderDetail";
 import ClassDetail from "../pages/ClassDetail";
+import Search from "../pages/Search";
 
 const AppRouters = () => {
     return (
@@ -30,6 +31,7 @@ const AppRouters = () => {
                 <Route path="/:username/class" component={ClassDetail}>
                     {/* <ClassDetail/> */}
                 </Route>
+                <Route path="/:category/search" component={Search}></Route>
             </Switch>
         </Router>
     )

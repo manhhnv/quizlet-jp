@@ -24,11 +24,11 @@ const AppRouters = () => {
                 <Route path="/course">
                     <Course/>
                 </Route>
-                <Route path="/:username/folder">
-                    <FolderDetail/>
+                <Route path="/:username/folder" component={FolderDetail}>
+                    {/* <FolderDetail/> */}
                 </Route>
-                <Route path="/:username/class">
-                    <ClassDetail/>
+                <Route path="/:username/class" component={ClassDetail}>
+                    {/* <ClassDetail/> */}
                 </Route>
             </Switch>
         </Router>

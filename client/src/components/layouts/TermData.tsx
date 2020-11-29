@@ -11,6 +11,7 @@ import { Row, Col, Navbar, Card, Button, Container, Spinner } from 'react-bootst
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import ReactCardFlip from 'react-card-flip';
 import TermEdit from "../../pages/TermEdit";
+import TermUpdate from "../../pages/TermUpdate";
 import { useToasts } from "react-toast-notifications";
 
 const TermData = ({ allTerms, terms, user, deleteTerm }: any) => {
@@ -18,7 +19,12 @@ const TermData = ({ allTerms, terms, user, deleteTerm }: any) => {
     const [loading, setLoading] = useState(true);
     const [itemsIndex, setItemsIndex] = useState(0);
     const [showModal, setShowModal] = useState(false);
+    const [showModalUpdate, setShowModalUpdate] = useState(false);
     const { addToast } = useToasts();
+    const [itemm, setItemm] = useState({ question: "", explain: "", score: 0 });
+
+    let { id } = useParams<{ id: any }>();
+    // console.log(id);
 
     const closePopup = () => {
         setShowModal(false);
@@ -26,6 +32,18 @@ const TermData = ({ allTerms, terms, user, deleteTerm }: any) => {
     const openPopup = () => {
         setShowModal(true);
     };
+
+    const closePopupUpdate = () => {
+        setShowModalUpdate(false);
+    };
+    const openPopupUpdate = (item: any) => {
+        setItemm(item);
+        // console.log(itemm)
+
+        setShowModalUpdate(true);
+
+    };
+
 
 
     useEffect(() => {
@@ -36,8 +54,6 @@ const TermData = ({ allTerms, terms, user, deleteTerm }: any) => {
         });
     }, [])
 
-    let { id } = useParams<{ id: any }>();
-    console.log(id);
 
     const showListTerms = () => {
 
@@ -113,15 +129,16 @@ const TermData = ({ allTerms, terms, user, deleteTerm }: any) => {
                 <div className="list-term-container">
                     {/* <button onClick={showListTerms}>show list</button> */}
                     <div style={{ fontSize: "2rem", fontWeight: "bold", marginTop: "2rem" }}>
-                        Thuật ngữ trong học phần này ({terms.total})
+                        Thuật ngữ trong học phần này ({terms.list.length})
                 </div>
                     {terms.list.map((item: any) => {
                         return (
                             <React.Fragment key={item.id}>
                                 <Card className="card-container" style={{ width: "60rem" }} >
                                     <Card.Header className="created-at" style={{ justifyContent: "flex-start" }}>
-                                        <AiOutlineDelete className="delete-module" onClick={() => deleteTerm(user.token, addToast, id, item.id)}/>
-                                        <AiOutlineEdit className="edit-module" style={{ marginLeft: "1rem" }} />
+                                        <AiOutlineDelete className="delete-module" onClick={() => deleteTerm(user.token, addToast, id, item.id)} />
+                                        <AiOutlineEdit className="edit-module" style={{ marginLeft: "1rem" }} onClick={() => openPopupUpdate(item)} />
+
                                     </Card.Header>
 
                                     <Card.Body style={{ display: "flex", justifyContent: "space-between" }}>
@@ -135,12 +152,20 @@ const TermData = ({ allTerms, terms, user, deleteTerm }: any) => {
                                     </Card.Body>
 
                                 </Card>
+
                             </React.Fragment>
                         )
                     })}
                     <div>
-                        <button className="add-course" style={{ margin: "3rem", width: "30rem", fontSize: "1.5rem" }}  onClick={openPopup}>Thêm thuật ngữ</button>
-                        <TermEdit showAddTerm={showModal} closePopup={closePopup} module_id={id}/>
+                        <button className="add-course" style={{ margin: "3rem", width: "30rem", fontSize: "1.5rem" }} onClick={openPopup}>Thêm thuật ngữ</button>
+                        <TermEdit showAddTerm={showModal} closePopup={closePopup} module_id={id} />
+                        {
+                            (showModalUpdate) ? (
+                                <TermUpdate showEditTerm={showModalUpdate} closePopup={closePopupUpdate} module_id={id} item={itemm} />
+                            ) : (null)
+
+                        }
+
                     </div>
                 </div>
             ) : (

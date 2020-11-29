@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { TERM_GET, TERM_CREATE, TERM_DELETE } from '../../services/term/term.service';
+import { TERM_GET, TERM_CREATE, TERM_DELETE, TERM_UPDATE } from '../../services/term/term.service';
 
 export const ALL_TERMS = "ALL_TERMS";
 export const CREATE_TERM = "CREATE_TERM";
 export const DELETE_TERM = "DELETE_TERM";
+export const EDIT_TERM = "EDIT_TERM";
 
 export const allTerms = (token: String, id: any, setLoading?: any) => {
     return async (dispatch: any) => {
@@ -112,6 +113,51 @@ export const deleteTerm = (token: String, addToast: any, module_id: any, term_id
             .catch(e => {
                 if (addToast) {
                     addToast("erro when send delete !", {
+                        appearance: "error",
+                        autoDismiss: true
+                    })
+                }
+            })
+    }
+}
+
+export const editTerm = (token: String, addToast: any, module_id: any, term_id: any, data: any) => {
+    return async (dispatch: any) => {
+        let config = {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        };
+        axios.put(TERM_UPDATE.url + `/${module_id}/${term_id}`, data, config)
+            .then(response => {
+                if (response.data != null) {
+                    if (addToast) {
+                            dispatch({
+                                type: EDIT_TERM,
+                                payload: response.data,
+                            })
+                            addToast("edit term success", {
+                                appearance: "success",
+                                autoDismiss: true
+                            })
+                            // setTimeout(() => {
+                            //     window.location.reload()
+                            // }, 1500)
+                    }
+    
+                }
+                else {
+                    if (addToast) {
+                        addToast("update term failed !", {
+                            appearance: "error",
+                            autoDismiss: true
+                        })
+                    }
+                }
+            })
+            .catch(e => {
+                if (addToast) {
+                    addToast("erro when send update !", {
                         appearance: "error",
                         autoDismiss: true
                     })

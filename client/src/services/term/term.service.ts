@@ -14,3 +14,8 @@ export const TERM_DELETE: Api = {
     url: `${BASE_URL}/module/term/delete`,
     method: HTTP_METHOD.DELETE
 }
+
+export const TERM_UPDATE: Api = {
+    url: `${BASE_URL}/module/term/update-term-by-module`,
+    method: HTTP_METHOD.PUT
+}

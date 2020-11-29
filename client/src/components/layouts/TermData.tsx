@@ -95,34 +95,38 @@ const TermData = ({ allTerms, terms, user, deleteTerm }: any) => {
                         </div>
                     </div>
 
-                    {loading === false ? (
-                        <div>
-                            <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-                                <div className="term-content-right" onClick={() => setIsFlipped(true)}>
-                                    {(terms.list.length === 0) ? (<div>bạn chưa tạo thẻ nào</div>) : (terms.list[itemsIndex].question)}
-                                </div>
-                                <div className="term-content-right" onClick={() => setIsFlipped(false)}>
-                                    {(terms.list.length === 0) ? (<div>bạn chưa tạo thẻ nào</div>) : (terms.list[itemsIndex].explain)}
-                                </div>
-                            </ReactCardFlip>
-                            {
-                                (terms.list.length === 0) ?
-                                    (<div></div>) : (
-                                        <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            <AiOutlineArrowLeft className="arrow" onClick={arrowLeft} />
-                                            <div style={{ fontSize: "1.5rem" }} >{itemsIndex + 1 + "/" + terms.list.length}</div>
-                                            <AiOutlineArrowRight className="arrow" onClick={arrowRight} />
-                                        </div>
-                                    )
-                            }
-                        </div>
-                    ) : (
-                            <Row style={{ marginTop: "100px" }} className="d-flex justify-content-center">
-                                <Spinner animation="grow" variant="success" />
-                                <Spinner animation="grow" variant="danger" />
-                                <Spinner animation="grow" variant="warning" />
-                            </Row>
-                        )}
+                    <div>
+                        {loading === false ? (
+                            <div>
+                                <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+                                    <div className="term-content-right" onClick={() => setIsFlipped(true)}>
+                                        {(terms.list.length === 0) ? (<div>bạn chưa tạo thẻ nào</div>) : (terms.list[itemsIndex].question)}
+                                    </div>
+                                    <div className="term-content-right" onClick={() => setIsFlipped(false)}>
+                                        {(terms.list.length === 0) ? (<div>bạn chưa tạo thẻ nào</div>) : (terms.list[itemsIndex].explain)}
+                                    </div>
+                                </ReactCardFlip>
+                                {
+                                    (terms.list.length === 0) ?
+                                        (<div></div>) : (
+                                            <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", marginTop: ".5rem" }}>
+                                                <AiOutlineArrowLeft className="arrow" onClick={arrowLeft} />
+                                                <div style={{ fontSize: "1.5rem" }} >{itemsIndex + 1 + "/" + terms.list.length}</div>
+                                                <AiOutlineArrowRight className="arrow" onClick={arrowRight} />
+                                            </div>
+                                        )
+                                }
+                            </div>
+                        ) : (
+                                <Row style={{ marginTop: "100px" }} className="d-flex justify-content-center">
+                                    <Spinner animation="grow" variant="success" />
+                                    <Spinner animation="grow" variant="danger" />
+                                    <Spinner animation="grow" variant="warning" />
+                                </Row>
+                            )}
+                    </div>
+
+
                 </div>
             </div>
             {loading === false ? (
@@ -130,32 +134,35 @@ const TermData = ({ allTerms, terms, user, deleteTerm }: any) => {
                     {/* <button onClick={showListTerms}>show list</button> */}
                     <div style={{ fontSize: "2rem", fontWeight: "bold", marginTop: "2rem" }}>
                         Thuật ngữ trong học phần này ({terms.list.length})
-                </div>
-                    {terms.list.map((item: any) => {
-                        return (
-                            <React.Fragment key={item.id}>
-                                <Card className="card-container" style={{ width: "60rem" }} >
-                                    <Card.Header className="created-at" style={{ justifyContent: "flex-start" }}>
-                                        <AiOutlineDelete className="delete-module" onClick={() => deleteTerm(user.token, addToast, id, item.id)} />
-                                        <AiOutlineEdit className="edit-module" style={{ marginLeft: "1rem" }} onClick={() => openPopupUpdate(item)} />
+                    </div>
+                    <div className="list-terms">
+                        {terms.list.map((item: any) => {
+                            return (
+                                <React.Fragment key={item.id}>
+                                    <Card className="card-container" style={{ width: "100%" }} >
+                                        <Card.Header className="created-at" style={{ justifyContent: "flex-start" }}>
+                                            <AiOutlineDelete className="delete-module" onClick={() => deleteTerm(user.token, addToast, id, item.id)} />
+                                            <AiOutlineEdit className="edit-module" style={{ marginLeft: "1rem" }} onClick={() => openPopupUpdate(item)} />
 
-                                    </Card.Header>
+                                        </Card.Header>
 
-                                    <Card.Body style={{ display: "flex", justifyContent: "space-between" }}>
-                                        <Card.Title>{item.question}</Card.Title>
-                                        <Card.Text>
-                                            {item.explain}
-                                        </Card.Text>
-                                        <Card.Text>
-                                            {item.score}
-                                        </Card.Text>
-                                    </Card.Body>
+                                        <Card.Body style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <Card.Title>{item.question}</Card.Title>
+                                            <Card.Text>
+                                                {item.explain}
+                                            </Card.Text>
+                                            <Card.Text>
+                                                {item.score}
+                                            </Card.Text>
+                                        </Card.Body>
 
-                                </Card>
+                                    </Card>
 
-                            </React.Fragment>
-                        )
-                    })}
+                                </React.Fragment>
+                            )
+                        })}
+                    </div>
+
                     <div>
                         <button className="add-course" style={{ margin: "3rem", width: "30rem", fontSize: "1.5rem" }} onClick={openPopup}>Thêm thuật ngữ</button>
                         <TermEdit showAddTerm={showModal} closePopup={closePopup} module_id={id} />

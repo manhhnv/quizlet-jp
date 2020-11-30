@@ -6,6 +6,24 @@ export const CREATE_TERM = "CREATE_TERM";
 export const DELETE_TERM = "DELETE_TERM";
 export const EDIT_TERM = "EDIT_TERM";
 
+export const getTermsInModule = async (token: String, id: any, setLoading?: any) => {
+    const response = await axios.get(`${TERM_GET.url}/${id}`, {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    })
+    .then(res => {
+        if (res.data !== null) {
+            return res.data
+        }
+    })
+    .catch(e => {
+        console.log(e)
+    })
+    console.log(response)
+    return response
+}
+
 export const allTerms = (token: String, id: any, setLoading?: any) => {
     return async (dispatch: any) => {
         await axios.get(TERM_GET.url + `/${id}`, {
@@ -26,6 +44,13 @@ export const allTerms = (token: String, id: any, setLoading?: any) => {
             })
             .catch(err => {
                 console.log(err)
+                dispatch({
+                    type: ALL_TERMS,
+                    payload: null,
+                })
+                if (setLoading) {
+                    setLoading(false);
+                }
             })
     }
 }

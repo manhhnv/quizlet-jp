@@ -25,8 +25,8 @@ const AppRouters = () => {
                 <Route path="/search/:sr">
                     <Search/>
                 </Route>
-                <Route path="/course/:id">
-                    <Term />
+                <Route path="/course/:name/:id" component={Term}>
+                    {/* <Term /> */}
                 </Route>
                 <Route path="/:username/folder" component={FolderDetail}>
                     {/* <FolderDetail/> */}

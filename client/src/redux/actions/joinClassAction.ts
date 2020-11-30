@@ -35,7 +35,9 @@ export const managementMember = async (token: string, class_id: number) => {
         }
     })
     .then(res => {
-        return res;
+        if (res.data !== null) {
+            return res.data;
+        }
     })
     .catch(e => {
         console.log(e)

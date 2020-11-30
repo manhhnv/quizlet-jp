@@ -25,6 +25,10 @@ import {
     deleteFolderFromClass
 }
     from '../redux/actions/classActions';
+import {  
+    managementMember
+}
+from '../redux/actions/joinClassAction';
 import { ModuleCreate, UpdateClassInput, CreateFolderInput } from '../types';
 import { CLASS_DETAIL } from '../services/class/class.service';
 import ShareClass from '../components/class/ShareClass';
@@ -74,6 +78,7 @@ const ClassDetail = ({
         setShowShareClass(false);
     }
     const [classItem, setClassItem]: any = useState(null);
+    const [members, setMembers]: any = useState(null);
     
     useEffect(() => {
         if (user?.token) {
@@ -85,10 +90,16 @@ const ClassDetail = ({
                 .then(res => {
                     if (res.data !== null) {
                         setClassItem(res.data)
+                        managementMember(user.token, res?.data?.id)
+                        .then(res => {
+                            setMembers(res)
+                        })
+                        .catch(e => {
+                            console.log(e)
+                        })
                     }
                 })
                 .catch(e => {
-                    // setClassItem(null)
                     addToast("Error when trying get class", {
                         appearance: "error",
                         autoDismiss: true
@@ -104,6 +115,9 @@ const ClassDetail = ({
             }
         }
     }, [classes])
+    // useEffect(() => {
+
+    // })
     if (!user?.token) {
         return <Redirect to="/home"></Redirect>
     }
@@ -152,6 +166,12 @@ const ClassDetail = ({
                                                 </>
                                                 )}
                                         </div>
+                                        {usernamePath === user?.user?.username ? (
+                                            <div>
+                                            {members ? members?.length + " thành viên" : "0 thành viên"}
+                                        </div>
+                                        ): null}
+                                    
                                     </div>
                                 </Col>
                                 <Col lg={5}>

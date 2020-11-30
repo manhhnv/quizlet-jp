@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { AiFillGolden, AiFillFolderOpen, AiFillHome, AiFillCarryOut } from 'react-icons/ai';
+import { AiFillGolden, AiFillFolderOpen, AiFillHome, AiFillCarryOut, AiFillBank } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import AddFolderForm from '../folder/AddFolderForm';
 import { createFolder } from '../../redux/actions/folderActions';
@@ -15,7 +15,8 @@ const VerticalNav = ({
     folders,
     user,
     classes,
-    createClass
+    createClass,
+    joined
 }: any) => {
     const [showCreateFolder, setShowCreateFolder] = useState(false);
     const hideCreateFolderCreateFolder = () => {
@@ -109,6 +110,20 @@ const VerticalNav = ({
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a>
+                        <AiFillBank></AiFillBank> Đã tham gia ( {joined?.totalJoined} )
+                    </a>
+                    <ul className="vertical-nav-child">
+                        {joined && joined.list.length > 0 ? joined.list.map((item: any, index: any) => (
+                            <li key={index}>
+                                <Link to={`/${item?.username}/class?code=${item.code}&id=${item.id}`}>
+                                    {item.name}
+                                </Link>
+                            </li>
+                        )) : null}
+                    </ul>
+                </li>
             </ul>
         </div>
     )
@@ -117,7 +132,8 @@ const mapStateToProps = (state: any) => {
     return {
         user: state.user,
         folders: state.folders,
-        classes: state.classes
+        classes: state.classes,
+        joined: state.joined
     }
 }
 const mapDispatchToProps = (dispatch: any) => {

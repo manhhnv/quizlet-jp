@@ -6,7 +6,7 @@ import LoginPopup from './LoginPopup';
 import RegisterPopup from './RegisterPopup';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
+import { Modal, Button, Form, Col, Row, OverlayTrigger, Popover } from 'react-bootstrap';
 import { logout } from '../../redux/actions/userAction';
 import { userInfo } from 'os';
 import SearchBox from '../search/SearchBox';
@@ -78,7 +78,21 @@ const Header = ({ user, logout }: any) => {
                         <div>
                             <div className="header-icon-responsive-container">
                                 <AiOutlineSearch className="icon header-icon-responsive" onClick={() => setShowSearchBox(true)}/>
-                                <BiAddToQueue className="icon header-icon-responsive" />
+                                {/* <BiAddToQueue className="icon header-icon-responsive" /> */}
+                                <OverlayTrigger
+                                    trigger="click"
+                                    placement="bottom"
+                                    overlay={
+                                        <Popover id="add">
+                                            <Popover.Title>abc</Popover.Title>
+                                            <Popover.Content>
+                                                abc
+                                            </Popover.Content>
+                                        </Popover>
+                                    }
+                                >
+                                    <BiAddToQueue className="icon header-icon-responsive" />
+                                </OverlayTrigger>
                             </div>
                             <img src={user?.user?.avatar ? `${user?.user?.avatar}` : require('../../assets/avatar.png')} alt="Avatar" className="avatar" onClick={openLogout} />
                             <div>

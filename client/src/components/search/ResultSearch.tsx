@@ -1,18 +1,65 @@
 import React from 'react'
-import { Button, Card, Image } from 'react-bootstrap'
+import { Button, Card, Form, Image, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-// type propsType = {
-//     result: any
-// }
+import { getQuerySearch } from '../../helper/getQuerySearch'
+import { optionsSearch } from '../../helper/optionsSeacrh'
 const ResultSearch = ({
     result,
-    categorySearch
+    categorySearch,
+    changeCategorySearch,
+    sortByState,
+    changeSortBy
 }: any) => {
+    const options = optionsSearch();
+    const handle = (event: any) => {
+        changeCategorySearch(event.target.value)
+    }
+    const query = getQuerySearch()
     return (
         <React.Fragment>
-            {result == null || result.length < 1? (
-                <h3>Không có kết quả phù hợp</h3>
-            ): null}
+            {result == null || result.length < 1 ? (
+                <h3 style={{ margin: "10px" }}>Không có kết quả phù hợp cho `{query.get('name')}`</h3>
+            ) : (
+                    <h3 style={{ margin: "10px" }}>Có {result.length} kết quả phù hợp `{query.get('name')}`</h3>
+                )}
+                <Row>
+                <Col xs={5}>
+                    <Form>
+                        <Form.Control
+                            as="select"
+                            defaultValue={categorySearch}
+                            name="category"
+                            onChange={handle}
+                            className="login-form"
+                        >
+                            <option disabled>Danh mục</option>
+                            {options.category.map((c: any, i: number) => (
+                                <option
+                                    key={i} value={c.value}
+                                >
+                                    {c.label}
+                                </option>
+                            ))}
+                        </Form.Control>
+                    </Form>
+                </Col>
+                <Col xs={4}>
+                    <Form>
+                        <Form.Control
+                            as="select"
+                            defaultValue={categorySearch}
+                            name="category"
+                            className="login-form"
+                            onChange={(event: any) => changeSortBy(event.target.value)}
+                        >
+                            <option disabled>Sắp xếp theo</option>
+                            {options.fields.map((c: any, i: number) => (
+                                <option key={i} value={c.value}>{c.label}</option>
+                            ))}
+                        </Form.Control>
+                    </Form>
+                </Col>
+            </Row>
             {categorySearch == 'module' && result.map((res: any, i: number) => (
                 <Card className="result-item" key={i}>
                     <Link to="/overview" style={{ textDecoration: "none", color: "black" }}>

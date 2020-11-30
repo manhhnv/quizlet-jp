@@ -88,6 +88,7 @@ const ClassDetail = ({
                     }
                 })
                 .catch(e => {
+                    // setClassItem(null)
                     addToast("Error when trying get class", {
                         appearance: "error",
                         autoDismiss: true
@@ -115,7 +116,7 @@ const ClassDetail = ({
     return (
         <React.Fragment>
             <Row>
-                <Col md={12}>
+                <Col md={12} className="pd-r-30">
                     <HeaderPage></HeaderPage>
                 </Col>
             </Row>

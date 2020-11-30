@@ -3,6 +3,7 @@ import { me } from "./userAction"
 import { allModules } from "./moduleAction";
 import { getListFolders } from "./folderActions";
 import { getListOfCLasses } from "./classActions";
+import { joinedClass } from "./joinClassAction";
 
 
 export const resolverReload = () => {
@@ -12,5 +13,6 @@ export const resolverReload = () => {
         dispatch(allModules(accessToken))
         dispatch(getListFolders(accessToken))
         dispatch(getListOfCLasses(accessToken))
+        dispatch(joinedClass(accessToken))
     }
 }

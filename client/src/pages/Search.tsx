@@ -16,14 +16,19 @@ const Search = ({
 }: any) => {
     const [res, setRes]: any = useState(null);
     const [categorySearch, setCategorySearch]: any = useState('module');
+    const [sortByState, setSortByState]: any = useState('name');
     const changeCategorySearch = (c: any) => {
         setCategorySearch(c)
+    }
+    const changeSortBy = (s: any) => {
+        setSortByState(s)
     }
     useEffect(() => {
         const querySearch = getQuerySearch();
         const query: QuerySearchInput = {
             name: `${querySearch.get('name')}`,
-            sortBy: ENABLE_FIELD_SEARCH.NAME,
+            sortBy: sortByState === ENABLE_FIELD_SEARCH.CREATED_AT ?
+                ENABLE_FIELD_SEARCH.CREATED_AT : ENABLE_FIELD_SEARCH.NAME,
             sortType: ENABLE_SORT_TYPE.ASC
         }
         switch(categorySearch) {
@@ -54,25 +59,9 @@ const Search = ({
                     console.log(e)
                 })
             default:
-                // searchModule(user.token, query)
-                // .then(response => {
-                //     setRes(response)
-                // })
-                // .catch(e => {
-                //     console.log(e)
-                // })
                 break;
         }
-        // if (categorySearch === '' || categorySearch === 'module') {
-        //     searchModule(user.token, query)
-        //         .then(response => {
-        //             setRes(response)
-        //         })
-        //         .catch(e => {
-        //             console.log(e)
-        //         })
-        // }
-    }, [location, categorySearch])
+    }, [location, categorySearch, sortByState])
     return (
         <React.Fragment>
             <Row>
@@ -85,6 +74,8 @@ const Search = ({
                     <SearchOptions
                         categorySearch={categorySearch}
                         changeCategorySearch={changeCategorySearch}
+                        sortByState={sortByState}
+                        changeSortBy={changeSortBy}
                     />
                 </Col>
                 <Col md={1}></Col>
@@ -93,6 +84,9 @@ const Search = ({
                         <ResultSearch
                             result={res}
                             categorySearch={categorySearch}
+                            changeCategorySearch={changeCategorySearch}
+                            sortByState={sortByState}
+                            changeSortBy={changeSortBy}
                         />
                     ) : (
                             <Row style={{ marginTop: "100px" }} className="d-flex justify-content-center">

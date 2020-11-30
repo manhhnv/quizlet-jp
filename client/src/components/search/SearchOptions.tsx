@@ -6,10 +6,11 @@ import { optionsSearch } from '../../helper/optionsSeacrh';
 
 const SearchOptions = ({
     categorySearch,
-    changeCategorySearch
+    changeCategorySearch,
+    sortByState,
+    changeSortBy
 }: any) => {
     const options = optionsSearch();
-    // console.log(options)
     return (
         <div>
             <ul className="vertical-nav">
@@ -45,23 +46,14 @@ const SearchOptions = ({
                                 <Form.Check
                                     type='radio'
                                     label={c.label}
-                                    defaultChecked={i === 0 ? true : false}
+                                    defaultChecked={sortByState === c.value}
                                     name='sortBy'
                                     custom
                                     id={c.label}
+                                    onChange={() => changeSortBy(c.value)}
                                 />
                             </li>
                         ))}
-                        <li>
-                            <Form.Check
-                                type="checkbox"
-                                custom
-                                name="sortType"
-                                label={"Tăng dần"}
-                                id={"Tăng dần"}
-                                defaultChecked={true}
-                            />
-                        </li>
                     </ul>
                 </li>
             </ul>

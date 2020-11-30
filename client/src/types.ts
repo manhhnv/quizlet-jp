@@ -67,6 +67,6 @@ export type CreateClassInput = {
 }
 export type QuerySearchInput = {
     name: string,
-    sortBy: ENABLE_FIELD_SEARCH.NAME | ENABLE_FIELD_SEARCH.CREATED_AT,
+    sortBy: ENABLE_FIELD_SEARCH,
     sortType: ENABLE_SORT_TYPE.ASC | ENABLE_SORT_TYPE.DESC
 }

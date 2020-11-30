@@ -37,14 +37,14 @@ const ModuleCard = ({ deleteModule, module, user, allTerms }: any) => {
                 <AiOutlineDelete className="delete-module" onClick={() => deleteModule(user.token, addToast, module?.id)} />
                 <AiOutlineEdit className="edit-module" style={{ marginLeft: "1rem" }} onClick={() => handleEdit(module)} />
             </Card.Header>
-            {/* <Link to={`/course/${module.id}`} style={{ textDecoration: "none" , color: "black"}}> */}
-            <Card.Body onClick={seeModuleTerm}>
-                <Card.Title>{module?.name}</Card.Title>
-                <Card.Text>
-                    {module?.description}
-                </Card.Text>
-            </Card.Body>
-            {/* </Link> */}
+            <Link to={`/course/${module.name}/${module.id}`} style={{ textDecoration: "none" , color: "black"}}>
+                <Card.Body>
+                    <Card.Title>{module?.name}</Card.Title>
+                    <Card.Text>
+                        {module?.description}
+                    </Card.Text>
+                </Card.Body>
+            </Link>
             <Card.Footer className="author-name" style={{ backgroundColor: "white", display: "flex", justifyContent: "space-between" }}>
                 <div>
                     {

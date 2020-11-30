@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import HomePage from "../pages/Home";
 import Overview from "../pages/Overview";
-import Search from "../pages/Search";
 import Term from "../pages/Term";
 import FolderDetail from "../pages/FolderDetail";
 import ClassDetail from "../pages/ClassDetail";
@@ -26,8 +25,8 @@ const AppRouters = () => {
                 <Route path="/search/:sr">
                     <Search/>
                 </Route>
-                <Route path="/course/:id">
-                    <Term />
+                <Route path="/course/:name/:id" component={Term}>
+                    {/* <Term /> */}
                 </Route>
                 <Route path="/:username/folder" component={FolderDetail}>
                     {/* <FolderDetail/> */}

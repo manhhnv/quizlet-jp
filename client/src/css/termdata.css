@@ -1,45 +1,24 @@
-.term-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-}
-
-.term-content {
-    margin-top: 7rem;
-    max-width: 60rem;
-    min-height: 35rem;
-    display: flex;
-    flex-direction: column;
-}
 
 .ten-hoc-phan {
     margin: 1rem;
     font-weight: bold;
     font-size: 1.5rem;
 }
-
-.term-content-child{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+.term-items {
+    margin-bottom: 30px;
 }
-
-.term-content-left {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-
-    width: 10rem;
-    margin: 1rem;
-    height: 25rem;
+.term-items:hover {
+    background-color: #fff8d0;
 }
-
+.term-button-container {
+    margin-bottom: 10px;
+}
+.term-button-container:hover {
+    border-bottom: 3px solid #ffcd1f;
+    transition: all .4s;
+}
 .term-content-right {
-    width: 40rem;
+    /* width: 40rem; */
     margin: auto;
     box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);

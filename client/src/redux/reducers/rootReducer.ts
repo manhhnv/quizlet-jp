@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     module: moduleReducer,
     folders: folderReducer,
     classes: classReducer,
-    joined: joinClassReducer
+    joined: joinClassReducer,
     terms: termReducer,
 })
 export default rootReducer;

@@ -74,3 +74,23 @@ export const DELETE_FOLDER_FROM_CLASS: Api = {
   url: `${BASE_URL}/class/folder/delete-from-class`,
   method: HTTP_METHOD.DELETE
 }
+
+// export const JOIN_CLASS: Api = {
+//   url: `${BASE_URL}/class/join/join-request`,
+//   method: HTTP_METHOD.POST
+// }
+
+// export const CONFIRM_REQUEST: Api = {
+//   url: `${BASE_URL}/confirm`,
+//   method: HTTP_METHOD.GET
+// }
+
+// export const MANAGEMENT_MEMBER: Api = {
+//   url: `${BASE_URL}/management/member`,
+//   method: HTTP_METHOD.GET
+// }
+
+// export const LIST_JOINED_CLASS: Api = {
+//   url: `${BASE_URL}/joinedClass`,
+//   method: HTTP_METHOD.GET
+// }

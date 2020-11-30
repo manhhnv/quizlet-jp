@@ -1,12 +1,45 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import HeaderPage from '../components/layouts/Header'
+import { Row, Col, Navbar, Card, Button, Container, Form, InputGroup, FormControl } from 'react-bootstrap';
+import { FaHome, FaLeaf } from 'react-icons/fa';
+import { SiGoogleclassroom } from 'react-icons/si';
+import { AiOutlineProject, AiOutlineFolder } from 'react-icons/ai';
+import { BsFiles } from 'react-icons/bs';
+import { Redirect, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { me } from '../redux/actions/userAction';
+import MainPage from '../components/layouts/MainPage';
+import ListModule from '../components/ListModule';
+import ListFolder from '../components/folder/ListFolder';
+import VerticalNav from '../components/layouts/VerticalNav';
+import ListClass from '../components/class/ListClass';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
+
 
 const Search = () => {
+    let { sr } = useParams<{ sr: any }>();
+    console.log(sr);
     return (
-        <div>
-            Page này sẽ import component search result, call API ở page này, các thành phần như select để chọn cột sort hoặc chọn kiểu sort
-            cũng ở page này, tham khảo phần search của quizlet.com , mình làm đơn giản chỉ search 4 cái module, class, folder, user,
-            call API trả về result thì nhớ phân trang kết quả ớ dưới nữa, truyền data sang compoent Search Result để hiện thị
-        </div>
+
+        <React.Fragment>
+            <Row>
+                <Col md={12} >
+                    <HeaderPage />
+
+                </Col>
+            </Row>
+            <Row>
+                <div>
+                    <Form>
+                        
+                    </Form>
+
+                </div>
+            </Row>
+
+
+        </React.Fragment>
+
     )
 }
 

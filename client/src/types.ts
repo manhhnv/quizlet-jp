@@ -29,6 +29,18 @@ export type AccessRolePopupProps = {
     handleMax?: any;
     edit?: any;
 }
+export type TermPopupProps = {
+    terms?: any;
+    user?: any;
+    showAddTerm?: boolean;
+    closePopup?: any;
+    module_id?: number;
+    addTerm?: any;
+    editTerm?: any;
+    term_id?: any;
+    showEditTerm?: any;
+    item?: any;
+}
 export type ModuleCreate = {
     name: string;
     public?: boolean;

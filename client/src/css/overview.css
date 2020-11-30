@@ -68,6 +68,11 @@
   margin: 0 auto;
   margin-top: 50px;
   float: none;
+  cursor: pointer;
+}
+
+.card-container:hover{
+  border-bottom: 5px coral solid;
 }
 
 .start-learn {

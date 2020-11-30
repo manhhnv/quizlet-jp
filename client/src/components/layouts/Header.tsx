@@ -4,7 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import LoginPopup from './LoginPopup';
 import RegisterPopup from './RegisterPopup';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Modal, Button, Form, Col, Row, OverlayTrigger, Popover } from 'react-bootstrap';
 import { logout } from '../../redux/actions/userAction';

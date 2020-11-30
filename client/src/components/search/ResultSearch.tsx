@@ -1,19 +1,23 @@
 import React from 'react'
 import { Button, Card, Form, Image, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { useToasts } from 'react-toast-notifications'
 import { getQuerySearch } from '../../helper/getQuerySearch'
 import { optionsSearch } from '../../helper/optionsSeacrh'
+import { joinClass } from '../../redux/actions/joinClassAction';
 const ResultSearch = ({
     result,
     categorySearch,
     changeCategorySearch,
     sortByState,
-    changeSortBy
+    changeSortBy,
+    user
 }: any) => {
     const options = optionsSearch();
     const handle = (event: any) => {
         changeCategorySearch(event.target.value)
     }
+    const {addToast} = useToasts();
     const query = getQuerySearch()
     return (
         <React.Fragment>
@@ -78,6 +82,9 @@ const ResultSearch = ({
                             {res?.username}
                         </Card.Text>
                     </Link>
+                    <Card.Body>
+                    <Button>Join</Button>
+                    </Card.Body>
                 </Card>
             ))}
             {categorySearch == 'folder' && result.map((res: any, i: number) => (
@@ -118,6 +125,14 @@ const ResultSearch = ({
                             {res?.username}
                         </Card.Text>
                     </Link>
+                    <Row>
+                        <Col sm={5}></Col>
+                        <Col sm={4}>
+                        <Button variant="success"
+                            onClick={() => joinClass(user.token, res.id, addToast)}
+                        >Gửi yêu cầu</Button>
+                        </Col>
+                    </Row>
                 </Card>
             ))}
         </React.Fragment>

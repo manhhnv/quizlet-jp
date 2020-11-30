@@ -5,6 +5,7 @@ import HeaderPage from '../components/layouts/Header';
 import ResultSearch from '../components/search/ResultSearch';
 import SearchOptions from '../components/search/SearchOptions';
 import { getQuerySearch } from '../helper/getQuerySearch';
+// import { joinClass } from '../redux/actions/joinClassAction';
 import { 
     searchModule, searchFolder, searchClass
 } from '../redux/actions/searchAction';
@@ -87,6 +88,7 @@ const Search = ({
                             changeCategorySearch={changeCategorySearch}
                             sortByState={sortByState}
                             changeSortBy={changeSortBy}
+                            user={user}
                         />
                     ) : (
                             <Row style={{ marginTop: "100px" }} className="d-flex justify-content-center">

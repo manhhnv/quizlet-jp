@@ -7,17 +7,17 @@ export const JOIN_CLASS: Api = {
 }
 
 export const CONFIRM_REQUEST: Api = {
-    url: `${BASE_URL}/confirm`,
+    url: `${BASE_URL}/class/join/confirm`,
     method: HTTP_METHOD.GET
 }
 
 export const MANAGEMENT_MEMBER: Api = {
-    url: `${BASE_URL}/management/member`,
+    url: `${BASE_URL}/class/join/management/member`,
     method: HTTP_METHOD.GET
 }
 
 export const LIST_JOINED_CLASS: Api = {
-    url: `${BASE_URL}/joinedClass`,
+    url: `${BASE_URL}/class/join/joinedClass`,
     method: HTTP_METHOD.GET
 }
 

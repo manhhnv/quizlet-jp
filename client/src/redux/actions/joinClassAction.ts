@@ -21,7 +21,7 @@ export const joinClass = async (token: string, class_id: number, addToast?: any)
     })
     .catch(e => {
         console.log(e);
-        addToast("Error", {
+        addToast("You already joined class", {
             appearance: "error",
             autoDismiss: true
         })

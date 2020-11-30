@@ -32,7 +32,7 @@ const Overview = ({ user }: any) => {
     return (
         <React.Fragment>
             <Row>
-                <Col md={12} >
+                <Col md={12} className="pd-r-30">
                     <HeaderPage />
                 </Col>
             </Row>

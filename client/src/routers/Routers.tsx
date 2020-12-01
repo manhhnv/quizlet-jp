@@ -7,10 +7,10 @@ import {
 } from "react-router-dom";
 import HomePage from "../pages/Home";
 import Overview from "../pages/Overview";
-import Search from "../pages/Search";
 import Term from "../pages/Term";
 import FolderDetail from "../pages/FolderDetail";
 import ClassDetail from "../pages/ClassDetail";
+import Search from "../pages/Search";
 
 const AppRouters = () => {
     return (
@@ -25,8 +25,8 @@ const AppRouters = () => {
                 <Route path="/search/:sr">
                     <Search/>
                 </Route>
-                <Route path="/course/:id">
-                    <Term />
+                <Route path="/course/:name/:id" component={Term}>
+                    {/* <Term /> */}
                 </Route>
                 <Route path="/:username/folder" component={FolderDetail}>
                     {/* <FolderDetail/> */}
@@ -34,6 +34,7 @@ const AppRouters = () => {
                 <Route path="/:username/class" component={ClassDetail}>
                     {/* <ClassDetail/> */}
                 </Route>
+                <Route path="/:category/search" component={Search}></Route>
             </Switch>
         </Router>
     )

@@ -1,16 +1,12 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import HomePage from "../pages/Home";
 import Overview from "../pages/Overview";
 import Term from "../pages/Term";
 import FolderDetail from "../pages/FolderDetail";
 import ClassDetail from "../pages/ClassDetail";
 import Search from "../pages/Search";
+import Test from "../pages/Test";
 
 const AppRouters = () => {
     return (
@@ -24,6 +20,9 @@ const AppRouters = () => {
                 </Route>
                 <Route path="/search/:sr">
                     <Search/>
+                </Route>
+                <Route path="/testing/term/:id">
+                    <Test/>
                 </Route>
                 <Route path="/course/:name/:id" component={Term}>
                     {/* <Term /> */}

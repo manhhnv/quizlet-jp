@@ -11,6 +11,7 @@ import Term from "../pages/Term";
 import FolderDetail from "../pages/FolderDetail";
 import ClassDetail from "../pages/ClassDetail";
 import Search from "../pages/Search";
+import { Members } from "../pages/Members";
 
 const AppRouters = () => {
     return (
@@ -35,6 +36,7 @@ const AppRouters = () => {
                     {/* <ClassDetail/> */}
                 </Route>
                 <Route path="/:category/search" component={Search}></Route>
+                <Route path="/:id/:code/members" component={Members}></Route>
             </Switch>
         </Router>
     )

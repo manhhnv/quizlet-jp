@@ -6,6 +6,7 @@ import folderReducer from "./folderReducer";
 import classReducer from "./classReducer";
 import joinClassReducer from './joinClassReducer';
 import termReducer from "./termReducer";
+import membersReducer from "./membersReducer";
 
 const rootReducer = combineReducers({
     demo: demoReducer,
@@ -15,5 +16,6 @@ const rootReducer = combineReducers({
     classes: classReducer,
     joined: joinClassReducer,
     terms: termReducer,
+    members: membersReducer
 })
 export default rootReducer;

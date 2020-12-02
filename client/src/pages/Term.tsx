@@ -22,6 +22,11 @@ const Term = ({ location, match, user, allTerms, terms }: any) => {
                 </Col>
             </Row>
             <Row>
+                {loading == false && (terms == null || terms.list == null || terms.list.length < 1) || terms.creator == null? (
+                    <Col md={3} className="vertical-nav-container">
+                        <VerticalNav />
+                    </Col>
+                ): null}
                 {loading == false && terms !== null && terms.list != null ? (
                      <Col md={12} style={{ paddingBottom: "200px" }}>
                         <TermData

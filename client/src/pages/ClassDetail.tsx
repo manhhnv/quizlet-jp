@@ -265,7 +265,7 @@ const ClassDetail = ({
                                                     </Tooltip>
                                                 }
                                             >
-                                                <Link to={`/${classItem.code}/${classItem.id}/members`}>
+                                                <Link to={`/${usernamePath}/${classItem.id}/${classItem.code}/members`}>
                                                     <Button
                                                         className="folder-actions"
                                                         onClick={() => setShowUpdateClass(true)}

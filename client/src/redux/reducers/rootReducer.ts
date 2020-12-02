@@ -16,6 +16,6 @@ const rootReducer = combineReducers({
     classes: classReducer,
     joined: joinClassReducer,
     terms: termReducer,
-    members: membersReducer
+    members: membersReducer,
 })
 export default rootReducer;

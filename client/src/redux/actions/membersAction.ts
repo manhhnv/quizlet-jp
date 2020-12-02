@@ -4,3 +4,9 @@ export const getMembers = (members: any) => {
         payload: members
     }
 }
+export const removeMember = (members: any) => {
+    return {
+        type: 'GET_MEMBERS',
+        payload: members
+    }
+}

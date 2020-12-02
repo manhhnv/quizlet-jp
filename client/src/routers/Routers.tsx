@@ -36,7 +36,7 @@ const AppRouters = () => {
                     {/* <ClassDetail/> */}
                 </Route>
                 <Route path="/:category/search" component={Search}></Route>
-                <Route path="/:id/:code/members" component={Members}></Route>
+                <Route path="/:username/:id/:code/members" component={Members}></Route>
             </Switch>
         </Router>
     )

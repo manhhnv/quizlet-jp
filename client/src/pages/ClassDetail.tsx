@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, OverlayTrigger, Row, Spinner, Tooltip } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { getQuerySearch } from '../helper/getQuerySearch';
@@ -14,7 +14,8 @@ import {
     AiOutlineFolderAdd,
     AiOutlineUsergroupAdd,
     AiFillEyeInvisible,
-    AiFillEye
+    AiFillEye,
+    AiFillProfile
 }
     from 'react-icons/ai';
 
@@ -29,6 +30,7 @@ import {
     managementMember
 }
 from '../redux/actions/joinClassAction';
+import { getMembers } from '../redux/actions/membersAction';
 import { ModuleCreate, UpdateClassInput, CreateFolderInput } from '../types';
 import { CLASS_DETAIL } from '../services/class/class.service';
 import ShareClass from '../components/class/ShareClass';
@@ -56,6 +58,8 @@ const ClassDetail = ({
     deleteFolderFromClass
 }: any) => {
     // const [folder, setFolder]: any = useState(null);
+    const listMembers: any = useSelector((state: any) => state.members);
+    const dispatch = useDispatch();
     const query = getQuerySearch();
     const id = query.get('id');
     const code = query.get('code');
@@ -79,7 +83,7 @@ const ClassDetail = ({
     }
     const [classItem, setClassItem]: any = useState(null);
     const [members, setMembers]: any = useState(null);
-    
+    const dispatchGetListMember = (members: any) => dispatch(getMembers(members))
     useEffect(() => {
         if (user?.token) {
             Axios.get(`${CLASS_DETAIL.url}?code=${code}&id=${id}`, {
@@ -90,9 +94,10 @@ const ClassDetail = ({
                 .then(res => {
                     if (res.data !== null) {
                         setClassItem(res.data)
-                        managementMember(user.token, res?.data?.id)
+                        managementMember(user.token, res.data?.id, res.data?.code)
                         .then(res => {
                             setMembers(res)
+                            dispatchGetListMember(res)
                         })
                         .catch(e => {
                             console.log(e)
@@ -174,9 +179,9 @@ const ClassDetail = ({
                                     
                                     </div>
                                 </Col>
-                                <Col lg={5}>
+                                <Col lg={4}>
                                 </Col>
-                                <Col lg={3}>
+                                <Col lg={4}>
                                     {usernamePath === user?.user?.username ? (
                                         <React.Fragment>
                                             <OverlayTrigger
@@ -255,9 +260,26 @@ const ClassDetail = ({
                                             <OverlayTrigger
                                                 placement="bottom"
                                                 overlay={
+                                                    <Tooltip id="folder-update">
+                                                        Thành viên
+                                                    </Tooltip>
+                                                }
+                                            >
+                                                <Link to={`/${usernamePath}/${classItem.id}/${classItem.code}/members`}>
+                                                    <Button
+                                                        className="folder-actions"
+                                                        onClick={() => setShowUpdateClass(true)}
+                                                    >
+                                                        <AiFillProfile />
+                                                    </Button>
+                                                </Link>
+                                            </OverlayTrigger>
+                                            <OverlayTrigger
+                                                placement="bottom"
+                                                overlay={
                                                     <Tooltip id="folder-delete">
                                                         Xóa lớp học
-                                        </Tooltip>
+                                                    </Tooltip>
                                                 }
                                             >
                                                 <Link to="/overview" className="link">

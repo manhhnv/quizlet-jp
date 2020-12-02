@@ -6,6 +6,7 @@ import Term from "../pages/Term";
 import FolderDetail from "../pages/FolderDetail";
 import ClassDetail from "../pages/ClassDetail";
 import Search from "../pages/Search";
+import { Members } from "../pages/Members";
 import Test from "../pages/Test";
 
 const AppRouters = () => {
@@ -34,6 +35,7 @@ const AppRouters = () => {
                     {/* <ClassDetail/> */}
                 </Route>
                 <Route path="/:category/search" component={Search}></Route>
+                <Route path="/:username/:id/:code/members" component={Members}></Route>
             </Switch>
         </Router>
     )

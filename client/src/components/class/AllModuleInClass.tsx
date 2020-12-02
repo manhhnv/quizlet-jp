@@ -3,6 +3,7 @@ import { Row, Col, Card, Spinner, OverlayTrigger, Tooltip, Button } from 'react-
 import { getModulesInClass } from '../../redux/actions/classActions';
 import { connect } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const AllModuleInClass = ({
     user,
@@ -38,14 +39,16 @@ const AllModuleInClass = ({
                                 {classes && classes.totalModules > 0 && classes.modules.map((module: any, i: any) => (
                                     <Card className="module-item" key={i}>
                                         <Card.Body>
-                                            <Card.Title>{module.name}</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">
-                                                <img src={user?.user?.avatar ? `${user?.user?.avatar}` : require('../../assets/avatar.png')} className="avatar-small" />
-                                                {" " + user?.user?.username}
-                                            </Card.Subtitle>
-                                            <Card.Text>
-                                                {module?.description}
-                                            </Card.Text>
+                                            <Link to={`/course/${module.name}/${module.id}`} style={{ textDecoration: "none", color: "black" }}>
+                                                <Card.Title>{module.name}</Card.Title>
+                                                <Card.Subtitle className="mb-2 text-muted">
+                                                    <img src={user?.user?.avatar ? `${user?.user?.avatar}` : require('../../assets/avatar.png')} className="avatar-small" />
+                                                    {" " + user?.user?.username}
+                                                </Card.Subtitle>
+                                                <Card.Text>
+                                                    {module?.description}
+                                                </Card.Text>
+                                            </Link>
                                             <Card.Link>
                                                 {usernamePath === user?.user?.username ? (
                                                     <OverlayTrigger

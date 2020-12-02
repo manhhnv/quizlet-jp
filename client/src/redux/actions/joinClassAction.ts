@@ -28,8 +28,8 @@ export const joinClass = async (token: string, class_id: number, addToast?: any)
     })
 }
 
-export const managementMember = async (token: string, class_id: number) => {
-    const members = await Axios.get(`${MANAGEMENT_MEMBER.url}/${class_id}`, {
+export const managementMember = async (token: string, class_id: number, code: string) => {
+    const members = await Axios.get(`${MANAGEMENT_MEMBER.url}/${class_id}/${code}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

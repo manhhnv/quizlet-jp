@@ -1,10 +1,9 @@
 import React from 'react';
-import { VscCreditCard } from 'react-icons/vsc';
 
-const TermButton = ({path, title}: any) => {
+const TermButton = ({path, title, onClick}: any) => {
     return (
-        <div className="term-button-container">
-            <svg style={{height: "2rem", width: "2rem", fill:"#4257b2"}}>
+        <div className="term-button-container" onClick={onClick}>
+            <svg style={{height: "2rem", width: "2rem", fill: "#4257b2"}}>
                 <path d={path}>
                 </path>
             </svg>

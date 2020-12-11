@@ -4,6 +4,8 @@ import TermData from '../components/layouts/TermData';
 import {Col, Row, Spinner} from 'react-bootstrap';
 import {allTerms} from '../redux/actions/termActions';
 import {connect} from 'react-redux';
+import VerticalNav from '../components/layouts/VerticalNav';
+
 
 const Term = ({location, match, user, allTerms, terms}: any) => {
     const [loading, setLoading] = useState(true)
@@ -21,13 +23,13 @@ const Term = ({location, match, user, allTerms, terms}: any) => {
                 </Col>
             </Row>
             <Row>
-                {loading == false && (terms == null || terms.list == null || terms.list.length < 1) || terms.creator == null? (
+                {/* {loading == false && (terms == null || terms.list == null || terms.list.length < 1) || terms.creator == null? (
                     <Col md={3} className="vertical-nav-container">
                         <VerticalNav />
                     </Col>
-                ): null}
+                ): null} */}
                 {loading == false && terms !== null && terms.list != null ? (
-                    <Col md={12} style={{paddingBottom: "200px"}}>
+                    <Col md={9} style={{paddingBottom: "200px"}}>
                         <TermData
                             name={match.params.name}
                             user={user}

@@ -70,6 +70,7 @@ const TestData = ({ allTest, user, checkAnswer, test, moduleId }: any) => {
         setQuestionIndex(questionIndex + 1);
         setDataPost([...dataPost, playerAnswer])
         console.log(dataPost)
+        // document.getElementsByClassName("check-result").reset()
     }
 
     const handleChange = (e: any) => {
@@ -121,11 +122,11 @@ const TestData = ({ allTest, user, checkAnswer, test, moduleId }: any) => {
                                                 type="radio"
                                                 value={a.item}
                                                 name="answer"
-                                                className="answer"
+                                                className="answer check-result"
                                                 id={listQuestions[questionIndex].id}
                                                 onChange={handleChange}
                                             />
-                                            <label htmlFor={`${a.item}${i}`}>{a.item}</label>
+                                            <label>{a.item}</label>
 
                                         </li>
                                     ))}

@@ -22,8 +22,8 @@ const AppRouters = () => {
                 <Route path="/search/:sr">
                     <Search/>
                 </Route>
-                <Route path="/testing/term/:id">
-                    <Test/>
+                <Route path="/testing/term/:id" component={Test}>
+                    {/* <Test/> */}
                 </Route>
                 <Route path="/course/:name/:id" component={Term}>
                     {/* <Term /> */}

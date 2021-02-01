@@ -54,7 +54,7 @@ ul li label {
     cursor: pointer;
 }
 
-button {
+/* button {
     background-color: #8e44ad;
     border: none;
     color: white;
@@ -64,13 +64,13 @@ button {
     font-size: 1.1rem;
     width: 100%;
     padding: 1.3rem;
-}
+} */
 
-button:hover {
+/* button:hover {
     background-color: #732d91;
 }
 
 button:focus {
     background-color: #5e3370;
     outline: none;
-}
+} */

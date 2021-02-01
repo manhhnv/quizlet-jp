@@ -1,8 +1,33 @@
 import axios from "axios";
+import { TERM_GET } from "../../services/term/term.service";
 import {TEST_CHECK, TEST_GET} from "../../services/test/test.service";
 
 export const ALL_TEST = "ALL_TEST";
 export const CHECK_TEST = "CHECK_TEST";
+
+export const getQuestionInModule = async (token: string, module_id: number, setLoading?: any) => {
+    const response = await axios.get(`${TEST_GET.url}/${module_id}/testing`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(res => {
+        if (res.data !== null) {
+            if (setLoading) {
+                setLoading(false)
+            }
+            return res.data
+        }
+    })
+    .catch(e => {
+        console.log(e)
+        if (setLoading) {
+            setLoading(false)
+        }
+    })
+    console.log("REAAAA", response);
+    return response;
+}
 
 export const allTest = (token: String, moduleId: any, setLoading?: any) => {
     return async (dispatch: any) => {
